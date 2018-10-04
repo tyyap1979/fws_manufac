@@ -1,0 +1,35 @@
+<p:component value="script">
+<script type="text/javascript">
+	function processEdit(json){
+		var moduleName = (json.md)?(json.md+'Module'):adminUtil.activeModuleId;
+		var form = $("#"+moduleName+"Entry").find("#entryForm");
+		var status = form.find("select[name=status]").val();		
+		var liActivate = $("#btnActivate").parent("li");
+		if(status=='S'){
+			form.find("input[name=activate]").val("Y");
+			liActivate.show();	
+		}else{
+			liActivate.hide();
+		}
+	}
+	
+	function initPage(){				
+		$("<li><a href='#' id='btnActivate'>Activate</a></li>").appendTo("#entryButtonBar");
+		$("<input type='hidden' name='activate' value=''>").appendTo("#entryForm");	
+		$("#btnActivate").click(function(event){						
+			var entryScreen = $("#"+adminUtil.activeModuleId+"Entry");
+			entryScreen.find("input[name=activate]").val("Y");
+			entryScreen.find("select[name=status]").val("A");			
+			var gotError = $.validationEngine.submitValidation(entryScreen.find('.validateForm'));				
+			
+			if(!gotError){				
+				adminUtil.saveRecord();				
+			}
+			
+			event.preventDefault();	return;
+		});
+	}
+
+	$(document).ready(initPage);
+</script>
+</p:component>

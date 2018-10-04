@@ -1,0 +1,3 @@
+50 23 * * * /home/adam/HostServer/Script/backupMySql.sh
+55 23 * * * /home/adam/HostServer/Script/patchAccounting.sh
+0 0 1 * * /home/adam/HostServer/Script/patchRunningNumber.sh

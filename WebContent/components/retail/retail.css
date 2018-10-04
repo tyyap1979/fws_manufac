@@ -1,0 +1,73 @@
+#customContainer input{
+	 text-align: right;  		  
+}
+#customCloneAddTable{font-size:1em;}
+
+#CustomiseDialog{
+	font-size: 0.8em;
+}
+
+/*DL, DT, DD TAGS LIST DATA*/
+dl.options {
+   margin:5px 5px; 
+}
+
+dl.options dd{
+	margin:5px 5px; 
+    padding:5px 10px;
+	float:left; 
+	border: 2px solid #000000;
+	cursor: pointer;
+} 
+dl.options dd:hover {
+	border: 2px solid #FF8000;
+}
+
+dl.options dd.selected {
+	border: 2px solid #FF8000;
+	background:url('http://www.forestwebsolution1.com/themes/admin/simplplan/img/selected.png') no-repeat right bottom;
+}
+
+dl.options dd.outofstock {
+	border: 2px solid #C0C0C0;
+	cursor: default;
+}	
+
+#optionTable th{	 
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: left;
+}
+
+#optionTable input{
+ 	margin: 10px 10px;
+}
+
+#optionTable span{
+ 	margin: 10px 10px;
+}
+
+#retailcdunitprice{
+	font-size: 2em;
+}
+
+/* Forest Web Solution CSS */
+.entryScreen{font-size:1em;border-collapse: collapse;}
+.entryScreen tr { background-color: #fff; }
+.entryScreen th { background-color: #fafafa; padding: 10px 15px; border: 1px solid #CCCCCC; font-weight: bold;}
+.entryScreen td { padding: 10px 15px; border: 1px solid #CCCCCC;}
+.entryScreen thead, 
+.entryScreen tfoot {height: 40px;background-color: #848484;padding: 15px 20px;border: 1px solid #CCCCCC;}
+
+#facebook_signin{
+	background-image:url('images/facebook_signin.png');
+	background-repeat:no-repeat;
+	background-position:0px 0px;
+	width:150px;
+	height:22px;
+	display:block;
+	position:absolute;
+	text-indent:-9999px;
+	z-index:1;
+}	
+

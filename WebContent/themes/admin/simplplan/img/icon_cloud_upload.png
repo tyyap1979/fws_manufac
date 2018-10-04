@@ -1,0 +1,73 @@
+  <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmOK_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.DebugView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.DebugView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmOa_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.DebugView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.DebugView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmOq_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.DebugView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.DebugView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmO6_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.DebugView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.DebugView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmPK_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.DebugView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.DebugView</tags>
+      </menus>
+      <toolbar xmi:id="_BQGmPa_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.DebugView"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_BQGmPq_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Variables" iconURI="platform:/plugin/org.eclipse.debug.ui/icons/full/eview16/variable_view.png" tooltip="" closeable="true">
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
+      <tags>View</tags>
+      <tags>categoryTag:Debug</tags>
+      <menus xmi:id="_BQGmP6_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmQK_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView.detail">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView.detail</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmQa_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmQq_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView.detail">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView.detail</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmQ6_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmRK_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView.detail">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView.detail</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmRa_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmRq_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView.detail">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView.detail</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmR6_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmSK_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView.detail">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView.detail</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGmSa_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.debug.ui.VariableView</tags>
+      </menus>
+      <toolbar xmi:id="_BQGmSq_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.VariableView" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_BQGmS6_yEee0lJ0n9afDFA" elementId="org.eclipse.debug.ui.BreakpointView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Br

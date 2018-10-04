@@ -1,0 +1,115 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+	<title>J Home Design - Contact Us</title>		
+	<meta name="description" content="J Home Design is a renovation and interior design company located in Kuala Lumpur and Selangor. We have a passion for good design, quality and invention that is reflected in everything we do." />
+    <meta name="keywords" content="KL Renovation, Selangor Renovation, Residential Renovation, KL Interior Design, Selangor Interior Design, Home Design, Home Renovation, Kitchen Renovation, Interior Planner, House Builder, House Contractor, Apartment Renovation, Condo Renovation, Mont Kiara Renovation, TTDI Renovation, Damansara Renovation" />   
+</p:component>
+<p:component value="script">
+	<style>
+		google-map-wrap{
+		    width: 572px;
+		    height: 262px;
+		    padding: 3px;
+		    border: 1px solid #b8b1ab;
+		    background: #fafafa; 
+		    margin: 0 8px 18px; 
+		}
+		#google-map{
+		    width: 572px;
+		    height: 262px; 
+		}
+	</style>	
+	<!-- Google Map Javascript -->	
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 	
+	<script>		
+		function initialize() {
+			if(latlng=="") return;
+			
+			var posArray = latlng.split(",");			
+		  	var roadAtlasStyles = [];
+			var center = new google.maps.LatLng(posArray[0], posArray[1]);			
+		  	var mapOptions = {
+			    zoom: 16,
+			    center: center,
+			    panControl: false,
+			    zoomControl: true,
+			    mapTypeControl: false,
+			    scaleControl: false,
+			    streetViewControl: false,
+			    overviewMapControl: false,
+			    mapTypeControlOptions: {
+			       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map']
+			    }
+		  	};
+		
+		  	map = new google.maps.Map(document.getElementById("google-map"), mapOptions);		      
+		  	var styledMapOptions = {name: "Map"};		
+		  	var usRoadMapType = new google.maps.StyledMapType(roadAtlasStyles, styledMapOptions);		
+		 	map.mapTypes.set('map', usRoadMapType);
+		  	map.setMapTypeId('map');
+		  
+		    var image = '/themes/award_ecom/assets/js/google_icon.png';
+		    var map_ = new google.maps.LatLng(posArray[0], posArray[1]);
+		    var Marker = new google.maps.Marker({position: map_,map: map,icon: image});		
+		}
+		
+		$(document).ready(initialize);				
+	</script>
+</p:component>
+<p:component value="body">		
+	<div class="section-title">		
+		<h1 class="item-title">お問い合わせ</h1>
+		<p></p>			
+	</div><!--END SECTION TITLE-->	
+		
+	<div class="singlepage-content-wrapper">
+		<div id="portfolio-item-wrapper">
+			<div class="one">
+				当社Ｊ Home Design社はマレーシアの首都クアラ・ルンプールに本社を置く、インテ
+				リア・デザイン会社で、一般住宅、商業施設、事務所・会社並びに公的施設の改装を
+				専門としております。当社は誠心誠意ご満足のいくデザイン、品質並びに創意工夫を
+				ご提供いたします。当社の業務は住宅または商業のすべての段階での作業を扱ってお
+				ります。
+				<br><br>
+				その内容としては建築デザイン、製図、配色、家具の選定及び調達、仕上げ及び付属
+				品,調達、現状及び改装された住宅のすべての段階を含みます
+				J Home Design は完成作業に対する真なる関心にご好評を得ており、ビジネスのあら
+				ゆる局面に>正直且つ公正に対応しております。会社は自然と調和した時代を超えた
+				生活環境つくりに専念しております。我々はスタイリッシュで、自然で且つ現代的な
+				空間を創ることに情熱を持っており、それは誠に魅力的なことであります。
+				<br><br>
+				一会社として我々は創造的課題をもとに触発され、刺激を受けております。そして当
+				社は最高の品質を持って創造的アイディアの実現をお約束しております。最終目標と
+				して創造的なデザインを実現するだけではなく、伝統的な品質水準に適合し,それを
+				超越するような匠の水準と規範を創りだすことであります。
+				<br><br>
+			</div>	
+			
+			<div class="one-third">
+				
+				<p:module-content id="shop.info">
+					<script> var latlng = "%data.latlng%";	</script>
+			        <h4>私達に電子メールを送る</h4>
+			        <p>%data.address%</p>
+			        <p>Email: %data.contact_email%<br /></p>
+			        <p></p>
+			          
+			        <h4>お電話</h4>
+			        <p>Phone: %data.phone%<br />
+			        Mobile: %data.contact_phone%<br />
+			        Fax: %data.fax%</p>
+			    </p:module-content>	
+			</div>				
+			
+			<div class="two-third last">
+				<div class="google-map-wrap">
+		        	<div id="google-map"></div>                                        
+		        </div>				
+			</div>										
+		</div>
+		
+	</div>
+			
+</p:component>
+

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="552" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="00c5c473-351d-4388-9a76-0fa6c98e542c">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="title" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b54051b3-4e4b-411a-9506-1b1862262052" x="8" y="50" width="245" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[3. Items delivered to site remains the property of Mega Kitchen Door Design]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="161311c8-5aae-4a58-808c-e9c555fb876b" x="266" y="29" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[condition by,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aa12f099-3c4c-45e4-9882-e5f58d4ac58c" x="16" y="67" width="237" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[whatsoever items deemed proper when the stated clause 1 is not practised.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0ea09ea5-aaad-44ae-8f47-2f10504eee78" x="266" y="70" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[Client's Signature / Company's Chop]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="cb095ed3-b87f-4d29-93e6-bd003064a3b7" x="5" y="4" width="387" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["THIS "+$P{title}+" IS COMPUTER GENERATED. NO SIGNATURE IS REQUIRED."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="39ab4c5a-3e19-4674-a15a-e313a02d57c0" x="265" y="69" width="135" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="49169203-af11-4a56-9a43-4ff0092dba55" x="16" y="58" width="237" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[until full payment is exercised. The said company has the right to recollect]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2c4521c5-09de-4d9a-a53b-1102e71af36f" x="8" y="22" width="144" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERMS & CONDITIONS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="387965ef-3d1a-4ee0-b2a1-60c18a37c04d" x="266" y="19" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[Goods received in good order &]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3806dcb0-0655-4b0f-bd20-bcb862354eed" x="8" y="34" width="206" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[1. Terms refer to the above mentioned.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0662e71b-d52a-4596-bd7f-fa2165387857" x="8" y="42" width="231" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[2. Price quoted includes transportation. (applicable within Klang Valley)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7156fc0c-7efa-4149-ba9e-1968f5c9d643" x="8" y="75" width="109" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[4. Goods sold are not returnable.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="417c7b96-2221-4f31-a0ee-f5173f1f777e" x="8" y="91" width="535" height="10"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[18, Jalan Dato Haji 2, Taman Tan Yew Lai, 58200 Kuala Lumpur.        Tel: 603-7770 9112        Fax: 603-7773 0638        Email: tesoro2888@gmail.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

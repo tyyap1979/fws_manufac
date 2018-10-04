@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>			
+	<!-- Basic Page Needs
+  ================================================== -->
+	
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/themes/shopfine/css/bootstrap.min.css" media="screen" />
+	<!-- jquery ui css -->
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="/themes/shopfine/css/customize.css" />
+	<link rel="stylesheet" href="/themes/shopfine/css/font-awesome.css" />
+	<link rel="stylesheet" href="/themes/shopfine/css/style.css" />
+	<!-- flexslider css-->
+	<link rel="stylesheet" href="/themes/shopfine/css/flexslider.css" />
+	<!-- fancybox -->
+	<link rel="stylesheet" href="/themes/shopfine/js/fancybox/jquery.fancybox.css" />
+	<!-- FWS Default -->
+	<link rel="stylesheet" href="/components/retail/retail.css" media="screen">
+	
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+		<link rel="stylesheet" href="/themes/shopfine/css/font-awesome-ie7.css" />
+	<![endif]-->
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.html" />
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.html" />
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.html" />
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.html" />
+</head>
+
+<body>
+
+	<div id="mainContainer" class="clearfix">
+		<p:component value="body"></p:component>	
+	</div><!--end mainContainer-->
+
+	<!-- JS
+	================================================== -->	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+
+	 
+	<!-- jQuery.Cookie -->
+	<script src="/themes/shopfine/js/jquery.cookie.js"></script>
+	<!-- bootstrap -->
+    <script src="/themes/shopfine/js/bootstrap.min.js"></script>
+    <!-- flexslider -->
+    <script src="/themes/shopfine/js/jquery.flexslider-min.js"></script>
+    <!-- cycle2 -->
+    <script src="/themes/shopfine/js/jquery.cycle2.min.js"></script>
+    <script src="/themes/shopfine/js/jquery.cycle2.carousel.min.js"></script>
+    
+   	<!-- fancybox -->
+    <script src="/themes/shopfine/js/fancybox/jquery.fancybox.js"></script>
+    <!-- custom function-->
+    <script src="/themes/shopfine/js/custom.js"></script>
+    
+    <!-- Validation -->
+	<script type="text/javascript" src="/components/jquery/js/jquery.validationEngine-en.2.6.1.js"></script>
+	<script type="text/javascript" src="/components/jquery/js/jquery.validationEngine.2.6.1.js"></script>	
+	<link rel="stylesheet" type="text/css" href="/components/jquery/css/validationEngine.jquery.2.6.1.css">
+	<link rel="stylesheet" type="text/css" href="/components/jquery/css/template.2.6.1.css">
+	<!-- Validation End -->
+	<script>
+   		var currencyrate = %system.selected.currency.rate%;
+   		var currencysymbol = "%system.selected.currency.symbol%";
+   		var paymentcurrency = "%system.payment.currency%";
+   		var selectedcurrency = "%system.selected.currency%";
+   		var shopcountry = "%system.shop.country%";
+   	</script>
+    <script src="/components/ajax.js"></script>
+    <script src="/components/ecom.js"></script>    
+	<script src="/components/retail/retail.js"></script>
+    
+    <p:component value="script"></p:component>
+</body>
+
+</html>

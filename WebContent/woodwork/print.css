@@ -1,0 +1,15 @@
+#boardSelect, #boardSelect, #cutPiecesDiv, #displayDiv, #woodTableButton, #clipboardBar, #buttonBar, #btnDelete, #boardControl{display: none;}
+
+#boardPanelDiv {border-collapse: collapse; border: 1px;}
+#boardPanelDiv td { padding: 5px 5px;}
+div{ page-break-inside: avoid;}
+input, select{border-style: none;}
+button{display: none;}
+
+
+.boardDiv{zoom: 155%; font-size: 100%;}
+.boardTitlePrint{font-size: 150%;}
+.boardMeasurement{font-size: 130%;}
+.MeasurementList{display: block; vertical-align: top;}
+#bNameSpan, #bSizeSpan, #boardTitle{display: none;}
+

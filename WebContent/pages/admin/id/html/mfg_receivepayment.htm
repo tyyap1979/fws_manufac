@@ -1,0 +1,185 @@
+<p:component value="script">	
+<script type="text/javascript">
+	var suppcompanyid;
+	var _stmtTotal = 0;
+	function processAfterAutoComplete(json){		
+		var query;
+		query = "return=json" + "&" + AdminConfig.actionName + "=" + AdminConfig.actionRetrieveEdit;		
+		
+		suppcompanyid = json.companyid;
+		ajaxUtil.showPanel('', $('#js-processing-request').html(), null);
+		ajaxUtil.postJsonQuery("mfg_statement.htm", query+"&customerid="+json.key+"&status=0", callback, adminUtil.handleFallback);	
+	}		
+	
+	function callback(json){		
+		var subr = json.SUBR0.data;		
+		var md = json.SUBR0.md;
+		var toMd = "mfgReceivePaymentDtl";
+		
+		var status;
+		var mainArray;
+		var printString;
+		var cost, sell;
+		var prodoptid = "";
+		var toMainArray = new Array();
+		var rowMainArray = new Array();
+		var toSubR = new Array();
+		var fieldName = "";
+		
+		
+		for(var i=0;i<subr.length; i++){
+			mainArray = subr[i];
+			printString = "";
+			toMainArray = new Array();
+      		for (key in mainArray[0]) {     	
+      			fieldName = key.replace(md,toMd); 	
+      			toMainArray[fieldName] = mainArray[0][key];		
+			}			
+			toMainArray[toMd+"row-status"] = "N";
+			mainArray[0] = toMainArray;
+			/*
+			for (key in mainArray[0]) {     	      				
+       			printString += (key +":"+mainArray[0][key]) + '\n';   	        			 			  	       				       			 			        	
+			}
+			alert(printString);
+			*/         	
+		}		
+		json.SUBR0.md = toMd;
+		adminUtil.handleCallback(json);
+		
+		var activeEntry = $("#"+adminUtil.activeModuleId+"Entry");
+		activeEntry.find("input[name='action1']").val(AdminConfig.actionCreate);				
+	}
+	
+	function calculateStmtTotal(){
+		var stmtTotal = 0;
+		$(".detail-listingTable tbody").find("tr").each(function(i){			
+			var payAmount = $(this).find("input[name=mfgReceivePaymentDtlpayamount]");			
+					
+			if($(this).find("[name=chkDetail]").attr("checked")){
+				stmtTotal += parseFloat(payAmount.val());
+			}
+		});
+		stmtTotal = ajaxUtil.roundNumber(stmtTotal,2);
+		_stmtTotal = stmtTotal;
+		$("#entryForm").find("input[name=payamount]").val(stmtTotal);		
+	}
+	
+	function beforeSave(){
+		$(".detail-listingTable tbody").find("tr").each(function(i){						
+			if($(this).find("[name=chkDetail]").attr("checked")==false){				
+				$(this).remove();
+			}
+		});
+	}
+	
+	function processEdit(){		
+		var subStmtAmount = 0;
+		var payAmt = 0;
+		var balAmount = 0;
+		$(".detail-listingTable tbody").find("tr").each(function(i){
+			var payAmount = $(this).find("input[name=mfgReceivePaymentDtlpayamount]");	
+			var stmtAmount = $(this).find("input[name=mfgReceivePaymentDtlamount]");
+			var rpaydtlid = $(this).find("input[name=mfgReceivePaymentDtlrpaydtlid]").val();
+			var creditAmount = $(this).find("input[name=mfgReceivePaymentDtlcreditamount]").val();
+			var debitAmount = $(this).find("input[name=mfgReceivePaymentDtldebitamount]").val();
+						
+			creditAmount = (creditAmount=='')?"0":creditAmount;
+			debitAmount = (debitAmount=='')?"0":debitAmount;
+			payAmt = payAmount.val();
+			payAmt = (payAmt=='')?"0":payAmt;
+			
+			// alert("payAmt="+payAmt+"\n"+"creditAmount="+creditAmount+"\n"+"debitAmount="+debitAmount+"\n");
+
+			if(parseFloat(payAmount.val())>0 && rpaydtlid==''){
+				// Partial Payment made
+				subStmtAmount = ajaxUtil.roundNumber(parseFloat(stmtAmount.val())-parseFloat(payAmount.val())+parseFloat(debitAmount)-parseFloat(creditAmount),2);				
+				$("<br><span><b>Original:</b> "+stmtAmount.val()+"</span>").appendTo(stmtAmount.parents("td"));
+				if(debitAmount>0){
+					$("<br><span><span><b>DN:</b> "+debitAmount+"</span>").appendTo(stmtAmount.parents("td"));
+				}
+				if(creditAmount>0){
+					$("<br><span><span><b>CN:</b> "+creditAmount+"</span>").appendTo(stmtAmount.parents("td"));
+				}
+				
+				stmtAmount.val(subStmtAmount);
+				payAmount.val("");
+				//$(this).find("[name=chkDetail]").attr("checked", "true");
+			}else{							
+				if(creditAmount>0 || debitAmount>0){
+					if(rpaydtlid==''){
+						// New payment
+						subStmtAmount = ajaxUtil.roundNumber(parseFloat(stmtAmount.val())-parseFloat(payAmt)+parseFloat(debitAmount)-parseFloat(creditAmount),2);				
+						$("<br><span><b>Original:</b> "+stmtAmount.val()+"</span><br><span><b>CN:</b> "+creditAmount+"</span><br><span><b>DN:</b> "+debitAmount+"</span>").appendTo(stmtAmount.parents("td"));
+						stmtAmount.val(subStmtAmount);
+					}else{
+						stmtAmount.val(payAmount.val());
+						$("<br><span><b>Invoice Amt:</b> "+stmtAmount.val()+"</span><br><span><b>CN:</b> "+creditAmount+"</span><br><span><b>DN:</b> "+debitAmount+"</span>").appendTo(stmtAmount.parents("td"));						
+						
+						
+//						$("<br><span><b>DN:</b> "+debitAmount+"</span>").appendTo(stmtAmount.parents("td"));
+//						$("<br><span><b>CN:</b> "+creditAmount+"</span>").appendTo(stmtAmount.parents("td"));						
+					}
+				}
+			}				
+		});		
+	}
+	
+	function pageInit(){		
+		$(".detail-listingTable").bind("click", function(event){
+		    var element = event.target;
+			
+			if(element.name=='chkDetail'){
+				var trEle = $(element).parents("tr"); 
+				var stmtAmount = trEle.find("input[name=mfgReceivePaymentDtlamount]");
+				var payAmount = trEle.find("input[name=mfgReceivePaymentDtlpayamount]");
+				//var creditAmount = trEle.find("input[name=mfgReceivePaymentDtlcreditamount]").val();
+				//var debitAmount = trEle.find("input[name=mfgReceivePaymentDtldebitamount]").val();
+
+				if($(element).attr("checked")){					
+					//creditAmount = (creditAmount=='')?"0":creditAmount;
+					//debitAmount = (debitAmount=='')?"0":debitAmount;
+					payAmount.val(ajaxUtil.roundNumber(parseFloat(stmtAmount.val()),2));
+				}else{
+					payAmount.val("0.00");
+				}
+				payAmount.attr("class","");
+				trEle.find("#partialSpan").remove();
+				calculateStmtTotal();
+			}
+        });
+        
+        $(document).find("input[name=payamount]").bind("focusout", function(event){
+        	var stmtTotal = $("#entryForm").find("input[name=payamount]").val();
+        	var payAmount;        	
+        	var parentTr;
+        	stmtTotal = (stmtTotal=='')?"0":stmtTotal;
+        	var difAmount = ajaxUtil.roundNumber(parseFloat(_stmtTotal) - parseFloat(stmtTotal),2);
+        	var balAmount = 0;        	
+        	
+        	//alert(_stmtTotal + " - " + stmtTotal + " = " + difAmount);
+        	if(parseFloat(_stmtTotal) > parseFloat(stmtTotal)){        		        	
+        		parentTr = $(".detail-listingTable tbody").find("[name=chkDetail]:checked").last().parents("tr");	
+				payAmount = parentTr.find("input[name=mfgReceivePaymentDtlpayamount]");							
+				payAmount.val(ajaxUtil.roundNumber(parseFloat(payAmount.val())-difAmount,2));
+				
+				balAmount = parseFloat(parentTr.find("input[name=mfgReceivePaymentDtlamount]").val()) - parseFloat(payAmount.val());				
+				balAmount = ajaxUtil.roundNumber(balAmount,2);
+				payAmount.attr("class","tb2");				
+				if(parentTr.find("#partialSpan").size()==0){
+					$("<span id='partialSpan'><br><b>Balance Amount:</b>"+balAmount+"</span>").appendTo(payAmount.parents("td"));
+				}
+        	}         	
+        	calculateStmtTotal();        	
+        });
+	}
+	
+	$(document).ready(pageInit());	
+</script>
+
+<style>
+.tb2 {
+	border: 2px solid #002233;	
+}
+</style>
+</p:component>

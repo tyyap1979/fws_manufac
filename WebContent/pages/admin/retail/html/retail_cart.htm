@@ -1,0 +1,36 @@
+<p:component value="script">	
+	
+	<script type="text/javascript">		
+		
+		function calculate(tr){
+			var unitPrice = tr.find("input[name$=sellprice]").val();
+			var discount = tr.find("input[name$=discount]").val();
+			var qty = tr.find("input[name$=qty]").val();
+			discount = (discount=="")?0:discount;
+			var sellsubtotal;
+			if(unitPrice!="" && qty!=""){
+				sellsubtotal = ajaxUtil.roundNumber(((parseFloat(unitPrice)- parseFloat(discount)) * parseInt(qty)), 2);
+				tr.find("span[name$=sellsubtotal]").html(sellsubtotal);
+				tr.find("input[name$=sellsubtotal]").val(sellsubtotal);
+			}
+		}
+	
+		function initPage(){	
+			$(".paginate_button").each(function(i){				
+				if("action.addrecord"==$(this).attr("id") || 
+				"action.retrieve.copy"==$(this).attr("id") || 
+				"action.clone.add.custom"==$(this).attr("id")){
+					$(this).hide();
+				}
+			});
+			$("#retailcdEntryTableBody").bind("change", (function(event){
+				var ele = event.target;
+				calculate($(ele).parents("tr"));
+			}));
+		}
+		$(document).ready(initPage);		
+	</script>	
+</p:component>
+
+
+

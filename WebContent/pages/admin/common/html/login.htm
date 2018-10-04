@@ -1,0 +1,85 @@
+<p:useTemplate>simplplan-template.htm</p:useTemplate>
+<p:component value="title">%i18n.system.page.title%</p:component>
+<p:component value="body">	
+<link href="/customstyle.css" rel="stylesheet" media="screen" type="text/css" />
+<!-- Start: Page Wrap -->
+<div id="wrap" class="container_24">
+
+	<!-- Header Grid Container: Start -->	
+	<div class="login">		
+	<!-- Info Notice: Start -->
+
+	<!-- Info Notice: End -->
+	
+		<!-- Header: Start -->			
+		
+		
+		<div id="header" style="margin-top: 200px">
+				
+			<!-- Logo: Start -->
+			<a href="#" id="logo">Simplpan - Admin Panel</a>
+			<!-- Logo: End -->
+			
+			<!-- Login: Start -->						
+			<form method="post" id="login">
+				<input type='hidden' id='action1' name='action1' value='action.validate' />
+				<!-- Username Input: Start -->
+				<label for="username" class="label_username">User</label>
+				<input type="text" name="userid" value="" id="userid" class="password tip-stay validate" title="Enter your userid" />
+				<!-- Username Input: End -->
+				
+				<!-- Password Input: Start -->
+				<label for="password" class="label_password">Password</label>
+				<input type="password" name="password" value="" id="password" class="password tip-stay validate" title="Enter your password" />
+
+				<!-- Password Input: End -->
+				
+				<!-- Login Button: Start -->
+				<input type="submit" id='btnSubmit' value="login" class="tip" title="Login" />
+				<!-- Login Button: End -->				
+			</form>			
+			<!-- Login: End -->
+			
+		</div>
+		<!-- Header: End -->
+		
+		<!-- Breadcrumb Bar: Start -->
+
+		<div id="breadcrumb">
+			
+			<!-- Breadcrumb: Start -->
+			<ul class="left">
+				<li class="icon key"><a href="#">Forgot password?</a></li>
+			</ul>
+			<ul class="right">
+				<li><a href="#" class="icon home tip" title="Home">Home</a></li>
+			</ul>
+			
+			<!-- Breadcrumb: End -->			
+		</div>
+		<!-- Breadcrumb Bar: End -->
+		
+	</div>
+	<!-- Header Grid Container: End -->
+
+</div>
+
+<!-- End: Page Wrap -->
+
+<!-- 
+	
+<div style="margin:150px auto; width: 500px;">
+	<form id='entryForm' method='POST'>
+		<table width='300px' class='listTable'>
+		<col width='170'><col width='230'><tr><th>User ID</th><td>
+		<input type='text' id='userid' name='userid' class='' size='20' maxlength='50' value=''/></td>
+		</tr><tr>
+		<th>Password</th><td><input type='password' id='password' name='password' value='' class='' size='20' maxlength='50'/></td></tr>
+		<tr><td><a href='forgotpassword.htm' id='link'>Forgot Password</a></td><td>
+		<input type='submit' name='login' id='btnLogin' class='submit' value='Login' /></td></tr><tr><td colspan='3'>
+		<input type='hidden' id='action1' name='action1' value='action.validate' /></td></tr></table></form>	
+	
+</div>
+
+ -->
+</p:component>

@@ -1,0 +1,85 @@
+/* LayerSlider Award Skin */
+
+.ls-awardskin a{
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+
+.ls-awardskin .ls-bottom-nav-wrapper {
+	position: absolute;
+	left: 20px;
+	bottom: 12px;
+}
+.ls-awardskin .ls-nav-prev,
+.ls-awardskin .ls-nav-next{
+	position: absolute;
+ 	top: 50%;
+	width: 11px;
+	height: 21px;
+    margin-top: -21px;
+    background: url(../../../../images/nivo-controlNav.png) no-repeat;
+	z-index: 10000;
+	opacity:0.8; 
+}
+
+.ls-awardskin .ls-nav-prev {
+    left: -31px;
+	background-position: -11px -26px;
+}
+
+.ls-awardskin .ls-nav-next {
+    right: -31px;
+	background-position: 0 -26px;
+}
+.ls-awardskin .ls-bottom-slidebuttons,
+.ls-awardskin .ls-bottom-slidebuttons a,
+.ls-awardskin .ls-nav-start,
+.ls-awardskin .ls-nav-stop,
+.ls-awardskin .ls-bottom-nav-wrapper,
+.ls-awardskin .ls-nav-sides {
+	height: 13px;
+}
+
+.ls-awardskin .ls-bottom-slidebuttons,
+.ls-awardskin .ls-bottom-slidebuttons a,
+.ls-awardskin .ls-nav-start,
+.ls-awardskin .ls-nav-stop,
+.ls-awardskin .ls-nav-sides {
+    float: left;
+	display: block;
+}
+
+.ls-awardskin .ls-nav-start,
+.ls-awardskin .ls-nav-stop{
+	width: 13px;
+	margin-right:6px;
+    background: url(../../../../images/nivo-controlNav.png) no-repeat;
+	opacity:0.8; 
+}
+.ls-awardskin .ls-nav-prev:hover,
+.ls-awardskin .ls-nav-next:hover,
+.ls-awardskin .ls-nav-start:hover,
+.ls-awardskin .ls-nav-stop:hover{
+	opacity:1; 
+}
+.ls-awardskin .ls-nav-start{
+	background-position: -13px 0;
+}
+.ls-awardskin .ls-nav-stop{
+	background-position: -13px -13px;
+}
+.ls-awardskin .ls-bottom-slidebuttons a {
+	width: 13px;
+	margin-right:6px;
+    background: url(../../../../images/nivo-controlNav.png) no-repeat;
+	opacity:0.8;  
+}
+.ls-awardskin .ls-bottom-slidebuttons a:hover{
+	opacity:1;
+}
+.ls-awardskin .ls-bottom-slidebuttons a.ls-nav-active {
+	background-position: 0 -13px;
+}

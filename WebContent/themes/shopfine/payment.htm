@@ -1,0 +1,211 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">	
+	<title>Payment</title>		  
+</p:component>
+<p:component value="script">	
+	<script>		
+		function pay(){
+			var form = $("#mainForm");			
+			var paymentMethod;
+						
+			var valid = $(".validateForm").validationEngine('validate');					
+			if(valid){						
+				ajaxUtil.showPanel($("#info-msg"), "Processing...");
+				var query = "return=json&action1=action.create" + "&" + ajaxUtil.formData2QueryString(form, true);					
+				
+				ajaxUtil.postJsonQuery(null, query, function(json){
+					if(json.rc=='0000'){						
+						sendInvoice(json);				
+					}else{			
+						ajaxUtil.updatePanelMessage(rd);			
+					}
+				}, null);
+				
+			}				
+			
+		}
+		
+		function initPage(){
+			initStateAutoComplete();
+			var shippingCharge = $("input[name=shippingcharge]").val();
+			shippingCharge = (shippingCharge=="")?0:parseFloat(shippingCharge);
+			
+			if(shippingCharge==0){
+				getShippingEstimate();
+				$('input[name=state], select[name=country]').bind("change", (function(event){
+					getShippingEstimate();
+				}));
+			}
+			calPaymentTotal();
+
+			$("#btnPay").click(function(event){
+				pay();
+				event.preventDefault();	return;
+			});
+
+			$(".validateForm").validationEngine({promptPosition : "topRight"});  
+			
+			if(paymentcurrency!=selectedcurrency){
+				$("#paycurnote").show();
+			}			
+		}
+		
+		$(document).ready(initPage);
+	</script>
+</p:component>
+<p:component value="body">	
+	<div class="container">
+		<form id="mainForm" class="validateForm" autocomplete="off">								
+			<input type="hidden" name="totalsales" id="totalsales" />
+
+			<div class="row">
+			<!-- Start Cart Listing -->
+			<div class="span12">
+    			<p:module-content id="cart.list">
+    				<input type="hidden" name="totalweight" value="%data.total.weight%">
+    				<input type="hidden" name="shippingcharge" id="shippingcharge" value="%data.shippingcharge%" />    				
+					<table id="listTable" class="entryScreen" style="width:100%;">
+						<col />							
+						<col width="150" />					
+						<col width="80" />
+						<col width="150" />															
+						<thead>
+							<tr>
+								<td colspan="4" align="center">
+									<b>My Shopping Cart Contains Following Items</b>								
+									<br><span id="paycurnote" style="display:none;">Payment will be made by %system.payment.currency%</span>							
+								</td>
+							</tr>
+						</thead>
+						<tr>										
+							<th align="center" class="desc"><h5>Description</h5></th>														
+							<th align="center">Unit Price (%system.selected.currency%)</th>																	
+							<th align="center">Quantity</th>
+							<th align="center">Sub Total (%system.selected.currency%)</th>													
+						</tr>
+						<tbody custom="loop" removeTag="false">							
+							<tr>	
+								<td align="left">											
+									<input type="hidden" name="sellsubtotal" value="%data.sellsubtotal%" />
+									<input type="hidden" id="itemname" name="itemname" value="%data.prodname%" />
+									<input type="hidden" id="quantity" name="quantity" value="%data.qty%" />
+									<input type="hidden" id="unitprice" name="unitprice" value="%data.sellprice%" />
+									<input type="hidden" id="remark" name="remark" value="" />		
+									<div style="width: 90; display: inline; float: left;">
+										<img src="/photo/product/%data.prodid%/tn_%data.filename%" style="max-width: 200px;" />
+									</div>
+									<div style="margin-left:10px;display: inline; float: left;">
+										<h2>%data.prodname%</h2> <br>
+						      			%data.options%							      			
+									</div>
+									<div style="clear: both;" />																			      	
+								</td>															
+								<td align="center"><span class="currencysymbol"></span><span class="currency">%data.sellprice%</span></td>									
+								<td align="center">%data.qty%</td>
+								<td align="center"><span class="currencysymbol"></span><span id="sellsubtotal" class="currency">%data.sellsubtotal%</span></td>							
+							</tr>			
+						</tbody>			
+						<tr>
+							<td rowspan="3" valign="top">
+								<p:module-content id="page.content" key="PAYMENT_INFO">
+									<p>%data.content%</p>	
+								</p:module-content>					
+							</td>
+							<th colspan="2" align="center">
+								Sub Total						
+							</th>
+							<td align="right">
+								<span class="currencysymbol"></span><span id="subtotal"></span>
+							</td>
+						</tr>	
+						<tr>
+							<th colspan="2" align="center">
+								Shipping Charge						
+							</th>
+							<td align="right">
+								<span class="currencysymbol"></span><span id="shippingcharge"></span>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2" align="center">
+								Grand Total				
+							</th>
+							<td align="right">
+								<span class="currencysymbol"></span><span id="totalsales"></span>
+							</td>
+						</tr>				
+					</table>		
+				</p:module-content>			
+				<!-- End Cart Listing -->
+				
+				<br><br>
+				<!-- Start Payment Information -->
+				<p:module-content id="payment.method">
+					<table id="listTable" class="entryScreen" style="width:100%;">
+						<col width="30">									
+						<col>
+						<thead>
+							<tr><th colspan="2" align="left">Payment Options</th></tr>
+						</thead>
+						<tbody custom="loop" removeTag="false">		
+							<tr>
+								<td>
+									<input type="radio" id="paymentmethod%data.code%" name="paymentmethod" value="%data.code%" class="validate[required] radio">
+									<input type="hidden" name="parameters" id="" value="%data.parameters%">
+								</td>					
+								<td id="paymentMethod">
+									%data.instruction%								
+								</td>
+							</tr>
+						</tbody>
+					</table>				
+				</p:module-content>	
+				<!-- End Payment Information -->
+				
+					
+				<!-- Start Shipping Information -->
+				<br><br>
+				<p:module-content id="member.detail">			
+					<div id="personal-info">
+						<table id="listTable" class="entryScreen" style="width:100%;">
+							<col width="150px" />
+							<col />		
+							<thead>
+								<tr><th colspan="2" align="left">DELIVERY INFO</th></tr>
+							</thead>
+							<tbody>											
+								<tr>
+									<th nowrap>Address</th><td><input type="text" id="address" name="address" value="%data.address%" maxlength="70" class="validate[required]" /></td>
+								</tr>
+								<tr>
+									<th nowrap>City</th><td><input type="text" id="city" name="city" value="%data.city%" size="20" maxlength="40" class="validate[required]" /></td>
+								</tr>
+								<tr>
+									<th nowrap>State</th><td><input type="text" id="state" name="state" value="%data.state%" size="20" maxlength="40" class="validate[required]" /></td>
+								</tr>
+								<tr>
+									<th nowrap>Postcode</th><td><input type="text" id="postcode" name="postcode" value="%data.postcode%" size="20" maxlength="40" class="validate[required]" /></td>
+								</tr>
+								<tr>								
+									<th nowrap>Country</th><td>%data.country%</td>
+								</tr>
+								<tr>								
+									<th nowrap>Mobile</th><td><input type="text" id="phoneno" name="phoneno" value="%data.phoneno%" size="20" maxlength="30" class="validate[required]" /></td>
+								</tr>
+								
+								<tr>
+									<td colspan="2">
+										<button type="button" id="btnPay" class="btn btn-primary" data-title="Make Payment" data-placement="top" rel="tooltip">Make Payment</button>											
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</p:module-content> <!-- End userprofile.detail -->
+				<!-- End Shipping Information -->	
+			</div> <!-- End span12 -->			
+
+			</div> <!-- End row -->	
+		</form>
+	</div>	<!-- End Container -->	
+</p:component>

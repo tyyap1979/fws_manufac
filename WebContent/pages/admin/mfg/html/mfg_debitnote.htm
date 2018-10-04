@@ -1,0 +1,42 @@
+<p:component value="script">	
+<script type="text/javascript">
+	 
+	function processAfterAutoComplete(json){						
+		var form = $("#"+adminUtil.activeModuleId+"Entry").find("#entryForm");
+		
+		form.find("input[name=transid]").val(json.key);
+		form.find("input[name=transno]").val(json.value);
+		form.find("input[name=custrefno]").val(json.custrefno);
+		form.find("input[name=customerid]").val(json.customerid);
+		form.find("input[name=customerid_value]").val(json.customerid_value);
+		form.find("input[name=stmtdtlid]").val(json.stmtdtlid);		
+	}		
+	
+	function pageInit(){
+		$("#debitamtbeforegst").bind("change", function(event){						
+			var ele = $(event.target);
+			var gstAmt = 0;
+			var debitAmtB4Gst = ele.val();			
+			var gstCode = $("#entryForm").find("select[name=gst_code]").val();
+			
+			if(debitAmtB4Gst!=''){			
+				debitAmtB4Gst = parseFloat(ele.val());			
+				
+				if(gstCode=="TX"){
+					gstAmt = debitAmtB4Gst * 0.06;
+				}else if(gstCode=="SST"){
+					gstAmt = debitAmtB4Gst * 0.10;
+				}else{
+					gstAmt = 0;
+				}
+				
+				$("#gst_amt").val(ajaxUtil.roundNumber(gstAmt, 2));
+				$("#debitamount").val(ajaxUtil.roundNumber(debitAmtB4Gst+gstAmt, 2));
+			}				
+		});
+	}
+	
+	$(document).ready(pageInit());
+	
+</script>
+</p:component>

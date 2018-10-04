@@ -1,0 +1,34 @@
+<p:component value="script">	
+<script type="text/javascript">
+	function pageInit(){
+		var controlBar = $("#mfgStmtDtlEntryTable").find("#controlBar");		
+		var filter = $("<div><b>Filter By: </b><br> Status: </div>");		
+		var filterSelect = "<select name='filterStatus'>"+
+						"<option value=''>All</option>"+
+						"<option value='0' selected>Open</option>"+
+						"<option value='2'>Paid</option>"+
+						"</select>";				
+						
+		filterSelect = $(filterSelect);
+		filterSelect.bind("change", function(event){
+			var stmtid = $("#entryForm").find("#stmtid").val();			
+			var ele = $("<a href='#'>a</a>");
+			ele.attr("rel","stmtid="+stmtid+"&mfgStmtDtlstatus="+$(this).val());
+			
+			adminUtil.editPopUp(ele);
+		});
+		
+		filter.append(filterSelect).appendTo(controlBar);
+		
+		
+		$('[class$=listingTable]').bind("click", function(event){
+			var element = event.target;
+			if (element.id==AdminConfig.actionRetrieveEdit) {				
+				filterSelect.val("0");
+			}
+		});
+	}
+	
+	$(document).ready(pageInit());	
+</script>
+</p:component>

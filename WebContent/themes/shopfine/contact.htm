@@ -1,0 +1,72 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Contact Us</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 	
+	<script>		
+		function initialize() {
+			if(latlng=="") return;
+			
+			var posArray = latlng.split(",");			
+		  	var roadAtlasStyles = [];
+			var center = new google.maps.LatLng(posArray[0], posArray[1]);			
+		  	var mapOptions = {
+			    zoom: 16,
+			    center: center,
+			    panControl: false,
+			    zoomControl: true,
+			    mapTypeControl: false,
+			    scaleControl: false,
+			    streetViewControl: false,
+			    overviewMapControl: false,
+			    mapTypeControlOptions: {
+			       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map']
+			    }
+		  	};
+		
+		  	map = new google.maps.Map(document.getElementById("google-map"), mapOptions);		      
+		  	var styledMapOptions = {name: "Map"};		
+		  	var usRoadMapType = new google.maps.StyledMapType(roadAtlasStyles, styledMapOptions);		
+		 	map.mapTypes.set('map', usRoadMapType);
+		  	map.setMapTypeId('map');
+		  
+		    var image = '/components/images/google_icon.png';
+		    var map_ = new google.maps.LatLng(posArray[0], posArray[1]);
+		    var Marker = new google.maps.Marker({position: map_,map: map,icon: image});		
+		}
+		
+		$(document).ready(initialize);				
+	</script>
+</p:component>
+<p:component value="body">		
+	<div class="container">
+		<div class="row">
+			<div class="span9">
+				<p:module-content id="page.content" key="ABOUTUS">
+					%data.content%
+				</p:module-content>
+				
+				<p:module-content id="shop.info">
+					<script> var latlng = "%data.latlng%";	</script>
+				</p:module-content>
+				<div class="map-form">
+		        	<div class="wrap">
+		            	<div class="google-map-wrap">
+		                	<div id="google-map"></div>                                        
+		                </div>                 
+		            </div>
+		        </div>
+			</div>
+			<div class="span3">
+			
+			</div>
+		</div>
+	</div>
+</p:component>
+

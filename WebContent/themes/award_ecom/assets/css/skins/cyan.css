@@ -1,0 +1,252 @@
+a{
+    color: #488782;
+}
+a:hover{
+    color: #2d5451;
+}
+blockquote i span{
+    color: #488782;
+}
+.dropcap2{
+    background: #2d5451;
+}
+.bullet1 li{
+    background: url(../../images/skins/cyan/bullet1.png) 0 10px no-repeat;
+}
+.bullet2 li{
+    background: url(../../images/skins/cyan/bullet2.png) 0 10px no-repeat;
+}
+.bullet3 li{
+    background: url(../../images/skins/cyan/bullet3.png) 0 10px no-repeat;
+}
+.bullet4 li{
+    background: url(../../images/skins/cyan/bullet4.png) 0 10px no-repeat;
+}
+/* `graphic elements
+----------------------------------------------------------------------------------------------------*/
+a.sl_button{
+    background: url(../../images/skins/cyan/bn.png) right -27px no-repeat ;
+    text-shadow: #2d5451 0 1px 0;
+}
+a.sl_button span{
+    background: url(../../images/skins/cyan/bn.png) left 0 no-repeat ;
+}
+a.md_button{
+    background: url(../../images/skins/cyan/bn.png) right -144px no-repeat ;
+    text-shadow: #2d5451 0 1px 0; 
+}
+a.md_button span{
+    background: url(../../images/skins/cyan/bn.png) left -108px no-repeat ;
+}
+a.lg_button{
+    background: url(../../images/skins/cyan/bn.png) right -306px no-repeat ;
+    text-shadow: #2d5451 0 1px 0;  
+}
+a.lg_button span{
+    background: url(../../images/skins/cyan/bn.png) left -252px no-repeat ;
+}
+form button:hover{
+    text-shadow: #2d5451 0 1px 0;
+    background: url(../../images/skins/cyan/blog-elements.png) right -208px no-repeat ;
+}
+form button:hover span{
+    background: url(../../images/skins/cyan/blog-elements.png) left -172px no-repeat ;
+}
+/* `headertop
+----------------------------------------------------------------------------------------------------*/
+#headertop a{
+    color: #5baba4;
+}
+#headertop a:hover{
+    background: #5baba4;
+}
+/* `navi-logo
+----------------------------------------------------------------------------------------------------*/
+#logo h1 a{
+    background: url(../../images/skins/cyan/logo.jpg) center no-repeat;
+}
+ul.mega-menu li .sub li a{
+    background: #2d5451;   
+}
+ul.mega-menu li .sub li li a:hover{
+    color: #488782;
+    border-left: 5px solid #488782;
+}
+ul.mega-menu li .sub-container.non-mega .sub li a:hover{
+    color: #488782;
+    border-left: 5px solid #488782;
+}
+/* `jQuery Nivo Slider
+----------------------------------------------------------------------------------------------------*/
+.nivo-caption a {
+    color: #6cccc4;
+}
+.nivo-caption a:hover{
+    background: #488782; 
+}
+/* `Elegant Accordion
+----------------------------------------------------------------------------------------------------*/
+.eAccordion a{
+    color: #6cccc4;
+}
+.eAccordion a:hover{
+    background: #488782;
+}
+/* `layerslider
+----------------------------------------------------------------------------------------------------*/
+#purchase{
+    background: #488782;
+}
+#purchase:hover{
+    background: #2d5451;
+}
+/* `va-accordion
+----------------------------------------------------------------------------------------------------*/
+.va-slice p span{
+	color:#2d5451;
+}
+.va-slice .light p span{
+    color: #6cccc4;
+}
+/* `pagecontent
+----------------------------------------------------------------------------------------------------*/
+.slogan .wrap span{
+   color: #488782; 
+}
+.breadcrumb a:hover{
+    color: #488782;
+}
+.header form .submit:hover{
+    background: url(../../images/skins/cyan/bn.png) -36px 100% no-repeat; 
+}
+.filter_navi li a.active,
+.filter_navi li a:hover{
+    color: #488782;
+}
+.pager-sitemap a,
+.pager a{
+    background: url(../../images/skins/cyan/navi_carousel-pager.png) no-repeat;
+}
+.pager-sitemap a:hover,
+.pager-sitemap a.selected,
+.pager a:hover,
+.pager a.selected{
+    background: url(../../images/skins/cyan/navi_carousel-pager.png) -11px top no-repeat;
+}
+.latest_news .date{
+    background: #2d5451;
+}
+#content .grid_12 .post .date{
+    background: url(../../images/skins/cyan/blog-elements.png) 0 0 no-repeat;
+}
+.tags a{
+    background: url(../../images/skins/cyan/blog-elements.png) left -100px no-repeat;
+}
+.tags a span{
+    background: url(../../images/skins/cyan/blog-elements.png) right -118px no-repeat;
+}
+.pagination a{
+    color: #2d5451;
+}
+.pagination .current{
+    background: #488782;
+}
+.sidebar h4{
+    color: #faf5f1;
+    padding-left: 25px;
+    background-color: #2d5451;
+}
+#content .categ li a:hover{
+    color: #2d5451;
+}
+#content .sidebar .posts h5 a:hover{
+    color: #488782;
+}
+.sitemap li a:hover{
+    color: #2d5451;
+}
+/* `content elements
+----------------------------------------------------------------------------------------------------*/
+.table .selected .top span{
+    text-shadow: #2d5451 0 1px 0;   
+}
+.table .column.selected .top{
+    background: #4e948e;
+}
+.table .column.selected .top h5{
+    background: #488782;
+}
+.table .selected .check{
+    background: url(../../images/skins/cyan/icons.png) left -392px no-repeat;  
+}
+.table .selected a.md_button{
+    background: url(../../images/skins/cyan/bn.png) right -144px no-repeat ;
+    text-shadow: #2d5451 0 1px 0;
+}
+.table .selected a.md_button span{
+    background: url(../../images/skins/cyan/bn.png) left -108px no-repeat ;
+}
+/*
+ * jQuery UI CSS Award Styles
+ */
+.ui-accordion .ui-state-default a,
+.ui-accordion .ui-state-default a:link,
+.ui-accordion .ui-state-default a:visited{
+    background: #2d5451;
+}
+.ui-accordion .ui-state-active a,
+.ui-accordion .ui-state-active a:link,
+.ui-accordion .ui-state-active a:visited{
+    background: #2d5451;
+}
+.ui-accordion .ui-state-hover a:hover{
+    background: #488782;
+}
+.ui-accordion .ui-state-hover a:hover{
+    text-shadow: #2d5451 0 1px 0;
+}
+.ui-tabs .ui-state-default{
+    background: #488782;
+}
+.ui-tabs .ui-state-default.ui-state-hover{
+    text-shadow: #2d5451 0 1px 0;    
+}
+/* `pagefooter
+----------------------------------------------------------------------------------------------------*/
+.footer-bg a{
+    color: #61b8b0;
+}
+.footer-bg a:hover{
+    background: #61b8b0;
+}
+#pagefooter .post a.date:hover,
+#pagefooter .post a.date{
+    background: #488782;
+}
+#pagefooter .list a:hover{
+    color: #5baba4;
+}
+/* HoverAlls Plugin Award Styles*/
+
+.overlay_container{
+    background: #77e0d8;
+}
+.defaultOverlayBg{
+    background: #2d5451;
+}
+
+/* IMAGE, VIDEO, LINK */
+
+.linkOverlay_container,
+.videoOverlay_container,
+.imageOverlay_container{
+    background: #77e0d8;
+}
+.linkOverlayTx,
+.videoOverlayTx,
+.imageOverlayTx{
+    background: #2d5451;   
+}
+.tooltipTx{
+    background: #2d5451;
+}

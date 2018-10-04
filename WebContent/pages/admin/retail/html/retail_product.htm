@@ -1,0 +1,167 @@
+<p:component value="script">	
+	<style type="text/css">		
+		#imageDetailfilename {max-height:50px;}
+	</style>
+	
+		
+	<link rel="stylesheet" type="text/css" href="/components/swfupload/default-min.css">
+	<script type="text/javascript" src="/components/swfupload/swfupload-single-min.js"></script>
+		
+	<script type="text/javascript">		
+		var iconPath = "/components/rte/";		
+		var editorObj;
+		var editorId;
+		var uploadPage = "upload.htm";
+		var uploadedImage = [];
+	
+		function initEditor(){
+			var td = $("textarea[class=editor]").parents("td");
+			td.prev().remove();
+			td.attr("colspan", "4");
+			viewEditor();
+			$("<a href='#' onclick='viewEditor();return false;'><b>View Editor</b></a>, <a href='#' onclick='viewHTML();return false;'><b>View HTML</b></a>").prependTo(td);			
+		}
+		
+		function viewEditor(){
+			$("textarea[class=editor]").each(function(i){
+				$(this).attr("id", new Date().getTime());	
+				editorId = $(this).attr("id");
+				$(this).width($(this).attr("width"));
+				$(this).height($(this).attr("height"));								
+				editorObj = new nicEditor({fullPanel : true, uploadURI: 'upload.htm'}).panelInstance($(this).attr("id"));
+			});
+		}
+		
+		function viewHTML(){			
+			editorObj.removeInstance(editorId);
+		}
+	
+		function customUploadComplete(file){
+			uploadedImage.push ({'filename':file.name});		
+		}
+				
+		function customQueueComplete(){
+			var json;
+			var jsonString = "";
+			
+			for(var i=0;i<uploadedImage.length; i++){						
+				jsonString += '[{';
+				jsonString += '"imageDetailrow-status":"N",';
+				jsonString += '"imageDetailfilename":"'+'temp/' + uploadedImage[i].filename+'",';
+				jsonString += '"imageDetailimageid":"",';
+				jsonString += '"imageDetailprodid":"",';
+				jsonString += '"imageDetailposition":"x"';
+				jsonString += '}],';
+			}			
+			
+			if(jsonString!=''){
+				jsonString = jsonString.substring(0, jsonString.length-1);
+				json = eval( '({"md":"imageDetail","data":[' + jsonString + ']})' );
+				adminUtil.processEditSubClass(json, false);
+				$("#uploadDialog").dialog('close');
+			}
+
+			uploadedImage = [];
+		}
+		
+		function processEdit(json){
+			uploadedImage = [];			
+			resetOption();					
+		}
+		
+		function beforeAdd(){
+			uploadedImage = [];		
+			
+			var trHeader = $("#optDetailEntryTable tr:eq(1)");
+			for(var i=1; i<=4; i++){
+				trHeader.find("th:eq("+(3+i)+")").html("Option "+i);
+			}								
+		}
+		
+		function beforeSave(){
+			$("#imageDetailEntryTableBody").children("tr:visible").each(function(i){
+				$(this).find("input[name=imageDetailposition]").val((i+1));
+			})
+		}	
+		
+		function resetOption(){
+			var trHeader = $("#optDetailEntryTable tr:eq(1)");
+			$("input[name$=_name]").each(function(i){
+				var eleValue = $(this).val();
+				var eleIndex = parseInt($(this).attr("id").charAt(3));				
+				var thIndex = 3+eleIndex;	
+				
+				if(eleValue==""){
+					eleValue = "Option " + eleIndex;
+				}					
+				trHeader.find("th:eq("+thIndex+")").html(eleValue);			
+			});
+		}
+		
+		function initPage(){					
+			initEditor();
+			
+			//$('#mainTabs').tabs();  
+			$("#sortable").sortable();	
+			$("#sortable").disableSelection();					
+			ajaxUtil.loadUploader(uploadPage, {}, "*.jpg;*.jpeg;*.gif", "Web Image Files", "1 MB");
+			
+			$("#retail_productModuleEntry").bind("click", function(event){						
+				var element = event.target;
+				if(element.id=='action.clone.upload'){					
+			   		$("#uploadDialog").dialog('open');
+					event.preventDefault();	return;
+				}					
+			});		
+			
+			var trHeader = $("#optDetailEntryTable tr:eq(1)");
+			$("input[name$=_name]").bind("change", function(event){						
+				resetOption();	
+			});				
+			$("th:contains('Option 1')").attr("style", "background-color: #81DAF5");
+			$("th:contains('Option 2')").attr("style", "background-color: #2E64FE");		
+			$("th:contains('Option 3')").attr("style", "background-color: #58ACFA");		
+			$("th:contains('Option 4')").attr("style", "background-color: #0000FF");	
+						
+		}
+		$(document).ready(initPage);		
+	</script>	
+	
+	<script type="text/javascript" src="/components/rte/nicEdit.js"></script>
+</p:component>
+
+
+<p:component value="body2">
+	<div id="uploadDialog" class="dialogView" style="width: 500px; height:100%;display: none">
+		<div id="content">				
+			<div id="divSWFUploadUI">
+				<div class="fieldset flash" id="fsUploadProgress">
+					<span class="legend">Upload Queue</span>
+				</div>
+			
+				<p id="divStatus">0 Files Uploaded</p>
+				<p>
+					<span id="mySpanButtonPlaceholder">
+						<span id="spanButtonPlaceholder"></span>
+					</span>			
+					<input id="btnCancel" type="button" value="Cancel All Uploads" disabled="disabled" style="margin-left: 63px; height: 22px; font-size: 8pt;" />
+				</p>
+				<br style="clear: both;" />
+			</div>
+		
+			<noscript style="background-color: #FFFF66; border-top: solid 4px #FF9966; border-bottom: solid 4px #FF9966; margin: 10px 25px; padding: 10px 15px;">
+				We"re sorry.  SWFUpload could not load.  You must have JavaScript enabled to enjoy SWFUpload.
+			</noscript>
+			<div id="divLoadingContent" class="content" style="background-color: #FFFF66; border-top: solid 4px #FF9966; border-bottom: solid 4px #FF9966; margin: 10px 25px; padding: 10px 15px; display: none;">
+				SWFUpload is loading. Please wait a moment...
+			</div>
+			<div id="divLongLoading" class="content" style="background-color: #FFFF66; border-top: solid 4px #FF9966; border-bottom: solid 4px #FF9966; margin: 10px 25px; padding: 10px 15px; display: none;">
+				SWFUpload is taking a long time to load or the load has failed.  Please make sure that the Flash Plugin is enabled and that a working version of the Adobe Flash Player is installed.
+			</div>
+			<div id="divAlternateContent" class="content" style="background-color: #FFFF66; border-top: solid 4px #FF9966; border-bottom: solid 4px #FF9966; margin: 10px 25px; padding: 10px 15px; display: none;">
+				We"re sorry.  SWFUpload could not load.  You may need to install or upgrade Flash Player.
+				Visit the <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash">Adobe website</a> to get the Flash Player.
+			</div>
+		</div>
+	</div>
+</p:component>	

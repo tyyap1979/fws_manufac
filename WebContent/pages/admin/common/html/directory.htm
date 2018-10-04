@@ -1,0 +1,221 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="title">%i18n.system.directory.title%</p:component>
+<p:component value="body">	
+	<script type="text/javascript">
+	var directoryArray = [];
+	var currentDirectory = "/";
+	var currentFilename = "";
+	var uploadPage = "upload.htm";
+	var uploadedImage = [];
+	
+	function initUploader(element){		
+		var post_params = {'current_directory':currentDirectory};
+		ajaxUtil.loadUploader(uploadPage, post_params);		
+	}
+	
+	function customUploadComplete(file){
+		uploadedImage.push ({'filename':file.name});	
+	}
+	
+	function customQueueComplete(){
+		var searchForm = jQuery("#searchForm");
+				
+		var query = "return=json" + "&" + AdminConfig.actionName + "=" + AdminConfig.actionSearch;
+		query += "&current_directory="+currentDirectory;
+			
+		for(var i=0;i<uploadedImage.length; i++){			
+			query += "&filename="+uploadedImage[i].filename;						
+		}			
+		uploadedImage = [];
+		
+		ajaxUtil.postJsonQuery('', query, handleCallback, handleFallback);				
+	}
+	
+	function processEdit(json){				
+		var fileRows = json.file_content;
+		var content = "";			
+		var form = jQuery("#directoryModuleEntry").find("form");
+		for(var i=0; i<fileRows.length; i++){				
+			content += ajaxUtil.reverseConvert(fileRows[i]) + "\n";
+		}
+		
+		form.find('textarea[id=file_content]').val(content);
+		form.find('input[id=filename]').val(currentFilename);	
+		form.find('input[id=current_directory]').val(currentDirectory);		
+		
+	}
+	
+	function handleFallback(xmlhttp){
+	
+	}
+	
+	function handleCallback(xmlhttp){		
+		var json=xmlhttp;		
+		var rc, rd;
+		var resultHTML;
+		
+		rc = json.rc;
+		rd = json.rd;
+		
+		if(rc=='4'){	// Search Result					
+			if(json.resultHTML){	
+				jQuery('#paginationData').html(unescape(json.resultHTML));		
+			}
+			jQuery('#searchForm').find('input[id=current_directory]').val(currentDirectory);
+			jQuery('#listingForm').find('input[id=current_directory]').val(currentDirectory);			
+		}
+	}
+		
+	function initApp(){		
+		directoryArray.push({"path":"/","directory":"ROOT"});
+		jQuery('#currentDirectoryBar').html('<a href="#" id="file.open.bar" rel="/">ROOT</a> /');
+		
+		jQuery('#directoryModule').bind('click', (function(event){				
+			var element = event.target;					
+			var searchForm = jQuery('#searchForm');			
+			
+			if(element.id=='default_template'){				
+				var query = "return=json" + "&" + AdminConfig.actionName + "=" + "updateTemplate";
+				query += "&default_template="+element.value;			
+				ajaxUtil.postJsonQuery(searchForm.attr("action"), query, handleCallback, handleFallback);
+				event.preventDefault(); return;
+			}
+			
+			if(element.id=='file.open.bar'){
+				var newdirectoryArray = [];
+				var query = "return=json" + "&" + AdminConfig.actionName + "=" + "action.search";	
+				var currentDirectoryBar="";
+				var item;												
+				searchForm.find("[name='action1']").val('file.open');
+				
+				for(var i=0;i<directoryArray.length; i++){
+					item = directoryArray[i];
+					
+					currentDirectoryBar += '<a href="#" id="file.open.bar" rel="'+item.path+'">'+item.directory+'</a>&nbsp;';
+					//if(item.path!='/'){
+						currentDirectoryBar += "/&nbsp;";
+					//}
+					newdirectoryArray.push(item);
+					if(element.rel == item.path){
+						currentDirectory = item.path;						
+						break;
+					}
+				}
+				directoryArray = newdirectoryArray;
+				jQuery('#currentDirectoryBar').html(currentDirectoryBar);
+
+				query += "&current_directory="+currentDirectory;			
+				ajaxUtil.postJsonQuery(searchForm.attr("action"), query, handleCallback, handleFallback);
+				
+				event.preventDefault(); return;
+			}
+			
+			if(element.id=='file.open'){				
+				var query = "return=json" + "&" + AdminConfig.actionName + "=" + "action.search";	
+				var currentDirectoryBar = jQuery('#currentDirectoryBar').html();
+				
+				var temp = element.rel.split(',');		
+								
+				if(temp[0]=='D'){
+					searchForm.find("[name='action1']").val('file.open');
+					currentDirectory = currentDirectory + temp[1] + "/";	
+					
+					/*
+					if(currentDirectoryBar=='/' || currentDirectoryBar==''){
+						currentDirectoryBar = '<a href="#" id="file.open.bar" rel="/">ROOT</a> /';
+						directoryArray.push({"path":"/","directory":"ROOT"});
+					}
+					*/
+					
+					currentDirectoryBar += '&nbsp;<a href="#" id="file.open.bar" rel="'+currentDirectory+'">' + temp[1] + '</a>&nbsp;/';
+					
+					directoryArray.push({"path":currentDirectory,"directory":temp[1]});
+					
+					jQuery('#currentDirectoryBar').html(currentDirectoryBar);				
+					
+					query += "&current_directory="+currentDirectory;			
+					ajaxUtil.postJsonQuery(searchForm.attr("action"), query, handleCallback, handleFallback);
+				}else{
+					adminUtil.activeModuleId = "directoryModule";
+					currentFilename = temp[1];
+					var filename = currentFilename.split(".")[1];
+					filename = filename.toLowerCase();
+					if(filename=='gif' || filename=='jpg' || filename=='jpeg' || filename=='png'){						
+						//jQuery('#imageViewScreen_progHeader').html(currentFilename);
+						
+						var url = jQuery('#imageViewEntry').find('[id=current_directory]').val();										
+						jQuery('#imageViewEntry #imageViewer').html("<img src='"+url+currentDirectory+currentFilename+"' />");
+						jQuery('#imageViewEntry').dialog("open");						
+					}else{
+						query = "return=json" + "&" + AdminConfig.actionName + "=" + AdminConfig.actionRetrieveEdit;
+						query += "&current_directory="+currentDirectory;
+						query += "&filename="+temp[1];
+						
+						ajaxUtil.postJsonQuery(searchForm.attr("action"), query, adminUtil.handleCallback, handleFallback);
+					}										
+				}
+				
+				event.preventDefault(); return;	
+			}					
+			
+			if(element.id=='action.create.file'){
+				var filename = searchForm.find('[id=filename]');
+				var query = "return=json" + "&" + AdminConfig.actionName + "=" + element.id;
+				query += "&filename="+filename.val();
+				query += "&current_directory="+currentDirectory;	
+				
+				filename.val("");
+							
+				ajaxUtil.postJsonQuery(searchForm.attr("action"), query, handleCallback, handleFallback);	
+				event.preventDefault(); return;
+			}
+			
+			if(element.id=='action.create.folder'){
+				var filename = searchForm.find('[id=filename]');
+				var query = "return=json" + "&" + AdminConfig.actionName + "=" + element.id;
+				query += "&filename="+filename.val();
+				query += "&current_directory="+currentDirectory;	
+				
+				filename.val("");
+							
+				ajaxUtil.postJsonQuery(searchForm.attr("action"), query, handleCallback, handleFallback);				
+				event.preventDefault(); return;
+			}
+			
+			if(element.id=='action.upload'){
+				adminUtil.activeModuleId = "uploadModule";						
+				//Admin.prototype.centeredScreen('entryScreen');
+				//Admin.prototype.getModuleElement('entryScreen').show();
+							
+				adminUtil.showEntryEvent(null, {});					
+				event.preventDefault(); return;
+			}
+			/*
+			if(element.id=='btnCloseImageViewer'){
+				$('imageViewScreen').hide();
+				event.stop(); return;
+			}*/
+		}));			
+
+		ajaxUtil.loadUploader(uploadPage, {'thumb':'false'}, "*.jpg;*.jpeg;*.gif", "Web Image Files", "1 MB");
+	}
+	jQuery(document).ready(initApp);		
+</script>
+
+	<div id="directoryModule" style="margin:0 auto; width:100%;">
+		system.admin.directory.searchlist		
+		<div id="directoryModuleEntry" class="entryScreen" style="width:800px; display: none;">
+			system.admin.directory.edit
+		</div> 
+		<div id="imageViewEntry" class="entryScreen" style="width: 500px; display: none;">
+			<center>system.admin.directory.image.viewer</center>									
+		</div> 
+	</div>
+	
+	<div id='uploadModule'>
+		<div id='uploadModuleEntry' class='entryScreen' style='width: 600px;display: none;'>
+			system.admin.uploader	
+		</div>			
+	</div>
+
+</p:component>

@@ -1,0 +1,62 @@
+  <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl8q_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl86_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl9K_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl9a_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl9q_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl96_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl-K_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl-a_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl-q_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl-6_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl_K_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl_a_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl_q_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGl_6_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.search.ui.views.SearchView</tags>
+      </menus>
+      <toolbar xmi:id="_BQGmAK_yEee0lJ0n9afDFA" elementId="org.eclipse.search.ui.views.SearchView" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_BQGmAa_yEee0lJ0n9afDFA"

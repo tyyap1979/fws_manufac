@@ -1,0 +1,70 @@
+<p:useTemplate>templateframe-main.htm</p:useTemplate>
+
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>%data.html_title%</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+
+<p:component value="script">		
+	<!-- Flexslider JavaScript Files -->
+	<script src="/themes/omnibus/javascript/jquery.flexslider.js"></script>
+	<link rel="stylesheet" href="/themes/omnibus/css/flexslider.css" type="text/css" media="screen" />
+</p:component>
+
+<p:component value="body">				
+
+	<header id="header" class="wrapper" style="margin-top:20px;">
+	<div class="header_tagline">
+    
+	    <div style="height: 400px">    		
+			<div class="slideshow-container">	
+				<div class="flexslider" id="index-slider">
+					<p:module-content id="banner.list">
+		                   	<ul class="slides">
+		                   		<loop>	
+			                   		<li>	                   			
+										<div style="width: 100%; height: 400px; overflow: hidden;"><img src="%data.filename%" /></div>
+										<p class="flex-caption">%data.description%</p>
+									</li>
+								</loop>	                                		                                		                    			                                		
+		                  	</ul>
+		                  </p:module-content>	           					
+				</div><!--END FLEXSLIDER-->	
+			</div><!--END SLIDESHOW-CONTAINER-->				
+	    </div>
+    
+    </div>   
+	</header>
+	
+	
+	<p:module-content id="gallery.list.single">
+		<header id="header" class="wrapper">
+			<h2 class="title_page">Project</h2>			
+		</header>
+		<div class="main_inner wrapper clearfix">
+			<div id="masonry" class="entries clearfix">
+				<loop>
+					<div class="masonry_item entry post">
+		                <div class="img_holder">
+	                        <a href="gallery-single.htm?gid=%data.image.key%" rel="%data.title%">
+	                        <img src="%data.filename%" alt="%data.title%"/>
+	                    </div>
+		                    
+		                <div class="entry-headline">
+		                    <div class="entry-title"><h5><a href="gallery-single.htm?gid=%data.image.key%" rel="%data.title%">%data.title%</a></h5></div>	                    
+		                </div>
+		                    
+		                <div class="entry-info">
+		                    <p>%data.description%&nbsp;</p>
+		                </div>
+	            	</div>
+	            </loop>
+			</div>
+		</div>
+	</p:module-content>
+</p:component>
+

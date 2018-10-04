@@ -1,0 +1,93 @@
+<p:useTemplate>simplplan-template.htm</p:useTemplate>
+<p:component value="titlebar">DASHBOARD</p:component>
+<p:component value="script">
+	<script type="text/javascript" src="http://www.forestwebsolution.com/components/charts/FusionCharts.js"></script>
+	<script type="text/javascript">
+	    function loadChartData(module, chartObj){
+	    	var query = "mod="+module+"&return=json";
+	    	
+	    	ajaxUtil.postJsonQuery("chart.htm", query, function(json){
+	    		//alert(module + " = "+ json.content);	    
+	    		chartObj.setDataXML(json.content);     
+		        chartObj.render(module);		    		
+	    	}, adminUtil.handleFallback);
+	    }
+
+	    function initChart(){
+	    	var chartArray = [["SALESMONTH","900","300"], ["SALESDAY","900","300"]];
+	    	var stackedChartArray = [];
+	    	var chartObj;
+	    	var stackedChartObj;
+	        
+/*
+			var data = "<chart caption='Monthly Sales Summary' subcaption='For the year 2012' xAxisName='Month' yAxisName='Sales' numberPrefix='RM' formatNumberScale='0'><set label='Jan' value='1000000.00' /><set label='Feb' value='1500000.00' /></chart>";	        	        
+	        chartObj = new FusionCharts("/components/charts/Column3D.swf", 
+	        	"chart"+chartArray[0][0], chartArray[0][1], chartArray[0][2], "0", "1");
+	    	chartObj.setDataXML(data);     
+		    chartObj.render(chartArray[0][0]);
+		    
+		    data = "<chart caption='Sales Summary for Feb 2012' subcaption='' xAxisName='Day' yAxisName='Sales' numberPrefix='RM' formatNumberScale='0'><set label='1' value='1000' /><set label='2' value='2000' /><set label='3' value='3000' /><set label='4' value='4000' /><set label='6' value='5000' /><set label='8' value='6000' /><set label='9' value='7000' /><set label='10' value='8000' /><set label='11' value='4000' /><set label='13' value='10000' /><set label='14' value='15000' /><set label='15' value='7000' /><set label='16' value='12000' /><set label='17' value='9000' /><set label='20' value='20000' /><set label='21' value='11000' /><set label='22' value='8200' /></chart>";
+			chartObj = new FusionCharts("/components/charts/Column3D.swf", 
+	        	"chart"+chartArray[1][0], chartArray[1][1], chartArray[1][2], "0", "1");
+	    	chartObj.setDataXML(data);     
+		    chartObj.render(chartArray[1][0]);
+*/		    
+		        
+	        // Normal 3D
+	        for(var i=0; i<chartArray.length; i++){	        	
+	        	chartObj = new FusionCharts("http://www.forestwebsolution.com/components/charts/Column3D.swf", 
+	        	"chart"+chartArray[i][0], chartArray[i][1], chartArray[i][2], "0", "1");	        	
+		        loadChartData(chartArray[i][0], chartObj);
+	        }	 
+	        
+	        // Stacked 3D
+	        for(var i=0; i<stackedChartArray.length; i++){	        	
+	        	stackedChartObj = new FusionCharts("http://www.forestwebsolution.com/components/charts/StackedColumn3D.swf", 
+	        	"chart"+stackedChartArray[i][0], stackedChartArray[i][1], stackedChartArray[i][2], "0", "1");
+	        	loadChartData(stackedChartArray[i][0], stackedChartObj);
+	        }      	       
+	        
+	    }
+
+    	function initDashBoard(){    
+						
+			initChart();
+			
+    	}    	    
+    	jQuery(document).ready(initDashBoard);	
+	</script>
+</p:component>
+<p:component value="body">		
+	<!-- 100% Box Grid Container: Start -->
+	<div class="grid_24">
+	
+		<!-- Box Header: Start -->
+		<div class="box_top">		
+			<h2 class="icon graph">Monthly Sales Summary</h2>		
+		</div>
+		<!-- Box Header: End -->
+		<!-- Box Content: Start -->
+		<div id="SALESDAY" class="box_content">
+		</div>
+		<!-- Box Content: End -->
+		
+	</div>
+	<!-- 100% Box Grid Container: End -->
+	
+	
+	<!-- 100% Box Grid Container: Start -->
+	<div class="grid_24">
+	
+		<!-- Box Header: Start -->
+		<div class="box_top">		
+			<h2 class="icon graph">Yearly Sales Summary</h2>		
+		</div>
+		<!-- Box Header: End -->
+		<!-- Box Content: Start -->
+		<div id="SALESMONTH" class="box_content">
+		</div>
+		<!-- Box Content: End -->
+		
+	</div>
+	<!-- 100% Box Grid Container: End -->
+</p:component>

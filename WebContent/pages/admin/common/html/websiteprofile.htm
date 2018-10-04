@@ -1,0 +1,22 @@
+<p:component value="script">
+	<script type="text/javascript">		
+		function initPage(){		
+			adminUtil.editPopUp();
+			
+			$("#btnSave").click(function(event){						
+				var gotError = $.validationEngine.submitValidation($("#entryFormTable").find('.validateForm'));				
+				if(!gotError){					
+					adminUtil.saveRecord();
+				}
+				event.preventDefault();	return;
+			});
+			
+		}
+		$(document).ready(initPage);		
+	</script>	
+</p:component>
+<p:component value="title_right">
+<ul class="sorting">
+	<li><a href="#" id="btnSave">Save</a></li>	
+</ul>
+</p:component>

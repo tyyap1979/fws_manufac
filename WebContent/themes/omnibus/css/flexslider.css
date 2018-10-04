@@ -1,0 +1,72 @@
+/* Browser Resets */
+.flex-container a:active,
+.flexslider a:active,
+.flex-container a:focus,
+.flexslider a:focus  { outline: none; }
+.slides,
+.flex-control-nav,
+.flex-direction-nav { margin: 0; padding: 0; list-style: none; }
+/* FlexSlider Necessary Styles
+*********************************/
+.flexslider { margin: 0; padding: 0; }
+.flexslider .slides > li { display: none; -webkit-backface-visibility: hidden; } /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider .slides img { max-width: 100%; display: block; }
+.flex-pauseplay span { text-transform: capitalize; }
+/* Clearfix for the .slides element */
+.slides:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+html[xmlns] .slides { display: block; }
+* html .slides { height: 1%; }
+/* No JavaScript Fallback */
+/* If you are not using another script, such as Modernizr, make sure you
+ * include js that eliminates this class on page load */
+.no-js .slides > li:first-child { display: block; }
+/* FlexSlider Default Theme
+*********************************/
+.flexslider { position: relative; 5px; zoom: 1; }
+.flexslider .slides { zoom: 1;}
+.flexslider .slides > li { position: relative; }
+/* Suggested container for "Slide" animation setups. Can replace this with your own, if you wish */
+.flex-container {zoom: 1; position: relative; }
+/* Caption style */
+/* IE rgba() hack */
+.flex-caption { zoom: 1; }
+.flex-caption {	z-index:500; position:absolute; bottom: 15px; left: 83px;	background:#222222;	color:#999;	max-width: 70%; padding: 8px 20px; border-radius: 2px 2px 2px 2px; margin-bottom:0; }
+/* Direction Nav */
+.flex-direction-nav { height: 0; }
+.flex-direction-nav li a { background: url(../images/sprite.png) no-repeat scroll #222222; border-radius: 2px 2px 2px 2px; bottom: 15px; height: 33px; position: absolute; text-indent: -999em; width: 33px; -webkit-transition-duration: 0s; -moz-transition-duration: 0s; -o-transition-duration: 0s; }
+.flex-direction-nav li .prev { left: 15px; background-position: 14px -129px; }
+.flex-direction-nav li .prev:hover { background-position: -17px -129px; background-color: #fff; }
+.flex-direction-nav li .next { left: 49px;background-position: -48px -129px; }
+.flex-direction-nav li .next:hover { background-position: -79px -129px; background-color: #fff; }
+.flex-direction-nav li .disabled { opacity: .3; filter:alpha(opacity=30); cursor: default; }
+/* Control Nav */
+.flex-control-nav {	width: 100%; position: absolute; left: 14px; top: 15px; }
+.flex-control-nav li { margin: 0 0 0 5px; display: inline-block; zoom: 1; *display: inline; }
+.flex-control-nav li:first-child { margin: 0; }
+.flex-control-nav li a { width: 9px; height: 9px; display: block; background: url(../images/sprite.png) no-repeat scroll -124px -141px transparent; cursor: pointer; text-indent: -999em;-webkit-transition-duration: 0s; -moz-transition-duration: 0s; -o-transition-duration: 0s;}
+.flex-control-nav li a:hover { background-position: -144px -141px; }
+.flex-control-nav li a.active { background-position: -144px -141px; cursor: default; }
+/* Index page top FlexSlider Necessary Styles
+*********************************/
+.slideshow-container { width: 960px; float: left; color: #FFFFFF; }
+.slideshow-container .section-title { float: right;width: 220px; padding: 20px; }
+.slideshow-container .section-title h1 { font: bold 40px/44px Helvetica,Arial,sans-serif; letter-spacing: -1px; }
+.slideshow-container .section-title h2 { font: bold 21px/24px Helvetica,Arial,sans-serif; }
+#index-slider { width: 700px; float: left; }
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+.slideshow-container, #index-slider { width: 714px; height: auto; }
+.slideshow-container .section-title { float: left; width: 708px; }
+}
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.slideshow-container, #index-slider { width: 420px; height: auto; }
+.slideshow-container .section-title { float: left; width: 380px; }
+.slideshow-container .section-title h1 { font: bold 28px/38px Helvetica,Arial,sans-serif; }
+.flex-caption, .pagination { display:none; }
+}
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+.slideshow-container, #index-slider { width: 300px; height: auto; }
+.slideshow-container .section-title { float: left; width: 260px; }
+.slideshow-container .section-title h1 { font: bold 20px/25px Helvetica,Arial,sans-serif; }
+.flex-caption, .pagination { display:none; }
+}

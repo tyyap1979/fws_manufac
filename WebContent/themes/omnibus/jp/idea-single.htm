@@ -1,0 +1,37 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+
+
+<p:component value="meta">
+	<p:module-content id="material.detail">		
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>J Home Design - %data.title%</title>		
+		<meta name="description" content="%data.description%" />
+	    <meta name="keywords" content="%data.title%" />
+	</p:module-content>	    	
+</p:component>
+
+<p:component value="body">		
+	<p:module-content id="material.detail">
+		<div class="section-title">		
+			<h1 class="item-title">%data.title%</h1>			
+		</div><!--END SECTION TITLE-->	
+		
+		<div class="singlepage-content-wrapper">
+			<div id="portfolio-item-wrapper">
+				<div class="one-third">
+					<div class="item-details">
+						<h2 class="title">Design Idea</h2>
+						<p>%data.description%</p>
+					</div>														
+				</div>
+				<div class="two-third last">
+					<loop>
+						<img src="%data.filename%" alt="" class="alignleft" />
+						<p>%data.description%</p>
+					</loop>					
+				</div>
+			</div>
+		</div>
+	</p:module-content>									
+</p:component>
+

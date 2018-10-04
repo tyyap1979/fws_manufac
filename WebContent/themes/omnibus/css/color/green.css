@@ -1,0 +1,89 @@
+body {
+	border-top: 4px solid #78d18b;
+}
+input.submit, input.submit:focus, input.submit:active {
+	background: #78d18b;
+}
+a { 
+	color: #78d18b;
+}
+.title a:hover {
+	color: #78d18b;
+}
+#back-top a:hover {
+	background-color: #78d18b;
+}
+#notification-wrapper {
+	background: #78d18b;
+}
+.social-bookmarks li a {
+	background-color: #78d18b;
+}
+.social-bookmarks li.text {
+	background-color: #78d18b;
+}
+#primary-menu ul li:hover ul li a:hover { 
+    background: #78d18b; 
+}
+.section-title h1 {
+	color: #78d18b;
+}
+#footer a:hover {
+	color: #78d18b;
+}
+.photostream a:hover, #footer .photostream a:hover {
+	background-color: #78d18b;
+}
+#services-graph li span {
+	background:  #78d18b;
+}
+.highlight1 {
+	background-color: #78d18b;
+}
+.button.grey:hover {
+	background-color: #78d18b;
+}
+.portfolio-grid .item-info-overlay {
+	background-color: #78d18b;
+}
+.filterable li.current a {
+	background-color: #78d18b;  
+}
+ul.item-nav li a:hover {
+	background-color: #78d18b;
+}
+
+
+
+.widget ul li a:hover {
+    color: #78d18b;
+}
+.entry-title h2.title a:hover {
+    color: #78d18b;
+}
+.entry-meta a:hover {
+    color: #78d18b;
+}
+.entry-date a {
+    background-color: #78d18b;
+}
+#comment-list .comment-author a:hover {
+	color: #78d18b;
+}
+#comment-list .avatar:hover {
+	background-color: #78d18b;
+}
+#comment-list .reply a:hover {
+	color: #78d18b;
+}
+.wp-pagenavi a:hover, .wp-pagenavi span.current {
+	background-color: #78d18b;
+}
+
+
+.slideshow-container { 
+	background-color: #78d18b; 
+	color: #fff;
+}
+.slideshow-container .section-title { color: #fff; }
+.slideshow-container .section-title h1 { color: #fff; }

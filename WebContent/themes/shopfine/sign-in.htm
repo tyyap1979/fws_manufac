@@ -1,0 +1,96 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">	
+	<title>Sign-In</title>		  	
+</p:component>
+<p:component value="script">		
+	
+	<script>			
+		function initPage(){						
+			$("#facebook_signin").click(function(event){		
+				openFacebook();																	
+				event.preventDefault(); return;									
+	        });				   
+	        
+	        $("#btnLogin").click(function(event){
+				login();
+				event.preventDefault();	return;
+			});
+			
+			$(".validateForm").validationEngine({promptPosition : "topRight"});  	  	          	        	
+        }
+		
+        $(document).ready(initPage);		
+      </script>	
+</p:component>
+
+<p:component value="body">	
+	
+	<p:module-content id="web.info">
+		<script>
+		var facebook_id = "%data.facebook_id%";
+		</script>		 
+	</p:module-content>
+	
+	<div class="container">
+
+			<div class="row">
+
+				<div class="span9">
+					<div class="login">
+						<table>
+							<tr>
+								<td width="50%">
+									<h3>New Customer</h3>
+									<p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+									<a href="/register.htm" class="btn">Register</a>
+								</td>
+
+								<td width="50%">
+									<h3>Returning Customer</h3>
+									<form id='entryForm' class='validateForm' method='POST'>
+										<div class="controls">
+											<label>E-Mail:</label>
+											<input type="text" name="email" id="email" value="" placeholder="" class="validate[required,email]">
+										</div>
+										<div class="controls">
+											<label>Password:</label>
+											<input type="password" name="password" id="password" value="" placeholder="" class="validate[required]">
+										</div>
+										<div class="controls">
+										    <button type="button" class="btn btn-primary" id='btnLogin'>Login</button>										    
+										    <a href="#" id="facebook_signin">Facebook Sign-In</a>		
+										    
+										    <br>
+										    <a href="/forgotpassword.htm">Forgot Password?</a>								    
+										</div>
+										
+									</form><!--end form-->
+								</td>
+							</tr>
+						</table>
+					</div><!--end login-->
+				</div><!--end span9-->
+
+
+				<div class="span3">
+					<div class="titleHeader clearfix">
+						<h3>Categories</h3>
+					</div><!--end titleHeader-->
+					<ul class="unstyled my-account">
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> Login or Register</a></li>
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> Forget my Password</a></li>
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> My Account</a></li>
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> My wishlist</a></li>
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> Order History</a></li>
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> Downloads</a></li>
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> Returns</a></li>
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> TRANSACTIONS</a></li>
+						<li><a class="invarseColor" href="#"><i class="icon-caret-right"></i> Newlatters</a></li>
+					</ul>
+				</div><!--end span3-->
+
+			</div><!--end row-->
+
+		</div><!--end conatiner-->
+	
+</p:component>

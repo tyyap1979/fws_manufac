@@ -1,0 +1,160 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Shopping Cart</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">	
+	<script type="text/javascript" src="/pages/admin/mfg/js/mfg_custom.js"></script>
+	<script>		
+		function doCartDelete(key){
+			ajaxUtil.showPanel($("#info-msg"), "Updating...");			
+			//window.location.href="?action1=delete&row-status=D&cartdetailid="+key;	
+			
+			ajaxUtil.postJsonQuery(null,"action1=delete&return=json&row-status=D&cartdetailid="+key, (function(json){
+				if(json.rc='0000'){					
+					$("tr#"+key).remove();
+					calSubtotal();
+					ajaxUtil.hidePanel();
+				}
+				
+			}), null);
+			
+		}
+
+		function doCartUpdate(key, qty){
+			ajaxUtil.showPanel($("#info-msg"), "Updating...");		
+			//window.location.href="?action1=update&row-status=U&cartdetailid="+key+"&qty="+qty;		
+			ajaxUtil.postJsonQuery(null,"action1=update&return=json&row-status=U&cartdetailid="+key+"&qty="+qty, (function(json){
+				if(json.rc='0000'){										
+					$("tr#"+key).find("#sellsubtotal").html(ajaxUtil.roundNumber(json.data.sellsubtotal,2));
+					$("tr#"+key).find("input[name=sellsubtotal]").val(ajaxUtil.roundNumber(json.data.sellsubtotal,2));
+					
+					shopUtil.updateSingleObjCurrency($("tr#"+key).find("#sellsubtotal"));
+							
+					calSubtotal();		
+					ajaxUtil.hidePanel();
+				}
+				
+			}), null);	
+		}
+		
+		function calSubtotal(){
+			var total = 0;
+			$("input[name=sellsubtotal]").each(function(i){
+				total += parseFloat($(this).val());
+			});
+			
+			$("#subtotal").html(ajaxUtil.roundNumber(total,2));
+			shopUtil.updateSingleObjCurrency($("#subtotal"));		
+		}
+		
+		function initPage(){			
+			$('input[name=qty]').bind("change", (function(event){				
+				var element = event.target;
+				doCartUpdate($(element).closest("tr").attr("id"), $(element).val());
+				event.preventDefault(); return;				
+			}));
+			
+			$("#btnCheckOut").click(function(event){
+				window.location='payment.htm';
+				event.preventDefault(); return;		
+			});
+			
+			$("#btnContinue").click(function(event){
+				window.location='categorylisting.htm';
+				event.preventDefault(); return;		
+			});
+			
+			$("#btnRemove").click(function(event){
+				var element = event.target;
+				doCartDelete($(element).closest("tr").attr("id"));
+				event.preventDefault(); return;		
+			});
+			
+			
+			
+			calSubtotal();
+		}
+		
+		$(document).ready(initPage);
+	</script>
+</p:component>
+<p:component value="body">	
+	<p:module-content id="cart.list">
+		<div class="header">
+	    	<div class="wrap">
+	        	<div class="container_16">
+	            	<div class="grid_12"><h2>Shopping Cart</h2></div>
+	                <div class="grid_4"></div>
+	                <div class="clear"></div>                 
+	            </div>                          
+			</div>
+		</div>
+		
+		<div id="content" class="container_12">    	
+    		<div class="grid_12">
+    			<form autocomplete="off">
+				<table id="listTable" class="entryScreen" style="width:100%;">
+					<col width="10" />	
+					<col />							
+					<col width="60" />
+					<col width="60" />					
+					<col width="60" />	
+					<col width="60" />	
+					<col width="60" />	
+										
+					<thead class="titlebar">
+						<tr><td colspan="7" align="center"><b>My Shopping Cart Contains Following Items</b></td></tr>
+					</thead>
+					<tr>		
+						<th align="center">No.</th>						
+						<th align="center">Product</th>														
+						<th align="center">Unit Price (%system.selected.currency%)</th>										
+						<th align="center">SQFT / Unit</th>
+						<th align="center">Quantity</th>
+						<th align="center">Subtotal (%system.selected.currency%)</th>
+						<th align="center"></th>																	
+					</tr>
+					<tbody custom="loop" removeTag="false">							
+						<tr id="%data.cartdetailid%">	
+							<td align="center">%data.running.no%</td>	
+							<td align="left" nowrap="nowrap">		
+								<input type="hidden" name="cartCheckBox" value="%data.cartdetailid%" />
+								<input type="hidden" name="sellsubtotal" value="%data.sellsubtotal%" />		
+								<input type="hidden" id="remark" name="remark" value="%data.remark%" />								
+								<div style="width: 90; display: inline; float: left;">
+									<img src="/photo/cart/%data.opt1_code%%data.opt2_code%%data.opt3_code%%data.opt4_code%.jpg" title="%data.opt1_code%%data.opt2_code%%data.opt3_code%%data.opt4_code%.jpg" />
+								</div>
+								<div style="margin-left:10px;display: inline; float: left;">
+									<b>%data.name%</b> <br>
+					      			%data.options% <br>
+					      			Remark: %data.remark%	
+								</div>
+								<div style="clear: both;" />															      							      	
+							</td>															
+							<td align="center"><span class="currency">%data.price%</span> / %data.sellunittype_value%</td>
+							<td align="center">%data.unit%</td>		
+							<td align="center"><input type="text" name="qty" id="qty" value="%data.qty%" size="3" maxlength="5"></td>
+							<td align="left" id="sellsubtotal" class="currency">%data.sellsubtotal%</td>
+							<td align="left"><button id="btnRemove"><span>Remove</span></button></td>
+						</tr>																	
+					</tbody>			
+					<tr class="titlebar">											
+						<td colspan="2">
+							<button id="btnContinue"><span>Continue Shopping</span></button>					
+							<button id="btnCheckOut"><span>Check Out</span></button>							
+						</td>
+						<td colspan="5" align="right"><b>Total Exclude Shipment (%system.selected.currency%):</b> <span id="subtotal" class="currency"></span></td>						
+					</tr>					
+				</table>		
+				</form>		
+			</div>
+		</div>
+		
+	</p:module-content>	
+		
+</p:component>

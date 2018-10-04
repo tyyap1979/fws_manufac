@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="552" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ea3083fd-cf4e-468f-9e35-3174b0ac849c">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="9"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LOGO" class="java.lang.String"/>
+	<parameter name="terms" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="attn" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="transnodesc" class="java.lang.String"/>
+	<parameter name="transno" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="jobcode" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="comment" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesby" class="java.lang.String"/>
+	<parameter name="customerid_value" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesdate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOGO_1" class="java.lang.String"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="98bed664-3a24-49f4-aae8-6003d4df6b1a" x="297" y="4" width="51" height="8"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(002550278-H)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="48e16846-d3c3-4e0f-87af-738ce6d7776a" x="122" y="34" width="116" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[www.prestigecabinetdoors.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cdfaa652-1b09-467f-a7c3-270dfcf016ba" x="110" y="0" width="184" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEGA KITCHEN DOOR DESIGN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b5a0c39d-c6cd-4fd2-b103-61a1dc4433c7" x="122" y="49" width="106" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[megaeuro11@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="756aea16-5f58-4c97-b248-b103f0862cbc" x="122" y="18" width="324" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[22, Jalan Industri Mas 8, Taman Mas Puchong, 47100 Puchong, Selangor Darul Ehsan.]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="bfd70eb0-0635-456f-8635-d51bcc12fd6a" x="36" y="0" width="56" height="56"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="773d41cf-7269-4f87-8472-9cc9943e474b" x="259" y="49" width="77" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[603.8060 8999 (F)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3ba910b6-3faa-4334-b3cc-2d758e07f060" x="259" y="34" width="77" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[603.8060 8998 (T)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="517a27b1-a87c-46de-8205-8d7bcb0f4858" x="346" y="34" width="53" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="8"/>
+				</textElement>
+				<text><![CDATA[GST NUMBER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7906132c-c1eb-4ecd-b4b4-25b1dacb5016" x="346" y="49" width="63" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[0000 8843 2640]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="4e6b5d40-24ee-401c-913f-106963d5e077" x="455" y="2" width="60" height="54"/>
+				<imageExpression><![CDATA[$P{LOGO}.replaceAll("logo.jpg","logo2.jpg")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="b5a47469-98af-463e-b7c9-d314aec582f1" x="110" y="19" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"address.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="f2929c94-015a-4db8-a31d-5346d00d49f5" x="110" y="35" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"web.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="1b0e50f4-0d53-446b-b6fc-a7cbecb94346" x="110" y="50" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"email.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="184d66ed-1c7e-4c84-aec7-c8b5063209f8" x="247" y="35" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"phone.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="442c51f4-9669-47ae-be1d-a30635b3b4a0" x="247" y="50" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"fax.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,37 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>						
+	</p:module-content>
+</p:component>
+<p:component value="script">
+	
+</p:component>
+<p:component value="body">		
+<p:module-content id="html.page.content" key="page.code">
+	<div class="header">
+    	<div class="wrap">
+        	<div class="container_16">
+            	<div class="grid_12"><h2>%data.htitle%</h2></div>
+                <div class="grid_4"></div>
+                <div class="clear"></div>                 
+            </div>                          
+		</div>
+	</div>
+	<div class="container_16">    
+        <div class="grid_12">	 	        			
+			<p>%data.hcontent%</p>				
+		</div>
+		<div class="grid_4">			
+			<p:module-content id="page.content" key="ADS">
+				<p>%data.content%</p>	
+			</p:module-content>
+		</div>
+	</div>
+</p:module-content>
+	<p></p>
+	
+
+<div class="clear"></div>	
+</p:component>
+

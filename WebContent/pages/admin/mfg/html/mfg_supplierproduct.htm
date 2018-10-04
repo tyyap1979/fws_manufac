@@ -1,0 +1,75 @@
+<p:component value="script">	
+<script type="text/javascript">
+	function processAfterAutoComplete(json){				
+		var query; 
+		query = "return=json" + "&" + AdminConfig.actionName + "=" + AdminConfig.actionRetrieveEdit;		
+		$("#entryForm").find("input[name=suppcompanyid]").val(json.companyid);		
+		$("#entryForm").find("input[name=name]").val(json.value);
+		$("#entryForm").find("input[name$=prodid]").val(json.key);
+		
+		ajaxUtil.showPanel('', $('#js-processing-request').html(), null);
+		ajaxUtil.postJsonQuery("mfg_product.htm", query+"&prodid="+json.key+"&companyid="+json.companyid, callback, adminUtil.handleFallback);	
+	}		
+	
+	function callback(json){		
+		var subr = json.SUBR0.data;		
+		var md = json.SUBR0.md;
+		var status;
+		var mainArray;
+		var printString;
+		var cost, sell;
+		var prodoptid = "";
+		for(var i=0;i<subr.length; i++){
+			mainArray = subr[i];
+			printString = "";
+			for(var x=0; x<mainArray.length; x++){          				
+				mainArray[x][md+"row-status"] = "N";
+				cost = mainArray[x][md+"cost"];
+				sell = mainArray[x][md+"price"];
+				mainArray[x][md+"cost"] = sell;
+				mainArray[x][md+"price"] = "";
+        	}
+        	//alert("printString = "+printString);
+		}
+		subr = json.SUBR1.data;		
+		md = json.SUBR1.md;
+		for(var i=0;i<subr.length; i++){
+			mainArray = subr[i];			
+			for(var x=0; x<mainArray.length; x++){          								
+				prodoptid += mainArray[x][md+"prodoptid"]+",";				
+        	}
+		}		
+		var query;
+		if(prodoptid!=''){			
+			var companyid = $("#entryForm").find("input[name=suppcompanyid]").val();
+			prodoptid = prodoptid.substring(0,prodoptid.length-1);
+			query = "return=json" + "&" + AdminConfig.actionName + "=" + AdminConfig.actionRetrieveEdit+"&companyid="+companyid;				
+			ajaxUtil.postJsonQuery("mfg_prodoption.htm", query+"&idarray="+prodoptid, callbackOption, adminUtil.handleFallback);							
+		}
+		adminUtil.handleCallback(json);
+	}
+	
+	function callbackOption(json){
+		var subr = json.SUBR0.data;		
+		var md = json.SUBR0.md;
+		var status;
+		var mainArray;
+		var printString;
+		var cost, sell;
+		var prodoptid = "";
+		for(var i=0;i<subr.length; i++){
+			mainArray = subr[i];
+			printString = "";
+			for(var x=0; x<mainArray.length; x++){          				
+				mainArray[x][md+"row-status"] = "N";
+				cost = mainArray[x][md+"cost"];
+				sell = mainArray[x][md+"price"];
+				mainArray[x][md+"cost"] = sell;
+				mainArray[x][md+"price"] = "";
+        	}
+        	//alert("printString = "+printString);
+		}
+		adminUtil.handleCallback(json);
+	}
+</script>
+</p:component>

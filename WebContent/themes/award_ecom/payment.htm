@@ -1,0 +1,503 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Payment</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">	
+	<script type="text/javascript" src="/pages/admin/mfg/js/mfg_custom.js"></script>	
+	<script>		
+		function retrieveShipment() {		
+			var query = 'return=json&action1=action.retrieve.shipment&';
+			var country = $('select[name=country]').val();
+			var postcode = $('input[name=postcode]').val();
+						
+			if(country!='' && postcode!=''){
+				query += 'country=' + country + '&';
+				query += 'postcode=' + postcode;
+				
+				ajaxUtil.postJsonQuery("payment.htm", query, function(json){
+					$("input#shippingcharge").val("0.00");
+					$("span#shippingcharge").html("0.00");
+						
+					if(json.data.rate){			
+						$("input#shippingcharge").val(ajaxUtil.roundNumber(json.data.rate,2));
+						$("span#shippingcharge").html(ajaxUtil.roundNumber(json.data.rate,2));
+						calSubtotal();				
+						alert("Shipping Charges: RM"+ajaxUtil.roundNumber(json.data.rate,2));
+					}else{
+						alert("Please contact us for shipping charges.");
+					}
+				}, null);
+			}					
+	    }	    
+		
+		function calSubtotal(){
+			var total = 0;
+			var shippingcharge = parseFloat($("input[name=shippingcharge]").val());
+			
+			shippingcharge = isNaN(shippingcharge)?0:shippingcharge;
+			$("input[name=sellsubtotal]").each(function(i){
+				total += parseFloat($(this).val());
+			});
+			
+			$("span#totalsales").html(ajaxUtil.roundNumber(total,2));
+			$("span#grandtotal").html(ajaxUtil.roundNumber(total+shippingcharge,2));
+			
+			$("input#totalsales").val(ajaxUtil.roundNumber(total,2));
+			$("input#grandtotal").val(ajaxUtil.roundNumber(total+shippingcharge,2));
+			
+		}
+		
+		function pay(){
+			var form = $("#mainForm");			
+			var paymentMethod;
+			
+			var comment = "";		
+			
+			comment += "Customer Notes: \n" +
+					  $("#customernotes").val() +
+					  
+					  "\n\nDelivery Address: \n" +
+					  $("#del-address").val() +	",\n" +
+					  $("#del-postcode").val() + " " + $("#del-city").val() + ",\n" +
+					  $("#del-state").val() +	",\n" +
+					  $("select[name=country] option:selected").text() + 
+					  
+					  "\n\nProject Name: "+$("#projectname").val();
+					  
+			if("C"==clientType){
+				comment += "\n\nPort of Discharge: " + $("#pod").val() + "\n";
+				comment += "Port of Loading: " + $("#pol").val() + "\n";
+			}		  
+			$("#comment").val(comment);
+			//alert("Comment: "+comment);
+			var gotError = $.validationEngine.submitValidation(form);						
+			if(!gotError){						
+				ajaxUtil.showPanel($("#info-msg"), "Processing...");
+				var query = "return=json&action1=action.create" + "&" + ajaxUtil.formData2QueryString(form, true);	
+				ajaxUtil.postJsonQuery(null, query, function(json){
+					if(json.rc=='0000'){						
+						sendInvoice(json);				
+					}else{			
+						ajaxUtil.updatePanelMessage(rd);			
+					}
+				}, null);
+			}				
+			
+		}
+		
+		function sendInvoice(json){
+			var form = $("#mainForm");				
+			var paymentMethod;
+			
+			form.find("input[name=paymentmethod]").each(function(i){				
+				if($(this).attr("checked")){
+					paymentMethod = $(this).attr("id");
+					paymentMethod = paymentMethod.substr(13);
+				}
+			});	
+			//alert("paymentMethod = "+paymentMethod);
+			var query = "return=json&action1=sendinv&transid="+json.transid;			
+			
+			ajaxUtil.postJsonQuery("invoice.htm", query, function(json){				
+				if(paymentMethod=='CC'){
+					ajaxUtil.updatePanelMessage("Redirect to PayPal...");
+					checkOutPayPal(json);
+				}else if(paymentMethod=='OT' || paymentMethod=='COD'){
+					form = $("<form>");	
+					form.attr("id", "DynamicPaymentForm");				
+					form.attr("method", "get");			
+					form.attr("action","return.htm");
+					form.appendTo("body");					
+					form.submit();			
+				}	
+				
+			}, null);	
+		}
+		
+		function checkOutPayPal(json){						
+			var form = $("<form>");
+			var splitParam;
+			var itemParam;		
+	
+			var itemname, itemqty, itemunitprice, shipping;		
+			var shippingObject = $("input[name=shippingcharge]");		
+			var parameters = eval("({"+$("#mainForm").find("input[name=paymentmethod]:checked").parent().find("input[name=parameters]").val()+"})");				
+			
+			var url = window.location.href;
+			var arr = url.split("/");
+			var returnPage = arr[0] + "//" + arr[2] + "/return.htm";
+			
+			form.attr("id", "DynamicPaymentForm");
+			//form.attr("action", "https://mobile.paypal.com/cgi-bin/webscr");
+			form.attr("action", "https://www.paypal.com/cgi-bin/webscr");
+			form.attr("method", "get");
+			
+			$("<input type='hidden' name='cmd' value='_cart'>").appendTo(form);
+			$("<input type='hidden' name='upload' value='1'>").appendTo(form);
+			$("<input type='hidden' name='no_shipping' value='1'>").appendTo(form);
+			$("<input type='hidden' name='return_page' value='"+returnPage+"'>").appendTo(form);
+			$("<input type='hidden' name='currency_code' value='%system.payment.currency%'>").appendTo(form);
+			$("<input type='hidden' name='business' value='"+parameters.business+"'>").appendTo(form);		
+			
+			itemname='item_name_*';
+			itemqty='quantity_*';
+			itemunitprice='amount_*';
+			
+			var newName;			
+			var nameFieldCount = 1;	
+			var qtyFieldCount = 1;
+			var subtotalFieldCount = 1;
+			
+			$("#mainForm").find('input[type=hidden]').each(
+				function(i){
+					newName = null;
+					if($(this).attr("id")=='itemname' && itemname){
+						newName = itemname.replace('*', nameFieldCount);
+						nameFieldCount++;
+					}else if($(this).attr("id")=='quantity' && itemqty){
+						newName = itemqty.replace('*', qtyFieldCount);
+						qtyFieldCount++;
+					}else if($(this).attr("id")=='unitprice' && itemunitprice){
+						newName = itemunitprice.replace('*', subtotalFieldCount);
+						subtotalFieldCount++;
+					}							
+					if(newName!=null){									
+						$("<input type='hidden' name='"+newName+"' value='"+$(this).val()+"'>").appendTo(form);														
+					}
+				}
+			);
+			
+			// Add Shipment and Handling					
+			$("<input type='hidden' name='"+itemname.replace('*', nameFieldCount)+"' value='Shipping Charge'>").appendTo(form);	
+			$("<input type='hidden' name='"+itemqty.replace('*', qtyFieldCount)+"' value='1'>").appendTo(form);
+			$("<input type='hidden' name='"+itemunitprice.replace('*', subtotalFieldCount)+"' value='"+shippingObject.val()+"'>").appendTo(form);
+			$("<input type='hidden' name='charset' value='utf-8'>").appendTo(form);
+			
+			form.appendTo("body");					
+			form.submit();			
+		}
+		
+		function initPage(){
+			//retrieveShipment();
+			calSubtotal();
+			
+			/*
+			$('input[name=postcode], select[name=country]').bind("change", (function(event){
+				retrieveShipment();
+			}));
+			*/
+			$("#btnPay").click(function(event){
+				pay();
+				event.preventDefault();	return;
+			});
+			$("input[name=paymentmethod]").click(function(event){
+				var element = event.target;
+				var paymentMethod = $(this).attr("id");
+				paymentMethod = paymentMethod.substr(13);
+					
+				if("CC"==paymentMethod){
+					$("#paymentmethodspan").html("CREDIT CARD (PAYPAL)");
+				}
+				if("OT"==paymentMethod){
+					$("#paymentmethodspan").html("ONLINE TRANSFER/BANK-IN");
+				}
+			});
+			$(".validateForm").validationEngine({promptPosition : "centerRight", scroll: true});  
+			
+			if('%system.payment.currency%'!='%system.selected.currency%'){
+				$("#paycurnote").show();
+			}
+			
+			if("C"==clientType){
+				$("#port-info").show();
+			}
+			
+			if("P"==clientType){
+				$("#personal-info").show();
+				$("#business-info").remove();
+			}else{
+				$("#business-info").show();
+				$("#personal-info").remove();
+			}
+		}
+		
+		$(document).ready(initPage);
+	</script>
+</p:component>
+<p:component value="body">	
+
+	
+		<div class="header">
+	    	<div class="wrap">
+	        	<div class="container_16">
+	            	<div class="grid_16"><h2>Payment</h2></div>
+	                <div class="grid_4"></div>
+	                <div class="clear"></div>                 
+	            </div>                          
+			</div>
+		</div>
+		<form id="mainForm" class="validateForm" autocomplete="off">		
+			<input type="hidden" name="totalsales" id="totalsales" />
+			<input type="hidden" name="shippingcharge" id="shippingcharge" value="0" />
+			<input type="hidden" name="grandtotal" id="grandtotal" />
+			<input type="hidden" name="customerid" value="581" />
+			<input type="hidden" name="salesby" value="36" />
+			<input type="hidden" id="comment" name="comment" />
+			
+		<div id="content" class="container_16">
+			<!-- Start Cart Listing -->    	
+    		<div class="grid_16">
+    			<p:module-content id="cart.list">
+				<table id="listTable" class="entryScreen" style="width:100%;">
+					<col />							
+					<col width="150" />					
+					<col width="150" />
+					<col width="80" />	
+					<col width="80" />						
+										
+					<thead>
+						<tr>
+							<td colspan="5" align="center">
+								<b>My Shopping Cart Contains Following Items</b>								
+								<br><span id="paycurnote" style="display:none;">Payment will be made by %system.payment.currency%</span>							
+							</td>
+						</tr>
+					</thead>
+					<tr>						
+						<th align="center">Product</th>														
+						<th align="center">Unit Price (%system.payment.currency%)</th>										
+						<th align="center">SQFT / Unit</th>
+						<th align="center">Quantity</th>
+						<th align="center">Subtotal (%system.payment.currency%)</th>											
+					</tr>
+					<tbody custom="loop" removeTag="false">							
+						<tr>	
+							<td align="left">											
+								<input type="hidden" name="sellsubtotal" value="%data.sellsubtotal%" />
+								<input type="hidden" id="itemname" name="itemname" value="%data.name%" />
+								<input type="hidden" id="quantity" name="quantity" value="%data.qty%" />
+								<input type="hidden" id="unitprice" name="unitprice" value="%data.unitprice%" />
+								<input type="hidden" id="remark" name="remark" value="%data.remark%" />		
+								<div style="width: 90; display: inline; float: left;">
+									<img src="/photo/cart/%data.opt1_code%%data.opt2_code%%data.opt3_code%%data.opt4_code%.jpg" />
+								</div>
+								<div style="margin-left:10px; display: inline; float: left;">
+									<b>%data.name%</b> <br>
+					      			%data.options%	 <br>
+					      			Remark: %data.remark%
+								</div>
+								<div style="clear: both;" />																			      	
+							</td>															
+							<td align="center">%data.price% / %data.sellunittype_value%</td>
+							<td align="center">%data.unit%</td>		
+							<td align="center">%data.qty%</td>
+							<td align="left" id="sellsubtotal">%data.sellsubtotal%</td>								
+						</tr>																	
+					</tbody>			
+					<tr>
+						<td rowspan="2" colspan="2" valign="top">
+							<p:module-content id="page.content" key="PAYMENT_INFO">
+								<p>%data.content%</p>	
+							</p:module-content>					
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2" align="center">
+							Grand Total (%system.payment.currency%)							
+						</th>
+						<td align="right">
+							<span id="grandtotal"></span>
+						</td>
+					</tr>					
+				</table>		
+				</p:module-content>				
+			</div>			
+			<!-- End Cart Listing -->
+			
+			<div class="grid_12">
+			<!-- Start Payment Information -->
+			<div class="grid_12">
+				<p:module-content id="payment.method">
+				<table id="listTable" class="entryScreen" style="width:100%;">
+					<col width="30">									
+					<col>
+					<thead>
+						<tr><th colspan="2" align="left">Payment Options</th></tr>
+					</thead>
+					<tbody custom="loop" removeTag="false">		
+						<tr>
+							<td>
+								<input type="radio" id="paymentmethod%data.code%" name="paymentmethod" value="%data.code%" class="validate[required]">
+								<input type="hidden" name="parameters" id="" value="%data.parameters%">
+							</td>					
+							<td id="paymentMethod">
+								%data.instruction%								
+							</td>
+						</tr>							
+					</tbody>
+				</table>				
+				</p:module-content>	
+			</div>
+			<!-- End Payment Information -->
+			
+			
+			
+			<!-- Start Shipping Information -->
+			<div class="grid_12">
+				<p:module-content id="userprofile.detail">			
+					<script>
+						var clientType = "%data.type%";
+					</script>
+					<div id="personal-info" style="display: none;">
+						<table id="listTable" class="entryScreen" style="width:100%;">
+							<col width="100px" />
+							<col width="250px" />
+							<col width="100px" />
+							<col width="250px" />			
+							<thead>
+								<tr><th colspan="4" align="left">PERSONAL INFO</th></tr>
+							</thead>
+							<tbody>	
+								<tr>
+									<th nowrap>First Name</th><td><input type="text" id="firstname" name="firstname" value="%data.firstname%" size="20" maxlength="50" class="validate[required]" /></td>
+									<th nowrap>Last Name</th><td><input type="text" id="lastname" name="lastname" value="%data.lastname%" size="20" maxlength="50" class="validate[required]" /></td>
+								</tr>
+								<tr>
+									<th nowrap>Member ID</th><td>%data.clientno%</td>
+									<th nowrap>Email</th><td>%data.email%</td>
+								</tr>
+								<tr>
+									<th nowrap rowspan="3">Invoice Address</th><td rowspan="3"><textarea id="address" name="address" value="%data.address%" cols="20" rows="6" class="validate[required]" ></textarea></td>
+									<th nowrap>Postcode</th><td><input type="text" id="postcode" name="postcode" value="%data.postcode%" size="20" maxlength="20" class="validate[required]" /></td>
+								</tr>		
+								<tr>
+									<th nowrap>City</th><td><input type="text" id="city" name="city" value="%data.city%" size="20" maxlength="40" class="validate[required]" /></td>
+								</tr>
+								<tr>
+									<th nowrap>State</th><td><input type="text" id="state" name="state" value="%data.state%" size="20" maxlength="40" class="validate[required]" /></td>
+								</tr>
+					
+								<tr>								
+									<th nowrap>Mobile</th><td colspan="3"><input type="text" id="phoneno" name="phoneno" value="%data.phoneno%" size="20" maxlength="30" class="validate[required]" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="business-info" style="display: none;">
+						<table id="listTable" class="entryScreen" style="width:100%;">
+							<col width="100px" />
+							<col width="250px" />
+							<col width="100px" />
+							<col width="250px" />			
+							<thead>
+								<tr><th colspan="4" align="left">BUSINESS INFO</th></tr>
+							</thead>
+							<tbody>	
+								<tr>
+									<th nowrap>Company Name</th><td colspan="3"><input type="text" id="companyname" name="companyname" value="%data.companyname%" size="40" maxlength="50" class="validate[required]" /></td>
+								</tr>
+								<tr>
+									<th nowrap>First Name</th><td><input type="text" id="firstname" name="firstname" value="%data.firstname%" size="20" maxlength="50" class="validate[required]" /></td>
+									<th nowrap>Last Name</th><td><input type="text" id="lastname" name="lastname" value="%data.lastname%" size="20" maxlength="50" class="validate[required]" /></td>
+								</tr>
+								<tr>
+									<th nowrap>Member ID</th><td>%data.clientno%</td>
+									<th nowrap>Email</th><td>%data.email%</td>
+								</tr>
+								<tr>
+									<th nowrap rowspan="3">Invoice Address</th><td rowspan="3"><textarea id="address" name="address" cols="20" rows="6" class="validate[required]" >%data.address%</textarea></td>
+									<th nowrap>Postcode</th><td><input type="text" id="postcode" name="postcode" value="%data.postcode%" size="20" maxlength="20" class="validate[required]" /></td>
+								</tr>		
+								<tr>
+									<th nowrap>City</th><td><input type="text" id="city" name="city" value="%data.city%" size="20" maxlength="40" class="validate[required]" /></td>
+								</tr>
+								<tr>
+									<th nowrap>State</th><td><input type="text" id="state" name="state" value="%data.state%" size="20" maxlength="40" class="validate[required]" /></td>
+								</tr>
+					
+								<tr>								
+									<th nowrap>Mobile</th><td colspan="3"><input type="text" id="phoneno" name="phoneno" value="%data.phoneno%" size="20" maxlength="30" class="validate[required]" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<table id="listTable" class="entryScreen" style="width:100%;">
+						<col width="150px" />
+						<col width="330px" />
+						<col width="150px" />
+						<col />			
+						<thead>
+							<tr><th colspan="4" align="left">DELIVERY DETAILS</th></tr>
+						</thead>
+						<tbody>									
+							<tr>
+								<th align="left">Shipping Method</th>
+								<td>
+									<Select id="shippingmethod" name="shippingmethod">									
+										<option value="By Sea">By Sea</option>
+										<option value="Self Arrange">Self Arrange</option>
+										<option value="Klang Valley">Klang Valley</option>
+									</Select>
+								</td>
+								<th align="left">Payment Method</th>
+								<td><span id="paymentmethodspan"></span></td>
+							</tr>
+							<tr>
+								<th align="left">Your P.O Reference</th>
+								<td><input type="text" id="custrefno" name="custrefno" value="" size="15" maxlength="50" /></td>
+								<th align="left">Project Name</th>
+								<td><input type="text" id="projectname" name="projectname" value="" size="20" maxlength="50" /></td>
+							</tr>
+							
+							<tr>
+								<th nowrap rowspan="3">Delivery Address</th><td rowspan="3"><textarea id="del-address" name="del-address" cols="20" rows="6" class="validate[required]" >%data.address%</textarea></td>
+								<th nowrap>Postcode</th><td><input type="text" id="del-postcode" name="del-postcode" value="%data.postcode%" size="20" maxlength="20" class="validate[required]" /></td>
+							</tr>		
+							<tr>
+								<th nowrap>City</th><td><input type="text" id="del-city" name="del-city" value="%data.city%" size="20" maxlength="40" class="validate[required]" /></td>
+							</tr>
+							<tr>
+								<th nowrap>State</th><td><input type="text" id="del-state" name="del-state" value="%data.state%" size="20" maxlength="40" class="validate[required]" /></td>
+							</tr>				
+							<tr>
+								<th nowrap>Country</th><td valign="top" colspan="3">%data.country%</td>								
+							</tr>
+							<tr id="port-info" style="display:none;">
+								<th align="left">Port of Discharge</th>
+								<td><input type="text" id="pod" name="pod" value="" size="20" maxlength="50" /></td>
+								<th align="left">Port of Loading</th>
+								<td>
+									<span>Port Klang, West Malaysia</span>
+									<input type="hidden" id="pol" name="pol" value="Port Klang, West Malaysia" /></td>
+							</tr>
+							<tr>
+								<th align="left">Customer Notes</th>
+								<td valign="top" colspan="3">
+									<textarea rows="6" cols="50" name="customernotes" id="customernotes"></textarea>
+								</td>
+							</tr>
+						</tbody>
+						
+						<tfoot>
+							<tr>
+								<td colspan="4" align="left"><button id="btnPay"><span id="btnPay">Confirm</span></button></td>
+							</tr>
+						</tfoot>
+					</table>
+				</p:module-content>
+			</div>	
+		<!-- End Shipping Information -->		
+		</div> 
+		
+		<div class="grid_4">			
+			<p:module-content id="page.content" key="PAYMENT_ADS">
+				%data.content%
+			</p:module-content>
+		</div>
+		</div>	
+</p:component>

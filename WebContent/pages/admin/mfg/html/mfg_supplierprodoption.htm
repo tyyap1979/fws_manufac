@@ -1,0 +1,45 @@
+<p:component value="script">	
+<script type="text/javascript">
+	var suppcompanyid;
+	function processAfterAutoComplete(json){				
+		var query; 
+		query = "return=json" + "&" + AdminConfig.actionName + "=" + AdminConfig.actionRetrieveEdit;		
+		
+		suppcompanyid = json.companyid;
+		ajaxUtil.showPanel('', $('#js-processing-request').html(), null);
+		ajaxUtil.postJsonQuery("mfg_prodoption.htm", query+"&prodoptid="+json.key+"&companyid="+json.companyid, callback, adminUtil.handleFallback);	
+	}		
+	
+	function callback(json){		
+		var subr = json.SUBR0.data;		
+		var md = json.SUBR0.md;
+		var status;
+		var mainArray;
+		var printString;
+		var cost, sell;
+		var prodoptid = "";
+		for(var i=0;i<subr.length; i++){
+			mainArray = subr[i];
+			printString = "";
+			for(var x=0; x<mainArray.length; x++){          				
+				mainArray[x][md+"row-status"] = "N";
+				cost = mainArray[x][md+"cost"];
+				sell = mainArray[x][md+"price"];
+				mainArray[x][md+"cost"] = sell;
+				mainArray[x][md+"price"] = "";
+        	}
+        	//alert("printString = "+printString);
+		}		
+		adminUtil.handleCallback(json);
+		
+		var activeEntry = $("#"+adminUtil.activeModuleId+"Entry");
+		activeEntry.find("input[name=suppprodoptid]").val(activeEntry.find("input[name=prodoptid]").val());
+		activeEntry.find("input[name=prodoptid]").val("");
+		activeEntry.find("input[name='action1']").val(AdminConfig.actionCreate);
+		activeEntry.find("input[name=companyid]").val("");		
+		activeEntry.find("input[name=suppcompanyid]").val(suppcompanyid);
+		
+		
+	}	
+</script>
+</p:component>

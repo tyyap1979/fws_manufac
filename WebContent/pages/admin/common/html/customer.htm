@@ -1,0 +1,125 @@
+<p:component value="script">
+<style>
+	.editedField{background-color: #002233; color:#fff;}
+	.price_ori_minus{margin-left: 10px; font-weight: bold; color: red;}
+	.price_ori_plus{margin-left: 10px; font-weight: bold; color: green;}
+</style>
+<script type="text/javascript">
+	function processEdit(json){
+		var subJson = json.SUBR0;
+		var data = subJson.data;
+		var module = json.md;     
+		var mainArray;  
+		var priceid, price_ori, price; 
+		var moduleEntryTableBody = $("#custPriceDetailEntryTableBody");
+		var type;
+		var row, priceObj;		
+		
+		var moduleName = (json.md)?(json.md+'Module'):adminUtil.activeModuleId;	
+		
+		var form = $("#"+moduleName+"Entry").find("#entryForm");
+		type = form.find("select[name=type]").val();
+		
+		//alert("moduleName = "+moduleName+", type="+type);
+		
+		//alert("#"+module+"EntryTableBody");
+		for(var i=0; i<data.length; i++){
+	    	mainArray = data[i];	    	
+	        priceid = mainArray[0]["custPriceDetailpriceid"];
+	        price = mainArray[0]["custPriceDetailprice"];
+	        if(type=='P'){
+	        	price_ori = mainArray[0]["custPriceDetailpublicprice"];
+	        }else if(type=='C'){
+	        	price_ori = mainArray[0]["custPriceDetailclientprice"];
+	        }else if(type=='D'){
+	        	price_ori = mainArray[0]["custPriceDetaildealerprice"];
+	        }	      
+	        //alert("type: "+type+", price_ori:"+price_ori);
+	        price = parseFloat(price);
+	        price_ori = parseFloat(price_ori);
+	          
+	        if(price!=price_ori && price_ori>0){
+	        	row = moduleEntryTableBody.find("tr:eq("+i+")");	
+	        	priceObj = row.find("input[name$=price]");
+	        	priceObj.attr("style","background-color: #2EFE2E; color:#000;");	
+	        	//alert(row.find("input[name$=price]").val());       	        		        	
+	        	if(price > price_ori){
+	        		$("<span class='price_ori_plus'>"+ajaxUtil.roundNumber(price - price_ori, 2)+"</span>").appendTo(priceObj.parent("td"));
+	        	}else{
+	        		$("<span class='price_ori_minus'>"+ajaxUtil.roundNumber(price - price_ori, 2)+"</span>").appendTo(priceObj.parent("td"));
+	        	}	        	
+	        	//.after(priceObj);	        		        		        		
+	        }
+	    }	    
+	    
+	}
+	
+	var authorizedFlag = false;
+	function authorizationLogin(){			
+		$("#customerprofileModule").hide();
+		$("#userid").val("");
+		$("#password").val("");
+		
+		$("#authorizeMsg").html("Manager authorization required.");
+		var dialog_buttons = {};
+		
+		dialog_buttons["Authorize"] = function(){		
+			var loginQuery = "return=json&action1=authorization&usergroup=1&userid="+$("#userid").val()+"&password="+$("#password").val();	
+			ajaxUtil.postJsonQuery("login.htm", loginQuery, function(json){				
+				if(json.rc!="0"){
+					alert("Authorization Failed. Please check again.");	
+				}else{					
+					authorizedFlag = true;
+					$("#approvalDialog").dialog('close');
+					$("#customerprofileModule").show();
+				}								
+			}, adminUtil.handleFallback);			
+			return;																
+		}; 
+		$("#approvalDialog").dialog({
+  			close: function( event, ui ) {
+  				if(authorizedFlag==false){
+  					window.location.href = "dashboard.html";
+  				}
+  			}  			
+		});
+		
+		$("#approvalDialog").dialog({'buttons': dialog_buttons, 'height': 300});
+		$("#approvalDialog").dialog('open');
+	}
+	
+	function initPage(){
+		$("#customerprofileModuleEntry").bind("click", function(event){	
+			var element = event.target;
+			if(element.id=='action.rtrv.product'){
+				var customerid = $("#customerprofileModuleEntry").find("input#customerid").val();
+				var type = $("#customerprofileModuleEntry").find("select#type").val();
+				
+				var query = "return=json&action1="+element.id+"&customerid="+customerid+"&type="+type;
+				ajaxUtil.showPanel('', $('#js-processing-request').html(), null);
+				ajaxUtil.postJsonQuery(null,query,function(json){																			
+					adminUtil.processEditSubClass(eval('json.SUBR0'), true);		
+					ajaxUtil.hidePanel();									
+				}, null);
+				event.preventDefault();	return;
+			}	
+		});	
+		
+		authorizationLogin();
+	}
+
+	$(document).ready(initPage);
+</script>
+</p:component>
+
+<p:component value="body2">	
+	<div id='approvalDialog' class='dialogView' style='width: 500px; height:60px;display: none' title="Authorization">
+		<table id='customCloneAddTable' width='100%' class='listTable'>
+			<thead>
+			<tr><th colspan="2" id="authorizeMsg"></th></tr>
+			</thead>
+			<tr><th>User ID</th><td><input type="text" name="userid" id="userid" /></td></tr>
+			<tr><th>Password</th><td><input type="password" name="password" id="password" /></td></tr>
+		</table>
+	</div>
+</p:component>

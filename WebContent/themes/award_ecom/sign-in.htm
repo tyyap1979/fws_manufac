@@ -1,0 +1,102 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Sign-In</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">		
+	<script>	
+		var currentPanel = "loginPanel";
+		function afterJson(json){
+			window.location = "/";
+		}
+		
+		function initPage(){						
+			$(".facebook_signin").click(function(event){
+				var element = event.target;           
+				if (element.id=='facebook_signin'){				
+					var url = window.location.href;
+					var arr = url.split("/");
+					var returnPage = arr[0] + "//" + arr[2] + "/fb-signinreturn.htm";
+									
+					var url = "https://www.facebook.com/dialog/oauth/?scope=email"; 
+					url += "&client_id="+facebook_id;
+					url += "&display=popup";
+					url += "&redirect_uri="+returnPage;
+					url += "&response_type=token";										
+					window.open(url,"facebookwindow","menubar=0,resizable=1,width=650,height=250");																	
+					event.preventDefault(); return;
+				}								
+	        });				   
+	        
+	        $(".validateForm").validationEngine({scroll: false});     	          	        	
+        }
+        
+        function registerDone(json){
+        	$("#loginPanel").show();
+        	$("#registerPanel").hide();
+        }
+
+		function afterJson(json){			
+			if(json.rc=='0'){
+				if(json.redirect){
+					setTimeout(function (){window.location.href=json.redirect;}, 1000);	
+				}else{
+					setTimeout(function (){window.location.reload();},1000);
+				}
+			}			
+		}
+		
+        $(document).ready(initPage);		
+      </script>	
+</p:component>
+
+<p:component value="body">	
+	<div class="header">
+    	<div class="wrap">
+        	<div class="container_16">
+            	<div class="grid_12"><h2>Sign In</h2></div>
+                <div class="grid_4"></div>
+                <div class="clear"></div>                 
+            </div>                          
+		</div>
+	</div>
+	<div id="content" class="container_12">    	
+    	<div class="grid_6">
+    		<form id='entryForm' class='validateForm' method='POST'>
+				<input type="hidden" name="action1" value="signin">				
+				<table id="listTable" class="entryScreen" style="width: 100%">			
+					<col width="170" />
+					<col />
+										
+					<thead class="titlebar">
+						<tr>
+							<td colspan="2">
+							<div style="float: left"><b>Member Sign In</b></div>
+							<div style="float: right"><b><a href="/register.htm">Register</a></b></div>
+							</td>
+						</tr>				
+					</thead>
+					<tr><td align="left" colspan="2">If you are already a member, please sign in with your account.</td></tr>
+					
+					<tr><th align="left">Email</th><td><input type="text" id="email" name="email" size="30" maxlength="40" class="validate[required,email]"></td></tr>
+					<tr><th align="left">Password</th><td align="left"><input type="password" id="password" name="password" size="20" maxlength="20" class="validate[required]"></td></tr>
+			
+					<tr class="titlebar">						
+						<td colspan="2">
+							<div class="container_4">
+								<div class="grid_4"><button id='btnProcess'><span id='btnProcess'>Sign In</span></button></div>			
+							</div>  														
+						</td>						
+					</tr>	
+					<tr class="titlebar">
+						<td colspan="2"><a href="/forgotpassword.htm">Forgot Password?</a></td>
+					</tr>			
+				</table>	
+			</form>	
+		</div>		
+	</div>
+</p:component>

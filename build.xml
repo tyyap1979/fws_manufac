@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+
+<project name="mfg_portal" basedir="." default="usage">
+    <property file="build.properties"/>
+
+    <property name="src.dir" value="src"/>
+    <property name="web.dir" value="WebContent"/>
+    <property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
+    <property name="project.name" value="mfg_portal"/>
+
+    <path id="master-classpath">
+        <fileset dir="${web.dir}/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <!-- We need the servlet API classes:        -->
+        <!--   for Tomcat 4.1 use servlet.jar        -->
+        <!--   for Tomcat 5.0 use servlet-api.jar    -->
+        <!--   for Other app server - check the docs -->
+        <fileset dir="${appserver.home}/common/lib">
+            <include name="servlet*.jar"/>
+        </fileset>
+        <pathelement path="${build.dir}"/>    	
+    </path>
+
+    <target name="usage">
+        <echo message=""/>
+        <echo message="${project.name} build file"/>
+        <echo message=""/>
+    </target>
+
+	<target name="js.minify">
+		<apply executable="java" parallel="false" dest="${web.dir}/components/">
+		<fileset dir="${web.dir}/components">
+            <include name="admin.js"/>
+			<include name="ajax.js"/>
+			<include name="mall.js"/>
+			<include name="pagination.js"/>
+			<include name="shopcommon.js"/>
+			<include name="standard.js"/>
+        </fileset>		
+		<arg line="-jar"/>
+		<arg path="${minify.lib.dir}/yuicompressor-2.4.2.jar"/>
+		<arg line="--line-break 0"/>
+		<srcfile />
+		<arg line="-o"/>
+		<mapper type="glob" from="*.js" to="*-min.js"/>		
+		<targetfile />
+		</apply>				
+	</target>
+	
+	<target name="css.minify-compenents">
+		<apply executable="java" parallel="false" dest="${web.dir}/components">
+		<fileset dir="${web.dir}/components" includes="site.css"/>
+		<arg line="-jar"/>
+		<arg path="${minify.lib.dir}/yuicompressor-2.4.2.jar"/>
+		<arg line="--line-break 0"/>
+		<srcfile />
+		<arg line="-o"/>
+		<mapper type="glob" from="*.css" to="*-min.css"/>
+		<targetfile />
+		</apply>				
+	</target>
+	
+    <target name="build" description="Compile main source tree java files">
+        <mkdir dir="${build.dir}"/>    	
+        <javac destdir="${build.dir}" source="1.4" target="1.4" debug="true"
+               deprecation="false" optimize="false" failonerror="true" >
+			 <!-- <compilerarg value="-Xlint"/> -->
+            <src path="${src.dir}"/>
+            <classpath refid="master-classpath"/>
+        </javac>
+		<copy todir="${build.dir}/i18n">
+			<fileset dir="${src.dir}/i18n" />
+		</copy>
+    </target>
+
+	<target name="deploy" depends="build" description="Deploy application">
+        <copy todir="${webserver.home}/${project.name}" preservelastmodified="true">
+            <fileset dir="${web.dir}">
+            	<include name="components/**"/>  
+            	<include name="pages/**"/>
+            	<include name="themes/**"/>
+            	<include name="company/**"/>
+            </fileset>        	
+        </copy>  		
+    </target>
+	
+	<target name="deploy2Server" depends="build" description="Deploy application">
+        <copy todir="${server.webserver.home}/${project.name}" preservelastmodified="true">
+            <fileset dir="${web.dir}">
+            	<include name="components/**"/>  
+            	<include name="pages/**"/>
+            	<include name="themes/**"/>
+            	<include name="company/**"/>
+            </fileset>        	
+        </copy>  		
+    </target>
+    
+    <target name="deploy-min" depends="js.minify, css.minify-compenents, deploy" description="Deploy application">
+        
+    </target>
+	
+
+</project>

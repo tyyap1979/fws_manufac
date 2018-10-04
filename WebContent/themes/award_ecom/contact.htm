@@ -1,0 +1,93 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Contact Us</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 	
+	<script>		
+		function initialize() {
+			if(latlng=="") return;
+			
+			var posArray = latlng.split(",");			
+		  	var roadAtlasStyles = [];
+			var center = new google.maps.LatLng(posArray[0], posArray[1]);			
+		  	var mapOptions = {
+			    zoom: 16,
+			    center: center,
+			    panControl: false,
+			    zoomControl: true,
+			    mapTypeControl: false,
+			    scaleControl: false,
+			    streetViewControl: false,
+			    overviewMapControl: false,
+			    mapTypeControlOptions: {
+			       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map']
+			    }
+		  	};
+		
+		  	map = new google.maps.Map(document.getElementById("google-map"), mapOptions);		      
+		  	var styledMapOptions = {name: "Map"};		
+		  	var usRoadMapType = new google.maps.StyledMapType(roadAtlasStyles, styledMapOptions);		
+		 	map.mapTypes.set('map', usRoadMapType);
+		  	map.setMapTypeId('map');
+		  
+		    var image = '/components/images/google_icon.png';
+		    var map_ = new google.maps.LatLng(posArray[0], posArray[1]);
+		    var Marker = new google.maps.Marker({position: map_,map: map,icon: image});		
+		}
+		
+		$(document).ready(initialize);				
+	</script>
+</p:component>
+<p:component value="body">		
+
+	<div class="header">
+    	<div class="wrap">
+        	<div class="container_16">
+            	<div class="grid_12"><h2>Contact Us</h2></div>
+                <div class="grid_4"></div>
+                <div class="clear"></div>                 
+            </div>                          
+		</div>
+	</div>
+	<div class="container_16">    
+        <div class="grid_16">	 	        
+			<p:module-content id="page.content" key="ABOUTUS">
+				<p>%data.content%</p>	
+			</p:module-content>
+		</div>
+	</div>
+	<p></p>
+	<div id="content" class="container_16 page contact">
+		<div class="grid_6">			
+			<p:module-content id="shop.info">
+				<script> var latlng = "%data.latlng%";	</script>
+	            <h4>Drop A Line</h4>
+	            <p>%data.address%</p>
+	            <p>Email: <a href="#">%data.contact_email%</a><br /></p>
+	            <p></p>
+	            
+	            <h4>Give Us A Ring</h4>
+	            <p>Phone: %data.phone%<br />
+	            Mobile: %data.contact_phone%<br />
+	            Fax: %data.fax%</p>
+	        </p:module-content>	
+         </div>
+         <div class="map-form">
+             <div class="wrap">
+                 <div class="google-map-wrap">
+                     <div id="google-map"></div>                                        
+                 </div>                 
+             </div>
+         </div> 	  
+    </div>
+    
+
+<div class="clear"></div>	
+</p:component>
+

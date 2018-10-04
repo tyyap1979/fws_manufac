@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Statement" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="PARAM_PAGE_FOOTER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="customerid_value" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOGO" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="contactperson" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="CURRENT" class="java.lang.String"/>
+	<parameter name="PAST1" class="java.lang.String"/>
+	<parameter name="PAST30" class="java.lang.String"/>
+	<parameter name="PAST60" class="java.lang.String"/>
+	<parameter name="PAST90" class="java.lang.String"/>
+	<parameter name="city" class="java.lang.String"/>
+	<parameter name="state" class="java.lang.String"/>
+	<parameter name="postcode" class="java.lang.String"/>
+	<parameter name="country" class="java.lang.String"/>
+	<parameter name="phoneno" class="java.lang.String"/>
+	<parameter name="mobileno" class="java.lang.String"/>
+	<parameter name="faxno" class="java.lang.String"/>
+	<parameter name="stmtdate" class="java.lang.String"/>
+	<parameter name="salesby" class="java.lang.String"/>
+	<parameter name="PASS1MONTH" class="java.lang.String"/>
+	<parameter name="PASS2MONTH" class="java.lang.String"/>
+	<parameter name="PASS3MONTH" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:\\Adam\\Developement\\Workspace\\fws_manufac\\WebContent\\company\\kitchendoordesign.com\\megaeuro\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<field name="salesdate" class="java.lang.String"/>
+	<field name="transno" class="java.lang.String"/>
+	<field name="duedate" class="java.lang.String"/>
+	<field name="amount" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="orgamount" class="java.lang.String"/>
+	<field name="balamount" class="java.lang.String"/>
+	<field name="stmtdtlid" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="cnno" class="java.lang.String"/>
+	<variable name="balance" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{balamount})]]></variableExpression>
+	</variable>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="202" splitType="Stretch">
+			<rectangle>
+				<reportElement x="9" y="73" width="303" height="121"/>
+			</rectangle>
+			<line>
+				<reportElement x="9" y="95" width="303" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText-7" x="13" y="77" width="16" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[To:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-11" x="34" y="77" width="278" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{contactperson}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-10" x="13" y="99" width="299" height="95"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+$P{customerid_value}+"</b>" + "<br>" +
+(($P{address}.equals(""))?"":( $P{address} + ",")) +
+(($P{city}.equals(""))?"":( $P{city} + ",")) +
+(($P{postcode}.equals(""))?"":( $P{postcode} + " ")) +
+(($P{state}.equals(""))?"":( $P{state})) +
+(($P{country}.equals(""))?"":("," + $P{country})) +
+"<br>Tel:"+$P{phoneno}+
+"<br>Mobile:"+$P{mobileno}+
+"<br>Fax:"+$P{faxno}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="449" y="136" width="86" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText-10" x="413" y="122" width="34" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-11" x="449" y="122" width="86" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new SimpleDateFormat("yyyy-MM-dd")).parse($P{stmtdate})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="394" y="91" width="137" height="28" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="18"/>
+				</textElement>
+				<text><![CDATA[STATEMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" x="376" y="138" width="70" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Sales Person:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="449" y="152" width="86" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-11" x="449" y="138" width="86" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{salesby}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="0" width="552" height="67"/>
+				<subreportParameter name="LOGO">
+					<subreportParameterExpression><![CDATA[$P{LOGO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{REPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "header.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" x="5" y="5" width="55" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="66" y="5" width="108" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Transaction]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" x="449" y="5" width="82" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Balance (RM)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="24" width="535" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="535" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText-3" x="363" y="5" width="78" height="16"/>
+				<textElement>
+					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Amount (RM)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-2" x="66" y="2" width="297" height="14"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{duedate}==null)?("Credit Notes CN: "+$F{cnno} + " For INV: "+$F{transno}):
+"INV: "+$F{transno} +" Due: " + new SimpleDateFormat("dd/MM/yyyy").format((new SimpleDateFormat("yyyy-MM-dd")).parse($F{duedate}))
++ " Orig. Amount: RM " + new DecimalFormat("#,##0.00").format(new BigDecimal($F{orgamount}))
+)]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="5" y="2" width="58" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new SimpleDateFormat("yyyy-MM-dd")).parse($F{salesdate})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="453" y="2" width="67" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{balance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="363" y="2" width="70" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new BigDecimal($F{balamount})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="16" width="535" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="5" y="31" width="60" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RM "+new DecimalFormat("#,##0.00").format(new BigDecimal($P{CURRENT}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="5" y="5" width="60" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[CURRENT]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="80" y="31" width="78" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RM "+new DecimalFormat("#,##0.00").format(new BigDecimal($P{PAST1}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="173" y="31" width="78" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RM "+new DecimalFormat("#,##0.00").format(new BigDecimal($P{PAST30}))]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="268" y="31" width="78" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RM "+new DecimalFormat("#,##0.00").format(new BigDecimal($P{PAST60}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="363" y="5" width="78" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Over 3 Months]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="363" y="31" width="78" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RM "+new DecimalFormat("#,##0.00").format(new BigDecimal($P{PAST90}))]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement mode="Opaque" x="0" y="48" width="535" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement mode="Opaque" x="0" y="28" width="535" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement mode="Opaque" x="0" y="1" width="535" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText-1" x="453" y="5" width="78" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Amount Due]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="453" y="31" width="78" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($V{balance}==null)?"RM 0.00":"RM "+new DecimalFormat("#,##0.00").format($V{balance})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="5" width="78" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PASS1MONTH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="5" width="78" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PASS2MONTH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="268" y="5" width="78" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PASS3MONTH}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

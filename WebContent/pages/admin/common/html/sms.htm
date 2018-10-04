@@ -1,0 +1,115 @@
+<p:component value="script">
+
+<script type="text/javascript">
+	function addButton(id,value,title){
+		var button=$("<a href='#' class='paginate_button tip' title='Send SMS' id='send' onclick='sendSMS();return false;'>Send</a>");
+		var buttonCreateSms=$("<a href='#' class='paginate_button tip' title='Open Generate SMS' id='gensms' onclick='openGenerateSMS();return false;'>Generate SMS</a>");			
+		button.appendTo("#controlBar");	
+		buttonCreateSms.appendTo("#controlBar");	
+		
+	}
+	
+	function openGenerateSMS(){
+		$("#generateDialog").dialog('open');
+	}
+	
+	function sendSMS(){			
+		adminUtil.activeModuleId = "smsModule";
+		adminUtil.getModuleElement(AdminConfig.listingForm).find("input[name=action1]").val("send");			
+		var formName = "#"+adminUtil.activeModuleId+" #"+AdminConfig.listingForm;		
+		ajaxUtil.showPanel('', $('#js-processing-request').html(),'');
+		var query = "return=json&action1=send&";
+		var chkObjParent,chkObj;
+		$("input[name$=smsid]:checked").each(function(i){
+			chkObj = $(this);
+			chkObjParent = $(this).parents("TR");		
+			
+			$.ajax({
+				async: false,	
+				   type: "POST",				   
+				   url: "sms.htm",				   
+				   data: query+$(this).attr("name")+"="+$(this).val(),				   
+				   cache: false,			 
+				   dataType: "json",				   				   
+				   success: function(json){
+						if(json.status=='F'){
+							chkObjParent.attr("style", "background-color: #FE2E2E");
+							chkObjParent.find("span[name=status]").html("Fail");
+						}else{
+							chkObjParent.attr("style", "background-color: #64FE2E");				
+							chkObjParent.find("span[name=status]").html("Success");
+						}
+						chkObjParent.find("span[name=resp]").html(json.resp);
+						chkObj.attr("checked", false);						
+					}
+			   });	
+			/*   
+			ajaxUtil.postJsonQuery(window.location.pathname, query+$(this).attr("name")+"="+$(this).val(), function(json){
+				if(json.status=='F'){
+					chkObjParent.find("span[name=status]").html("Fail");
+				}else{				
+					chkObjParent.find("span[name=status]").html("Success");
+				}
+				chkObjParent.find("span[name=resp]").html(json.resp);
+				chkObj.attr("checked", false);
+				ajaxUtil.hidePanel();
+			}, this.handleFallback);
+			*/
+		});
+		ajaxUtil.hidePanel();
+		/*
+		var query = "return=json" + "&" + ajaxUtil.formData2QueryString(formName);		
+		
+		ajaxUtil.postJsonQuery(window.location.pathname, query, function(json){
+			if(json.status=='F'){
+				alert(json.resp);
+			}else{
+				ajaxUtil.hidePanel();
+			}
+		}, this.handleFallback);
+		
+		*/		
+	}
+	
+	function initPage(){
+		addButton();		
+		
+		$("#btnGenerate").click(function(event){
+			ajaxUtil.showPanel('', $('#js-processing-request').html(),'');
+			
+			var query = "return=json&action1=generate";
+			query += "&templatecode="+$("#templatecode").val();
+			query += "&type="+$("#type").val();
+			
+			ajaxUtil.postJsonQuery(window.location.pathname, query, function(json){
+				if(json.rc=="0000"){
+					ajaxUtil.hidePanel();
+					adminUtil.refreshSearch();
+				}
+			}, adminUtil.handleFallback);	
+			
+			$("#generateDialog").dialog('close');
+			event.preventDefault();	return;
+		});
+	}
+	
+	$(document).ready(initPage);
+</script>
+
+</p:component>
+
+
+<p:component value="body2">
+	<div id="generateDialog" class="dialogView" style="width: 500px; height:100%;display: none">
+		<table id='entryFormTable' width='100%' class="listTable">
+			<tr><th>Template</th><td>%data.templatecode%</td></tr>
+			<tr><th>Based On</th><td><select name="type" id="type">
+					<option value=""></option>
+					<option value="stmtrpt">Statement Report</option>
+					<option value="customerprofile">Customer Profile</option>
+					<option value="agentprofile">Agent Profile</option>
+				</select></td></tr>
+			<tr><td colspan="2"><button id="btnGenerate">Generate</button></td></tr>
+		</table>
+	</div>
+</p:component>

@@ -1,0 +1,39 @@
+<p:useTemplate>templateframe-main.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="material.detail">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>%data.title%</title>		
+		<meta name="description" content="%data.description%" />
+	    <meta name="keywords" content="%data.title%" />	    
+	</p:module-content>
+</p:component>
+
+<p:component value="body">		
+	<p:module-content id="material.detail">	
+		<div class="pageloader_inner wrapper clearfix" style="margin-top: 20px;">
+	        <div id="entry-single">
+	            
+	            <aside id="sidebar" class="right_float">
+	            	<section class="sidebar_section">
+	                	<div class="entry-headline">
+	                        <div class="entry-title"><h4>%data.title%</h4></div>
+	                        <div class="entry-date">%data.updatedate%</div>
+	                    </div>
+	                    
+	                    <div class="entry-info">
+	                        <p>%data.description%</p>
+	                    </div>
+	                
+	                </section>
+	            </aside>
+	            
+	            <article id="maincontent" class="left_float">
+	            	<loop>
+	              		<img src="%data.filename%" alt="%data.description%"/> <br>
+	              	</loop>
+				</article> <!-- END #maincontent -->
+	    	</div>        
+		</div>					
+	</p:module-content>
+</p:component>
+

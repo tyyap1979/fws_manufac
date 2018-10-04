@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="552" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="companyname" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="124" splitType="Stretch">
+			<rectangle>
+				<reportElement x="5" y="19" width="248" height="65"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="16" y="58" width="248" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[until full payment is exercised. The said company has the right to recollect]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[condition by,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="77" width="144" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Client's Signature / Company's Chop]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="34" width="206" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[1. Terms refer to the above mentioned.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="50" width="158" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[3. Items delivered to site remains the property of    ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="42" width="231" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[2. Price quoted includes transportation. (applicable within Klang Valley)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="19" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[Goods received in good order &]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="67" width="237" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[whatsoever items deemed proper when the stated clause 1 is not practised.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="5" y="4" width="387" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["THIS "+$P{title}+" IS COMPUTER GENERATED. NO SIGNATURE IS REQUIRED."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="22" width="144" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERMS & CONDITIONS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="263" y="76" width="144" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="8" y="75" width="109" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[4. Goods sold are not returnable.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="50" width="100" height="9"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{companyname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

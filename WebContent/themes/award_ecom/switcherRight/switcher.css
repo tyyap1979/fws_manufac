@@ -1,0 +1,110 @@
+body{
+    overflow-x: hidden;
+}
+.switcherRight .panel .list_styles4 ul li,
+.switcherRight .panel .list_styles3 ul li,
+.switcherRight .panel .list_styles2 ul li,
+.switcherRight .panel .list_styles1 ul li{
+    margin-bottom: 0;
+}
+.list_styles4,
+.list_styles3,
+.list_styles2,
+.list_styles1 {
+	width: 114px;
+    padding-bottom: 9px;
+}
+.list_styles4 ul,
+.list_styles3 ul,
+.list_styles2 ul,
+.list_styles1 ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: block;
+}
+.list_styles4 li,
+.list_styles3 li,
+.list_styles2 li,
+.list_styles1 li {
+	width: 104px;
+	height: 72px;
+	padding: 0;
+	margin: 0;
+	display: block;
+	float: left;
+}
+.switcherRight{
+    color: #555;
+    right: 0;
+    position: absolute;
+    top: 36px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    z-index: 999;
+}
+.switcherRight p {
+    margin-bottom: 9px;
+}
+.switcherRight img{
+    margin: 0;
+}
+.switcherRight .panel{
+    position: relative;
+    background: url(./switcher-right.png) right bottom no-repeat;
+    padding-bottom: 13px;
+    z-index: 100;
+}
+.switcherRight .panel .wrap{
+    width: 120px;
+    padding: 13px 20px 0 26px;
+    background: url(./switcher-right.png) right 0 no-repeat;
+}
+.switcherRight .panel ul{
+    list-style: none;
+}
+.switcherRight .panel ul li{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 9px;
+}
+.switcherRight .panel img{
+    padding: 2px;
+    border: 1px solid #555;
+}
+.switcherRight .panel img:hover{
+    border-color: #363636;
+}
+.switcherRight .toggleRight{
+    position: absolute;
+    top: 13px;
+    font-size: 8px;
+    text-transform: uppercase;
+    width: 60px;
+    height: 71px;
+    left: -54px;
+    background: url(./switcher-right.png) -44px -200px no-repeat;
+    z-index: 99;
+}
+.switcherRight .toggleRight div{
+    width: 54px;
+    height: 18px;
+    letter-spacing: -0.5px;
+    text-align: center;
+    cursor: pointer;
+    background: url(./settings.png) 17px 12px no-repeat;
+    padding: 44px 0 9px 6px;
+}
+.switcherRight .toggleRight div.open span{
+    border-bottom: 1px solid #00a651;
+}
+.switcherRight .toggleRight div.close span{
+    border-bottom: 1px solid #ed1c24;
+}
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}

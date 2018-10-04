@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="552" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7114cbb1-a146-4869-9174-ffd0a809a7bc">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LOGO" class="java.lang.String"/>
+	<parameter name="terms" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="attn" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="transnodesc" class="java.lang.String"/>
+	<parameter name="transno" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="jobcode" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="comment" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesby" class="java.lang.String"/>
+	<parameter name="customerid_value" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesdate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOGO_1" class="java.lang.String"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6c2f34cd-478d-41ec-bf13-cc7d74dd2a34" x="238" y="4" width="51" height="8"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(831440-X)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf1e5873-310e-4134-a706-9444f94c05a5" x="122" y="34" width="116" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[www.prestigecabinetdoors.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="137a9c2f-2362-4efc-96dd-b706614d1f05" x="110" y="0" width="128" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LS RANGE SDN BHD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7f49343f-f1e3-45ce-ae5c-5adfa1b9ab0e" x="122" y="49" width="106" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[megaeuro11@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f402e820-3bca-4ec1-80b8-2525d2b02ec2" x="122" y="18" width="324" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[22, Jalan Industri Mas 8, Taman Mas Puchong, 47100 Puchong, Selangor Darul Ehsan.]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="b6b26286-5a7e-4cd8-98ce-4571611b2ff4" x="36" y="0" width="56" height="56"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="11b8da03-9766-44ec-be97-9536afcb1e20" x="259" y="49" width="77" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[603.8060 8999 (F)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eb214760-5629-4e56-8864-74a7e7a4d002" x="259" y="34" width="77" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[603.8060 8998 (T)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2cd993f-84ec-479c-ada3-3fa73150f2eb" x="346" y="34" width="53" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="8"/>
+				</textElement>
+				<text><![CDATA[SST NUMBER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="026456a8-ed93-46e7-bcd6-bf19af22a714" x="346" y="49" width="79" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[B16-1808-21020814]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="8a534a3c-c7e8-410e-9a90-605c3e95ec6a" x="455" y="2" width="60" height="60"/>
+				<imageExpression><![CDATA[$P{LOGO}.replaceAll("logo.jpg","logo.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="e30dfbb1-14b9-473d-9768-5e17de3b5c01" x="110" y="19" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"address.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="1eccd46b-bfc5-45da-9ba1-c58129cf2fc4" x="110" y="35" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"web.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="cf95671f-18f8-4128-a393-38b382be41b5" x="110" y="50" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"email.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="7248825d-6286-4260-9f83-4d2d1faf9656" x="247" y="35" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"phone.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="469b05eb-1cac-4255-8f62-704707429f09" x="247" y="50" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"fax.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

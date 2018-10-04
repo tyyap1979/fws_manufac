@@ -1,0 +1,170 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">	
+	<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+	<title>Registration</title>			
+</p:component>
+<p:component value="script">	
+	<script>
+		function register(){
+			var form = $("#customCloneAddForm");										
+			var valid = $(".validateForm").validationEngine('validate');					
+			if(valid){						
+				ajaxUtil.showPanel($("#info-msg"), "Registering...");		
+				var query = "return=json&action1=create" + "&" + ajaxUtil.formData2QueryString(form, true);
+				
+				ajaxUtil.postJsonQuery(null, query, function(json){
+					if(json.rc=='0000'){
+						ajaxUtil.hidePanel();
+						$("#contentDiv").hide();
+						$("#resultDiv").show();
+						
+						$('body,html').animate({
+							scrollTop: 0
+						}, 800);
+					}				
+				}, function(){});
+				
+			}		
+		}
+		
+		function initPage(){				
+			$("#btnSubmit").click(function(event){
+				register();
+				event.preventDefault();	return;
+			});
+			$(".validateForm").validationEngine({promptPosition : "topRight"});  		    		   
+		}
+		$(document).ready(initPage);
+	</script>		
+	
+	<style>
+		.entryScreen th{text-align: left;}
+	</style>
+</p:component>
+
+<p:component value="body">	
+<div class="container">
+	<div class="row">
+		
+		<div class="span9">
+			<div id="resultDiv" style="display: none; height: 200px;">
+				<div style="margin-top: 20px;">
+				
+				<b>Thank you for applying for an account with us.</b> <br><br>
+				
+				We will contact you shortly (Within 24 hours) regarding your application and let you know when you can start purchasing online with us.
+				</div>
+			</div>
+			<p:module-content id="register.detail">
+				<div id="contentDiv" class="register">
+					<div class="titleHeader clearfix">
+						<h3>Create New Account</h3>
+					</div><!--end titleHeader-->
+					<form id="customCloneAddForm" class="form-horizontal validateForm" autocomplete="off">
+						<input type="hidden" name="type" value="P">
+						<legend>&nbsp;&nbsp;&nbsp;&nbsp;1. Personal Informations</legend>
+	
+						<div class="control-group">
+						    <label class="control-label" for="inputFirstName">Email:</label>
+						    <div class="controls">
+						      <input type="text" id="email" name="email" placeholder="example@example.com" class="validate[required,email]">					      
+						    </div>
+						</div><!--end control-group-->
+						
+						<div class="control-group">
+						    <label class="control-label" for="inputFirstName">First Name:</label>
+						    <div class="controls">
+						      <input type="text" id="firstname" name="firstname" placeholder="John" class="validate[required]">					      
+						    </div>
+						</div><!--end control-group-->
+	
+						<div class="control-group">
+						    <label class="control-label" for="inputLastName">Last Name:</label>
+						    <div class="controls">
+						      <input type="text" id="lastname" name="lastname" placeholder="Doe" class="validate[required]">					      
+						    </div>
+						</div><!--end control-group-->
+						
+						<div class="control-group">
+						    <label class="control-label" for="inputTele">Telephone:</label>
+						    <div class="controls">
+						      <input type="text" id="phoneno" name="phoneno" placeholder="(02)-1598-548">
+						    </div>
+						</div><!--end control-group-->
+						
+						<legend>&nbsp;&nbsp;&nbsp;&nbsp;2. Delivery Informations</legend>
+						<div class="control-group">
+						    <label class="control-label" for="inputTele">Address:</label>
+						    <div class="controls">
+						      <input type="text" id="address" name="address" placeholder="">
+						    </div>
+						</div><!--end control-group-->
+						<div class="control-group">
+						    <label class="control-label" for="inputTele">City:</label>
+						    <div class="controls">
+						      <input type="text" id="city" name="city" placeholder="">
+						    </div>
+						</div><!--end control-group-->
+						<div class="control-group">
+						    <label class="control-label" for="inputTele">State:</label>
+						    <div class="controls">
+						      <input type="text" id="state" name="state" placeholder="">
+						    </div>
+						</div><!--end control-group-->
+						<div class="control-group">
+						    <label class="control-label" for="inputTele">Postcode:</label>
+						    <div class="controls">
+						      <input type="text" id="postcode" name="postcode" placeholder="">
+						    </div>
+						</div><!--end control-group-->
+						<div class="control-group">
+						    <div class="control-label">Contury:</div>
+						    <div class="controls">
+						      %data.country%
+						    </div>
+						</div><!--end control-group-->
+						
+						<legend>&nbsp;&nbsp;&nbsp;&nbsp;3. Set Your Password</legend>
+						<div class="control-group">
+						    <label class="control-label" for="inputPass">Password: <span class="text-error">*</span></label>
+						    <div class="controls">
+						      <input type="password" id="password" name="password" placeholder="**********" class="validate[required]">
+						    </div>
+						</div><!--end control-group-->
+	
+						<div class="control-group">
+						    <label class="control-label" for="inputConPass">Re-Type Password: <span class="text-error">*</span></label>
+						    <div class="controls">
+						      <input type="password" id="repassword" name="repassword" placeholder="**********" class="validate[required,equals[password]]">
+						    </div>
+						</div><!--end control-group-->
+						
+						<hr>
+						
+						<div class="control-group">
+						    <div class="controls">
+						        <label class="checkbox">
+							      <input type="checkbox" name="agreed" class="validate[required]"> I'v read and agreed on <a href="#">Terms &amp; Condations</a>
+							    </label>
+							    <br>
+							    <button id="btnSubmit" type="button" class="btn btn-primary">Register</button>
+						    </div>
+						</div><!--end control-group-->
+					</form>
+				</div><!--end register-->
+			</p:module-content>
+		</div><!--end span9-->
+		<div class="span3">
+		
+		</div><!--end span3-->
+	</div><!--end row-->
+</div><!--end conatiner-->
+
+			
+
+	
+
+	
+
+</p:component>
+

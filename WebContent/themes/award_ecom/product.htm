@@ -1,0 +1,390 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Product</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">
+	<script>
+		var custtype = "P";
+		var productPricejsonArray = [];
+		
+		function checkPrice(){
+			var form = $("#customCloneAddForm");
+			
+			var prodid = form.find("[name$=prodid]").val();
+			var factory = form.find("[name$=factory]").val();
+			productPricejsonArray[prodid] = eval('productPriceJson.prod'+prodid);
+			if(!productPricejsonArray[prodid]){
+				//ajaxUtil.showPanel("", $('#js-processing-request').html(), null);
+				var query = "return=json&action1=priceenq";				
+				query += "&custtype="+custtype;
+				query += "&prodid="+prodid;
+				query += "&factory="+factory;
+							
+				ajaxUtil.postJsonQuery("product.htm", query, function(json){
+					//handleCheckPriceCallback(json);
+					//mfgUtil.doCalculate($("#customCloneAddForm"));				
+				}, handleFallback);
+			}else{
+				mfgUtil.doCalculate($("#customCloneAddForm"));
+			}				
+		}
+		
+		function addToCart(){
+			var form = $("#customCloneAddForm");				
+			var gotError = $.validationEngine.submitValidation(form);				
+			if(!gotError){						
+				var dialog_buttons = {};
+				dialog_buttons["Continue Shopping"] = function(){			
+					$('html, body').animate({
+				         scrollTop: $("#customCloneAddForm").offset().top
+				     }, 1000);
+																			
+					if($("#width_clone")){
+						$("#width_clone").select();
+					}	
+					$("#remark").val("");
+					ajaxUtil.hidePanel();
+					return;
+				}; 
+				dialog_buttons["View Cart"] = function(){ 							
+					window.location="cart.htm";
+					ajaxUtil.hidePanel();
+					return;
+				};	
+																
+				ajaxUtil.showPanel($("#info-msg"), "Adding To Cart...");		
+				var query = "return=json&action1=add" + "&" + ajaxUtil.formData2QueryString(form, true);	
+				ajaxUtil.postJsonQuery("cart.htm", query, function(json){
+					if(json.rc=='0000'){
+						ajaxUtil.updatePanelMessage("Item Added To Cart", dialog_buttons);
+					}				
+				}, handleFallback);
+			}		
+		}
+		
+		function handleFallback(){
+		
+		}
+		
+		function hardcodeOptionHandling(){
+			var name;
+			if(productName.indexOf("Galaxy")!=-1){				
+				$("input[name=opt3]").click(function(event){
+					var element = event.target;
+					
+					name = ajaxUtil.customTrim($(element).parents("li").find(".optName").html());				
+					if(name=="No Handle"){					
+						$("input[name=opt2]").each(function(){						
+							$(this).attr("checked",false);  
+						});
+					}				
+				});
+			}
+		}
+		
+		function afterCalculation(){			
+			if(currencyrate!=""){		
+				shopUtil.updateCurrency($("#customCloneAddForm"));			
+			}
+		}
+		
+		function initPage(){
+			hardcodeOptionHandling();
+			$("#ulImageList li").attr("class","item portfolio-3");
+			
+			var sellUnitType = $("#sellunittype").val();
+			var form = $('#customCloneAddForm');
+			var width, height, measurement;
+			
+			form.find("#qty").val("1");
+			
+			if(!islogin){
+				$("#customCloneAddForm .list :input").attr("disabled", true);
+			}
+			// Init customise.
+			$("#customizeLink").click(function(event){				
+				mfgUtil.buildTableEntry($(event.target));				
+				event.preventDefault();
+			});
+			
+			if(!islogin){
+				$("#reset").hide();
+				$("#submit").hide();
+			}else{
+				form.find("input[name=width_clone],input[name=height_clone]").bind("change", (function(event){
+					var element = event.target;
+					
+					if(sellUnitType=='sf'){
+						width = form.find("#width_clone").val();
+						height = form.find("#height_clone").val();
+						if(width>0 && height>0){
+							measurement = width + " x " + height;
+							form.find("#measurement").val(measurement);
+							form.find("#measurement").trigger('change');
+						}	
+					}else if(sellUnitType=='mm' || sellUnitType=='in' || sellUnitType=='ft'){
+						width = form.find("#width_clone").val();
+						form.find("#measurement").val(width);
+						form.find("#measurement").trigger('change');					
+					}																												
+				}));
+				
+				$("#submit").click(function(event){
+					addToCart();
+					event.preventDefault();	return;
+				});
+				
+				$(".validateForm").validationEngine();
+				
+				//checkPrice();
+				
+				// Radio Button
+				$("#customCloneAddForm").find("input:radio").bind("change", (function(event){
+					var element = event.target;
+					var value = $(element).attr("id").substring(4);
+					$(element).val(value);
+					event.preventDefault();	return;
+				}));				
+			}
+		}
+		$(document).ready(initPage);
+	</script>
+	
+	<style>			
+		.productUL{			
+			margin-left: 18px;
+			padding: 0;			
+		}
+		.productUL li{
+			list-style: square;
+			border-bottom: 1px solid #E6E6E6;
+		}
+		ul.image-list{
+		    position: relative;		   
+		}
+		ul.image-list li{
+		    float: left; margin: 3px 3px;	    
+		}
+		ul.image-list img{height:104px;width:146px;}
+		
+		ul.option-list{
+		    position: relative;		   
+		}
+		ul.option-list li{
+		    float: left; margin: 3px 3px; width: 120px; background-color: #fff;	    
+		}
+		
+		ul.option-list li div{
+		    float: left;    
+		}
+		.optCheck{width: 20%;}
+		.optName{width: 100%; text-align: center;}
+		.optImage{width: 75%;}
+		.optImage img{max-width: 120px;}
+	</style>
+		
+	<script type="text/javascript" src="/pages/admin/mfg/js/mfg_custom.js?v=1"></script>
+	<script type="text/javascript" src="/js/custom.js"></script>		
+</p:component>
+
+<p:component value="body">	
+<p:module-content id="product.detail">
+	<script type="text/javascript">
+		var productPriceJson = %data.productpricejsonarray%;
+		var productMainjson = %data.productmainjson%;
+		var productOptionPriceJson = %data.productoptionpricejson%;
+		var islogin = %data.islogin%;
+		var productName = "%data.name%";
+		var custtype = "%data.custtype%";
+	</script>
+	
+	<div class="header">
+    	<div class="wrap">
+        	<div class="container_16">
+            	<div class="grid_12"><h2>%data.name%</h2></div>
+                <div class="grid_4"></div>
+                <div class="clear"></div>                 
+            </div>                          
+		</div>
+	</div>
+    
+    <div id="content" class="container_16">    	
+    	<div class="grid_12">
+    		
+	        <div class="productInfo" style="width:100%">
+	        	
+	        	<form id="customCloneAddForm" class="validateForm" autocomplete="off">	        		
+	        		<input type="hidden" id="prodid" name="prodid" value="%data.prodid%" />
+	        		<input type="hidden" id="sellunittype" name="sellunittype" value="%data.sellunittype%" />	        		
+	        		<input type="hidden" id="price" name="price" value="" />
+	        		<input type="hidden" id="discount" name="discount" value="" />
+	        		<input type="hidden" id="measurement" name="measurement" value="" />
+	        		<input type="hidden" id="width" name="width" value="" />
+	        		<input type="hidden" id="height" name="height" value="" />
+	        		<input type="hidden" id="sellsubtotal" name="sellsubtotal" value="" />
+	        		<input type="hidden" id="row-status" name="row-status" value="N" />
+	        		<input type="hidden" id="customisedata" name="customisedata" value="" />
+	        		
+	        		<table>
+	        			<col width="280px" />
+						<col width="400px" />
+	        			<tr>
+	        				<td>
+	        					<img src="%data.main.image%" style="max-width: 280px"/>
+		        			</td>
+		        			<td>
+		        				<div style="margin-left: 20px;">
+			        				<h3>%data.name%</h3>			        							        				
+			        				<br><br>
+			        				<ul class="productUL">
+			        					<li><b>Code</b>: %data.code%</li>
+			        					<li><b>Unit Type</b>: %data.sellunittype_value%</li>
+			        					<li><b>Minimum Order</b>: %data.minorder% %data.sellunittype_value%</li>
+			        					<li><b>Unit Price</b>: <span style="%data.login.style%"><a href='sign-in.htm'>Please login to see price.</a></span><span style="%data.price.style%"><span name="price" class="currency">%data.price%</span> %data.selected.currency%</span></li>
+			        					<!-- <li><b>SubTotal</b>: <span style="%data.login.style%"><a href='sign-in.htm'>Please login to see price.</a></span><span style="%data.price.style%"><span name="sellsubtotal" class="currency">%data.price%</span> %data.selected.currency%</span></li> -->
+			        				</ul>
+			        				
+			        				<p:module-content id="currency.panel">
+										<div id="bottommenu" style="height:45px; padding: 10px;">
+										
+													
+											Currency: %data.currency.select% <br>
+											<span style="font-size: small;%data.reference.style%">
+											<b>Reference exchange rate:</b> %data.default.currency%$1.00 = %data.selected.currency%%data.converted.value%
+											</span>											
+										</div>
+									</p:module-content>
+		        				</div>								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								%data.description%
+							</td>
+						</tr>
+					</table>
+					<hr>
+					<ul class="list">
+						<loop id="option">						
+							<li style="margin-bottom: 20px;border-bottom: 1px solid #E6E6E6;">
+								<div style='%data.style.option%'>							
+								<h3>%data.groupname%</h3>
+								%data.option_description%
+								%data.option.selection%
+								</div>						
+							</li>						
+						</loop>						
+					</ul>
+					
+					<ul class="list" style='%data.style.customise%'>	
+						<li>
+							<div>
+								<h3>Option</h3>
+								<a href="#" id="customizeLink">Customize</a>
+							</div>
+						</li>
+					</ul>
+					
+					<ul class="list">						
+						<li style="margin-bottom: 20px;border-bottom: 1px solid #E6E6E6;">			
+							<h3>Remarks</h3> <textarea id="remark" name="remark" rows="4" cols="60"></textarea> 
+						</li> 							
+					</ul>
+					<div class="clear" style="height: 20px;"></div>
+					<button name="reset" id="reset" type="reset"><span>Reset</span></button>
+					<button name="submit" type="button" id="submit"><span id="submit">Add To Cart</span></button>					
+				</form>
+				<div class="clear" style="height: 20px;"></div>
+			</div>			
+			
+			<div class="clear"></div>
+			<div class="imagelist" style="width:100%">
+				<h3>More Images</h3>
+				<ul class="image-list">   		
+		        	%data.images.list%
+		        </ul>
+	        </div>	        
+        </div> 
+        
+		<div class="grid_4">
+			<div class="sidebar wrap">
+				<div class="categ">
+	                <h4>Products</h4>	               
+	                <p:module-content id="category.list">
+		                <ul class="bullet1">	   
+		                	<loop id="category" maxItem="1" maxRecord="20">            	
+		                		<li><a href="category.htm?groupid=%data.groupid%">%data.groupname%</a></li>
+		                	</loop>                	
+		                </ul>
+	                </p:module-content>                 					
+				</div>
+			</div>
+			
+			<p:module-content id="page.content" key="ADS">
+				<p>%data.content%</p>	
+			</p:module-content>
+		</div>
+                              
+    </div>    
+	
+	<div class="clear"></div>
+	<style>
+		.customPanel{
+			border:double;		
+		}
+		#optSpan{		 
+			 width: 100%;
+			 height: 100%;
+		}
+		#customContainer input{
+			 text-align: right;  		  
+		}
+		
+		.customSpan{
+			padding: 5px 5px;
+			border-style: ridge;
+			border-width: 2px;
+			float:left;
+			background: #002233;	
+			color: #fff;	
+		}
+		
+		.headerSpan{
+			border: none;
+			float:left;
+			background: #FFF;
+		}
+		#chargeOpt, #chargeProduct{
+			font-weight: bold;
+		}
+		
+		#customCloneAddTable{font-size:1em;}
+		
+		#CustomiseDialog input{
+			padding: 0 0;
+		}
+			
+	</style>
+	<div id='CustomiseDialog' class='dialogView' style='width: 920px; height:100%;'>
+		<table width='900' cellspacing="10">
+			<thead>
+				<tr>
+					<th align="left">
+						Panel:<input type='textbox' size='5' name='col' style='text-align: right;'>
+						<hr>				
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td id='customiseContent'></td></tr>
+			</tbody>
+		</table>
+	</div>
+</p:module-content>
+</p:component>
+

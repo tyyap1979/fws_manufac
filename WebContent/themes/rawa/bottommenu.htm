@@ -1,0 +1,56 @@
+<style>
+#contact_info ul span{
+    color: #faf5f1;
+}
+
+#contact_info ul li{
+    line-height: 27px;
+}
+#contact_info ul span{
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    font-style: normal;
+    text-transform: uppercase;
+}
+</style>
+<footer id="footer">
+	<div class="footer_inner wrapper clearfix">
+        <div class="left_float"></div>     
+        <div class="right_float">Powered by <a href="http://www.forestwebsolution.com">Forest Web Solution</a></div>  
+	</div>           
+</footer> <!-- END #footer -->
+
+<section id="bottom">
+	<div id="slideup">
+    	<a href="" class="">bottom</a>
+    </div>
+    
+	<div class="bottom_inner">
+        <div class="wrapper clearfix">
+        	<div class="column two_third">
+            	<h4>About Us</h4>
+                <ul class="blog">
+                    <li class="post">
+                        <p:module-content id="page.content" key="ABOUTUS">	
+                        	%data.content%
+                        </p:module-content>
+                    </li>
+                </ul>
+            </div>   
+            
+        	<div class="column one_third last" id="contact_info">
+            	<h4>Contact Us</h4>
+	        	<p:module-content id="shop.info"> 
+	                <ul>
+	                    <li><span>phone :</span> %data.phone%</li>
+	                    <li><span>fax :</span> %data.fax%</li>
+	                    <li><span>email :</span> %data.contact_email%</li>
+	                    <li><span>contact person :</span> %data.contact_person%</li>
+	                    <li><span>address :</span> %data.address%</li>
+	                </ul>            
+	            </p:module-content>
+            </div>
+                     
+        </div>
+    </div>
+</section>

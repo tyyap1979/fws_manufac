@@ -1,0 +1,21 @@
+body{
+    padding: 40px 0;
+}
+#background{   
+    height: auto;
+	width: 100%;
+}
+#narrow{
+    width: 1042px;
+    margin: 0 auto;
+    -moz-box-shadow:    0 5px 15px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+    box-shadow:         0 5px 15px rgba(0, 0, 0, 0.7);
+}
+#narrow .title, .breadcrumb{
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.switcherRight{
+    display: block;
+}

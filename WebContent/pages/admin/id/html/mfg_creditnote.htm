@@ -1,0 +1,16 @@
+<p:component value="script">	
+<script type="text/javascript">
+	
+	function processAfterAutoComplete(json){						
+		var form = $("#"+adminUtil.activeModuleId+"Entry").find("#entryForm");
+		
+		form.find("input[name=transid]").val(json.key);
+		form.find("input[name=transno]").val(json.value);
+		form.find("input[name=custrefno]").val(json.custrefno);
+		form.find("input[name=customerid]").val(json.customerid);
+		form.find("input[name=customerid_value]").val(json.customerid_value);
+		form.find("input[name=stmtdtlid]").val(json.stmtdtlid);		
+	}		
+	
+</script>
+</p:component>

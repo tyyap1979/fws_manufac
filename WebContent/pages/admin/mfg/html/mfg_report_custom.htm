@@ -1,0 +1,48 @@
+
+<!-- 50% Box Grid Container: Start -->
+<div class="grid_24" style="height: 320px;">
+	<!-- Box Header: Start -->
+	<div class="box_top">
+		
+		<h2 class="icon pages">Sales</h2>
+		
+		<!-- Tab Select: Start -->
+		<ul class="sorting">
+			<li><a href="#tabs-1" class="active">>Megatrend Profit</a></li>
+		</ul>
+		<!-- Tab Select: End -->
+	</div>
+	<!-- Box Header: End -->
+	<!-- Box Content: Start -->		
+	<div class="box_content padding">
+
+	
+		<!-- Tabs: Start -->
+		<div class="tabs">
+			<div id="tabs-1" class="dataTables_wrapper">
+				<form id='searchForm' method='POST' action='mfg_report.htm' target="_blank" autocomplete='off'>					
+					<input type='hidden' name='action1' value='action.report' />
+					<input type='hidden' name='rptcode' value='megatrendprofit' />
+					<input type='hidden' name='return' value='webrpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Sales Date From</th><td><input type='text' id='fromdatetabs-1' name='fromdate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>Sales Date To</th><td><input type='text' id='todatetabs-1' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>															
+				</form>
+			</div>
+		</div>
+		<!-- Tabs: End -->
+	</div>	
+	<!-- Box Content: End -->	
+</div>
+<!-- 50% Box Grid Container: End -->
+
+

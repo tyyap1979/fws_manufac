@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>FWS (Manufacturing) - Admin Panel</title>
+
+	<link href="/themes/admin/simplplan/css/print.css" rel="stylesheet" type="text/css" />
+	
+	<script type="text/javascript" src="/themes/admin/simplplan/js/jquery-1.4.1.min.js"></script>
+	
+</head>
+
+<body id="printContent">
+</body>
+
+<script>		
+	function pageInit(){
+		var formItemParent, formValue, formType;
+		var myTextarea;
+		var opener = $("#MainContent #entryDiv", window.opener.document);
+		var title = $("#MainContent", window.opener.document).find("div[id$=ModuleEntry]").attr("title");
+		
+		$("<h2>"+title+"</h2>").appendTo("#printContent");
+		opener.find("div[id$=ModuleEntry]").clone().appendTo("#printContent");
+		
+		$("#printContent").find("tr[id$=Clone]").remove();
+		
+		$("#printContent #entryFormTable").find("input[type=text], select, textarea").each(
+        	function(i){        		
+        		formValue = $(this).val();
+        		formType = $(this).attr("type");
+        		formItemParent = $(this).parent("td");
+        		if(formType=='select-one'){        			
+        			formValue = opener.find("select[name="+$(this).attr("name")+"]").find("option:selected").text();
+        			//alert($(this).attr("id") + ", " + formValue);
+        		}
+        		if(formType=='textarea'){ 
+        			formValue = opener.find("#"+$(this).attr("id")).val();
+        			//alert($(this).attr("id") + " = " + formValue);
+        		}
+        		$(this).remove();
+        		formItemParent.html(formValue);
+        	}
+	    )
+	    
+	    $("#printContent").find(".detail-listingTable").find("input[type=text], select, textarea").each(
+        	function(i){        		
+        		formValue = $(this).val();
+        		formType = $(this).attr("type");
+        		formItemParent = $(this).parent("td");
+        		if(formType=='select-one'){        			
+        			formValue = opener.find("#"+$(this).attr("id")).find("option:selected").text();
+        		}
+        		if(formType=='textarea'){ 
+        			formValue = opener.find("#"+$(this).attr("id")).val();
+        			//alert($(this).attr("id") + " = " + formValue);
+        		}
+        		$(this).remove();
+        		formItemParent.html("<p>"+formValue+"</p>");
+        	}
+	    )
+	    
+		var title, tablehtml;
+		$("#printContent").find("fieldset").each(function(i){
+			title = $(this).find("legend").text();
+			$(this).find("legend").remove();
+			tablehtml = $(this).html();
+			$("<h3>"+title + "</h3><br>" + tablehtml).appendTo($(this).parent());
+			$(this).remove();
+		});
+		window.print();
+		
+	}
+	
+	$(document).ready(pageInit());	
+</script>
+</html>

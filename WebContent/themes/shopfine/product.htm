@@ -1,0 +1,216 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<meta-content id="product.meta">
+		<title>%data.html_title%</title>				
+	</meta-content>
+</p:component>
+
+<p:component value="script">	
+	<script>
+			
+		function initPage(){		
+			$(".options").click(function(event){						
+				var ele = event.target;				
+				if(!$(ele).attr("class")){
+					$(this).find("dd.selected").attr("class", "");
+					$(ele).attr("class", "selected");		
+					processSelection($(this), $(ele));
+				}
+			});						
+			
+			$("#reset").click(function(event){				
+				resetOption();
+				event.preventDefault();	return;
+			});
+			
+			$("#submit").click(function(event){				
+				addToCart();
+				event.preventDefault();	return;
+			});
+				
+			putProduct(jsonOption);
+		}
+		$(document).ready(initPage);		
+	</script>
+</p:component>
+
+<p:component value="body">	
+<div class="container">
+
+	<div class="row">
+		
+		<aside class="span3">
+		<div class="aside-inner">
+			<div class="special">
+				<div class="titleHeader clearfix">
+					<h3>Special</h3>
+				</div><!--end titleHeader-->
+
+				<ul class="vProductItemsTiny">
+					<li class="span4 clearfix">
+						<div class="thumbImage">
+							<a href="#"><img src="img/92x92.jpg" alt=""></a>
+						</div>
+						<div class="thumbSetting">
+							<div class="thumbTitle">
+								<a href="#" class="invarseColor">
+									Foliomania the title here
+								</a>
+							</div>
+							<div class="thumbPrice">
+								<span>$150.00</span>
+							</div>
+							<ul class="rating">
+								<li><i class="star-off"></i></li>
+								<li><i class="star-off"></i></li>
+								<li><i class="star-off"></i></li>
+								<li><i class="star-off"></i></li>
+								<li><i class="star-off"></i></li>
+							</ul>
+						</div>
+					</li>
+					
+					</ul>
+				</div><!--end special-->
+
+
+
+				<div class="special">
+					<div class="titleHeader clearfix">
+						<h3>Featured</h3>
+					</div><!--end titleHeader-->
+
+					<ul class="vProductItemsTiny">
+						<li class="span4 clearfix">
+							<div class="thumbImage">
+								<a href="#"><img src="img/92x92.jpg" alt=""></a>
+							</div>
+							<div class="thumbSetting">
+								<div class="thumbTitle">
+									<a href="#" class="invarseColor">
+										Foliomania the title here
+									</a>
+								</div>
+								<div class="thumbPrice">
+									<span>$150.00</span>
+								</div>
+								<ul class="rating">
+									<li><i class="star-off"></i></li>
+									<li><i class="star-off"></i></li>
+									<li><i class="star-off"></i></li>
+									<li><i class="star-off"></i></li>
+									<li><i class="star-off"></i></li>
+								</ul>
+							</div>
+						</li>
+						
+					</ul>
+				</div><!--end special-->
+
+			</div><!--end aside-inner-->
+			</aside><!--end span3-->
+
+			
+			<div class="span9">
+				<p:module-content id="product.detail">
+					<script>
+						var jsonOption = %data.jsonoption%;
+					</script>
+				<div class="row">
+					<div class="product-details clearfix">
+						<div class="span5">
+							<div class="product-title">
+								<h4>%data.prodname%</h4>
+							</div>
+							<div class="product-img">
+								<a class="fancybox" href="/photo/product/%data.prodid%/tn_%data.main_filename%"><img src="/photo/product/%data.prodid%/%data.main_filename%" alt=""></a>
+							</div><!--end product-img-->
+							<div class="product-img-thumb">
+								<loop id="images">
+									<a class="fancybox" href="/photo/product/%data.prodid%/tn_%data.filename%"><img src="/photo/product/%data.prodid%/%data.filename%" alt=""></a>
+								</loop>
+							</div><!--end flexslider-thumb-->
+						</div><!--end span5-->
+
+						<div class="span4">
+							<div class="product-set">
+								<div class="product-price">
+									<span class="currencysymbol"></span>
+									<span id="unitprice" class="currency">%data.sellprice%</span>
+								</div><!--end product-price-->
+																
+								<form id="customCloneAddForm" autocomplete="off">
+									<input type="hidden" name="prodid" id="prodid" value="%data.prodid%">
+									<input type="hidden" name="optid" id="optid">
+									<input type="hidden" id="row-status" name="row-status" value="N" />
+									<table id="optionTable">
+										<tr>
+											<th>Availabilty</th>
+											<td><span>In Stock</span></td>									
+										</tr>
+										<tr>
+											<th>Code</th>
+											<td><span>%data.prodcode%</span></td>									
+										</tr>
+										<tr>
+											<th id='thOpt1'></th>
+											<td><dl id="opt1" class="options"></dl></td>									
+										</tr>
+										<tr>
+											<th id='thOpt2'></th>
+											<td><dl id="opt2" class="options"></dl></td>									
+										</tr>
+										<tr>
+											<th id='thOpt3'></th>
+											<td><dl id="opt3" class="options"></dl></td>									
+										</tr>
+										<tr>
+											<th id='thOpt4'></th>
+											<td><dl id="opt4" class="options"></dl></td>									
+										</tr>
+										<tr>
+											<th>Quantity</th>
+											<td><input type="text" name="qty" id="qty" value="1" maxlength="4" class="span1"></td>									
+										</tr>
+									</table>
+									<div class="product-inputs">									
+										<div class="input-append">										
+											<button class="btn btn-primary" id="submit"><i class="icon-shopping-cart"></i> Add To Cart</button>
+											<button class="btn" id="reset">Reset</button>	
+											<button class="btn" rel="tooltip" data-title="+To Wishlist"><i class="icon-heart"></i></button>
+										</div>
+									</div><!--end product-inputs-->
+								</form><!--end form-->
+							</div><!--end product-set-->
+						</div><!--end span4-->
+
+					</div><!--end product-details-->
+
+				</div><!--end row-->
+				
+				<br><br>
+				<div class="row" style="background-color: #D8D8D8; margin-left: 8px;">					
+					<loop id="attribute">
+						<div class="span3">
+							%data.attrname%: %data.attrvalue%					  	
+					  	</div>
+					</loop>									  					
+				</div>
+
+				<div class="product-tab">
+					%data.description%	
+				</div><!--end product-tab-->
+				</p:module-content>
+
+				<div class="related-product">
+					
+				</div><!--end related-product-->
+
+			</div><!--end span9-->
+			
+		</div><!--end row-->
+
+	</div><!--end conatiner-->
+
+</p:component>
+

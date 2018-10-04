@@ -1,0 +1,31 @@
+
+/* LayerSlider Layers and Sublayers unique styles */
+
+
+#layerslider{
+	width: 920px;
+	height: 396px;
+}
+
+#leaf1 {
+	left: 610px;
+	top: -260px;
+}
+
+#leaf2 {
+	left: 310px;
+	top: 240px;
+}
+
+#leaf3 {
+	left: 400px;
+	top: -200px;
+}
+#purchase{
+	left: 40px;
+	top: 100px;
+}
+#facebook{
+	left: 150px;
+	top: 100px;
+}

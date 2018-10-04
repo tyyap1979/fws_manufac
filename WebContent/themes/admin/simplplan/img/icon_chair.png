@@ -1,0 +1,55 @@
+menu:PopupMenu" xmi:id="_BQGBc6_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBdK_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBda_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBdq_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBd6_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBeK_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBea_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBeq_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBe6_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <menus xsi:type="menu:PopupMenu" xmi:id="_BQGBfK_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView">
+        <tags>menuContribution:popup</tags>
+        <tags>popup:org.eclipse.wst.server.ui.ServersView</tags>
+      </menus>
+      <toolbar xmi:id="_BQGBfa_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.server.ui.ServersView" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_BQGBfq_yEee0lJ0n9afDFA" elementId="org.eclipse.datatools.connectivity.DataSourceExplorerNavigator" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Data Source Explorer" iconURI="platform:/plugin/org.eclipse.datatools.connectivity.ui.dse/icons/full/cview16/enterprise_explorer.gif" tooltip="" closeable="true">
+      <tags>View</tags>
+      <tags>categoryTag:Data Management</tags>
+      <menus xmi:id="_BQGBf6_yEee0lJ0n9afDFA" elementId="org.eclipse.datatools.connectivity.DataSourceExplorerNavigator">
+        <tags>ViewMenu</tags>
+        <tags>menuContribution:menu</tags>
+      </menus>
+      <toolbar xmi:id="_BQGBgK_yEee0lJ0n9afDFA" elementId="org.eclipse.datatools.connectivity.DataSourceExplorerNavigator" visible="false"/>
+    </sharedElements>
+    <sharedElements xsi:type="basic:Part" xmi:id="_BQGBga_yEee0lJ0n9afDFA" elementId="org.eclipse.wst.common.snippets.internal.ui.SnippetsView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Snippets" iconURI="platform:/plugin/org.eclipse.wst.common.snippets/icons/snippets_view.gif" tooltip="" closeable="true">
+      <tags>View</tags>
+      <tags>categoryTag:General</tags>
+      <menus xmi:id="_BQGBgq_yEee0lJ0n9afDFA" elementId="org.eclipse.ws

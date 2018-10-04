@@ -1,0 +1,74 @@
+
+.switcher{
+    color: #555;
+    left: 0;
+    position: absolute;
+    top: 36px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    z-index: 999;
+}
+.switcher p {
+    margin-bottom: 9px;
+}
+.switcher img{
+    margin: 0;
+}
+.switcher .panel{
+    position: relative;
+    background: url(./switcher.png) 0 bottom no-repeat;
+    padding-bottom: 13px;
+    z-index: 100;
+}
+.switcher .panel .wrap{
+    width: 120px;
+    padding: 13px 26px 0 20px;
+    background: url(./switcher.png) 0 0 no-repeat;
+}
+.switcher .panel ul{
+    list-style: none;
+}
+.switcher .panel ul li{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 9px;
+}
+.switcher .panel img{
+    padding: 2px;
+    border: 1px solid #555;
+}
+.switcher .panel img:hover{
+    border-color: #363636;
+}
+.switcher .toggleLeft{
+    position: absolute;
+    top: 13px;
+    font-size: 9px;
+    text-transform: uppercase;
+    width: 60px;
+    height: 71px;
+    right: -54px;
+    background: url(./switcher.png) -196px -200px no-repeat;
+    z-index: 99;
+}
+.switcher .toggleLeft div{
+    width: 54px;
+    height: 18px;
+    text-align: center;
+    cursor: pointer;
+    background: url(./tools-icon.png) 12px 12px no-repeat;
+    padding: 44px 6px 9px 0;
+}
+.switcher .toggleLeft div.open span{
+    border-bottom: 1px solid #00a651;
+}
+.switcher .toggleLeft div.close span{
+    border-bottom: 1px solid #ed1c24;
+}
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}

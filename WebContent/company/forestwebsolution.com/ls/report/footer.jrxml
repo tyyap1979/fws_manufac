@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="566" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="566" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d72158f9-4d8d-438e-ac18-6321ed49e790">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="635"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="companyname" class="java.lang.String"/>
+	<parameter name="SumDiscount" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SumSubtotal" class="java.math.BigDecimal" isForPrompting="false">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="gst_code" class="java.lang.String"/>
+	<parameter name="gst_amt" class="java.lang.String"/>
+	<parameter name="discount" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="91" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="298ca4f5-b562-4125-b8fa-d9165a8f845c" x="5" y="19" width="248" height="65"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="65a5df9d-1734-4463-9c4e-50b19085bc0c" x="16" y="58" width="237" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[until full payment is exercised. The said company has the right to recollect]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="542e203d-f21e-45cb-a552-e96da4046e1d" x="272" y="29" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[condition by,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9b43819e-8d47-4fec-8e7b-51cdf69177d4" x="272" y="70" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[Client's Signature / Company's Chop]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="05fce088-bc85-4c2e-b107-8772ae56b920" x="8" y="34" width="206" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[1. Terms refer to the above mentioned.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="76a0311e-875c-4b10-ab33-54ee9752eaaa" x="8" y="50" width="245" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[3. Items delivered to site remains the property of LS RANGE SDN BHD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e6fd5e69-e480-4ff3-83f6-5500c34f3e86" x="8" y="42" width="231" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[2. Price quoted includes transportation. (applicable within Klang Valley)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dfc321e9-cea7-45b9-8ca7-cb69c8621af2" x="272" y="19" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[Goods received in good order &]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6a5dd112-4021-4654-92c5-e5395c2f9ced" x="16" y="67" width="237" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[whatsoever items deemed proper when the stated clause 1 is not practised.]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="69288f3c-42fb-4329-a409-06e5f3122a16" x="5" y="4" width="387" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["THIS "+$P{title}+" IS COMPUTER GENERATED. NO SIGNATURE IS REQUIRED."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4f6efa74-ab37-47c3-ab52-554b925a218c" x="8" y="22" width="144" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERMS & CONDITIONS]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="68f40661-ca4f-4fc7-9456-ad68082f06de" x="271" y="69" width="135" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="c327db6c-69e0-4b5f-aeec-dfa2db905b5f" x="8" y="75" width="109" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[4. Goods sold are not returnable.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d33dffd-7438-47cb-b0e0-c7563a97bd13" key="staticText-4" x="430" y="69" width="73" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[TOTAL (RM)]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="d71da5bb-eb69-48a2-9f8c-eab2ce08ecdd" key="textField-10" x="504" y="11" width="59" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SumSubtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="90dc0de9-164d-4cef-9a3c-20148826aac1" key="staticText-4" x="430" y="39" width="73" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Sub-total]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="d1e873b4-3434-494d-9f6b-a4d87775ecc1" key="textField-10" x="504" y="53" width="59" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new BigDecimal($P{gst_amt}==null?"0":$P{gst_amt})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="ba65e870-d2ac-4eec-bcf4-88c2a2f9cf76" key="textField-10" x="504" y="69" width="59" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SumSubtotal}.subtract( $P{SumDiscount}.add(new BigDecimal($P{discount}==null?"0":$P{discount})) ).add(new BigDecimal($P{gst_amt}==null?"0":$P{gst_amt}))]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="53f75828-8d78-45d5-93a5-b5a0ea54841c" key="textField-10" x="504" y="39" width="59" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SumSubtotal}.subtract( $P{SumDiscount}.add(new BigDecimal($P{discount}==null?"0":$P{discount})) )]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="24311cf6-3fd4-47ec-9d18-231edff58014" x="430" y="83" width="133" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="3c679c17-df0d-43c2-a9b7-65708d9c750b" key="staticText-4" x="430" y="25" width="73" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="2e2de9ce-fa31-4dfb-b2dd-0da586309979" key="textField-10" x="430" y="53" width="73" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SST " + (($P{gst_code}.equals("SST"))?"10":"0") + "%"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f78d68e4-11bc-4aa8-bcbc-59b1fb8e2ba7" key="staticText-4" x="430" y="11" width="73" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" isBold="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="6a8529bb-5263-4ec1-88b3-3375e09b3cdb" key="textField-10" x="504" y="25" width="59" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Serif" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SumDiscount}.add(new BigDecimal($P{discount}==null?"0":$P{discount}))]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="81401eb4-6338-45ce-b8db-f68ff8184ba0" x="430" y="68" width="133" height="1"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

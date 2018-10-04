@@ -1,0 +1,264 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Registration</title>		
+	</p:module-content>
+</p:component>
+<p:component value="script">	
+	<script>
+		function register(){
+			var form = $("#customCloneAddForm");				
+			
+			if($("input[name=type]").val()=="P"){
+				$("#dealerDiv").remove();
+			}else{
+				$("#publicDiv").remove();
+			}
+			
+			var gotError = $.validationEngine.submitValidation(form);				
+			if(!gotError){						
+				ajaxUtil.showPanel($("#info-msg"), "Registering...");		
+				var query = "return=json&action1=register" + "&" + ajaxUtil.formData2QueryString(form, true);	
+				
+				ajaxUtil.postJsonQuery(null, query, function(json){
+					if(json.rc=='0000'){
+						ajaxUtil.hidePanel();
+						$("#content").hide();
+						$("#resultDiv").show();
+						
+						$('body,html').animate({
+							scrollTop: 0
+						}, 800);
+					}				
+				}, handleFallback);
+				
+			}		
+		}
+		
+		function handleFallback(){
+		
+		}
+		
+		function initPage(){
+			$("#submit").click(function(event){
+				register();
+				event.preventDefault();	return;
+			});
+			
+			$("input[name=type]").click(function(event){
+				var element = event.target;
+				var id = $(element).attr("id");		
+				
+				$("#infoDiv").html("");
+						
+				if(id=="typeP"){
+					$("#infoDiv").html($("#publicDiv").html());
+				}else{
+					$("#infoDiv").html($("#dealerDiv").html());
+				}				
+				ajaxUtil.buildValidate();
+				$(".validateForm").validationEngine({promptPosition : "centerRight"});  
+			});
+			
+			$(".validateForm").validationEngine({promptPosition : "centerRight"});  
+		}
+		$(document).ready(initPage);
+	</script>		
+	
+	<style>
+		.entryScreen th{text-align: left;}
+	</style>
+</p:component>
+
+<p:component value="body">	
+<p:module-content id="register.detail">
+
+	
+	<div class="header">
+    	<div class="wrap">
+        	<div class="container_16">
+            	<div class="grid_12">
+            		<h2>Registration</h2>
+            	</div>
+                <div class="grid_4"></div>
+                <div class="clear"></div>                 
+            </div>                          
+		</div>
+	</div>
+	
+	<div id="resultDiv" style="display: none; height: 200px;" class="container_12">
+		<div class="grid_12" style="margin-top: 20px;">
+		
+		<b>Thank you for applying for an account with us.</b> <br><br>
+		
+		We will contact you shortly (Within 24 hours) regarding your application and let you know when you can start purchasing online with us.
+		</div>
+	</div>
+
+	<div id="publicDiv" style="display: none">
+		<table id="customCloneAddTable" class="entryScreen">
+			<col width="150px" />
+			<col width="330px" />
+			<col width="150px" />
+			<col width="330px" />
+			<tr><th colspan="4">
+			FOR PERSONAL ACCOUNT REGISTRATION
+			</th></tr>
+			<tr><td colspan="4">Please fill in the following form to complete your application. Fields marked with a * is required.</td></tr>
+			<tr>
+				<th nowrap>Title</th><td>%data.title%</td>						
+				<th nowrap></th><td></td>
+			</tr>					
+			<tr>
+				<th nowrap>First Name</th><td><input type="text" id="firstname" name="firstname" size="30" maxlength="50" class="validate[required]" /></td>
+				<th nowrap>Last Name</th><td><input type="text" id="lastname" name="lastname" size="30" maxlength="50" class="validate[required]" /></td>
+			</tr>
+			
+			<tr>
+				<th nowrap rowspan="3">Address</th><td rowspan="3"><textarea id="address" name="address" cols="35" rows="3" class="validate[required]" ></textarea></td>
+				<th nowrap>Postcode</th><td><input type="text" id="postcode" name="postcode" size="15" maxlength="20" class="validate[required]" /></td>
+			</tr>		
+			<tr>
+				<th nowrap>City</th><td><input type="text" id="city" name="city" size="20" maxlength="40" class="validate[required]" /></td>
+			</tr>
+			<tr>
+				<th nowrap>State</th><td><input type="text" id="state" name="state" size="20" maxlength="40" class="validate[required]" /></td>
+			</tr>
+
+			<tr>
+				<th nowrap>Country</th><td>%data.country%</td>
+				<th nowrap>Mobile</th><td><input type="text" id="phone" name="phone" size="30" maxlength="30" class="validate[required]" /></td>
+			</tr>
+		</table>	
+	</div>
+	
+	<div id="dealerDiv" style="display: none">
+		<table id="customCloneAddTable" class="entryScreen">
+			<col width="150px" />
+			<col width="330px" />
+			<col width="150px" />
+			<col width="330px" />
+			<tr><th colspan="4">
+			FOR BUSINESS ACCOUNT REGISTRATION
+			</th></tr>
+			<tr><td colspan="4">Please fill in the following form to complete your application. Fields marked with a * is required.</td></tr>
+			<tr>							
+				<th nowrap>Business Location</th><td>%data.country%</td>
+				<th nowrap>Nature Of Business</th>
+				<td>
+					<select name="nob">
+						<option value=""></option>
+						<option value="Carpenter">Carpenter</option>
+						<option value="Interior Design">Interior Design</option>
+						<option value="Kitchen Showroom">Kitchen Showroom</option>
+						<option value="Furniture Hardware Trading">Furniture Hardware Trading</option>
+						<option value="Others">Others</option>
+					</select>							
+				</td>						
+			</tr>
+			<tr>
+				<th nowrap>Company Name</th>
+				<td><input type="text" id="companyname" name="companyname" size="30" maxlength="100" class="validate[required]" /></td>
+				<th nowrap>&nbsp;</th><td>&nbsp;</td>
+			</tr>
+			
+			<tr>
+				<th nowrap rowspan="3">Business Address</th><td rowspan="3"><textarea id="address" name="address" cols="35" rows="3" class="validate[required]" ></textarea></td>
+				<th nowrap>Postcode</th><td><input type="text" id="postcode" name="postcode" size="15" maxlength="20" class="validate[required]" /></td>
+			</tr>		
+			<tr>
+				<th nowrap>City</th><td><input type="text" id="city" name="city" size="20" maxlength="40" class="validate[required]" /></td>
+			</tr>
+			<tr>
+				<th nowrap>State</th><td><input type="text" id="state" name="state" size="20" maxlength="40" class="validate[required]" /></td>
+			</tr>
+			<tr>
+				<th nowrap>Tel.</th>
+				<td><input type="text" id="businessphone" name="businessphone" size="30" maxlength="30" /></td>
+				<th nowrap>Fax</th>
+				<td><input type="text" id="fax" name="fax" size="30" maxlength="30" /></td>						
+			</tr>
+			
+			<tr>
+				<th nowrap>Website</th>
+				<td><input type="text" id="website" name="website" size="30" maxlength="30" /></td>
+				<th nowrap>&nbsp;</th><td>&nbsp;</td>
+			</tr>
+		</table>
+		
+		<table id="customCloneAddTable" class="entryScreen">
+			<col width="150px" />
+			<col width="330px" />
+			<col width="150px" />
+			<col width="330px" />
+			<tr>
+				<th colspan="4">CONTACT INFO</th></tr>
+			<tr>
+				<th nowrap>Title</th><td>%data.title%</td>						
+				<th nowrap></th><td></td>
+			</tr>					
+			<tr>
+				<th nowrap>First Name</th><td><input type="text" id="firstname" name="firstname" size="30" maxlength="50" class="validate[required]" /></td>
+				<th nowrap>Last Name</th><td><input type="text" id="lastname" name="lastname" size="30" maxlength="50" class="validate[required]" /></td>
+			</tr>				
+			<tr>
+				<th nowrap>Mobile</th><td><input type="text" id="phone" name="phone" size="30" maxlength="30" class="validate[required]" /></td>
+				<th nowrap></th><td></td>
+			</tr>
+		</table>	
+	</div>
+	
+	<div id="content" class="container_12">    	
+    	<div class="grid_12">
+        	<form id="customCloneAddForm" class="validateForm" autocomplete="off">
+				<table id="customCloneAddTable" class="entryScreen">
+					<col width="180px" />
+					<col width="400px" />
+					<tr><th colspan="2">LOGIN DETAILS</th></tr>
+					<tr><th nowrap>Email (Login)</th><td><input type="text" id="email" name="email" size="40" maxlength="50" class="validate[required,email]" /></td></tr>
+					<tr><th nowrap>Password</th><td><input type="password" id="password" name="password" size="20" maxlength="20" class="validate[required]" /></td></tr>
+					<tr><th nowrap>Re-enter Password</th><td><input type="password" id="repassword" name="repassword" size="20" maxlength="20" class="validate[required,equals[password]] " /></td></tr>
+					<tr><td colspan="2">I would like to register as member type of: Business <input type="radio" id="typeD" name="type" class="validate[required] radio" value="D" /> / Personal <input type="radio" id="typeP" name="type" class="validate[required] radio" value="P" /></td></tr>
+				</table>	
+				
+				<p>
+					<input type="checkbox" id="newsletter" name="newsletter" checked="checked" /> Keep me informed of future promotions
+				</p>
+				<div id="infoDiv">
+				
+				</div>
+				<table id="customCloneAddTable" class="entryScreen">
+					<col width="200px" />
+					<col width="200px" />
+					<col width="200px" />
+					<tr><th colspan="3">WHERE DID YOU HEAR ABOUT US</th></tr>
+					
+					<tr>
+					<td><input type="radio" id="frommediaSearch Engine" name="frommedia" class="validate[required] radio" value="Search Engine" /><span>Search Engine</span></td>
+					<td><input type="radio" id="frommediaMagazine" name="frommedia" class="validate[required] radio" value="Magazine" /><span>Magazine</span></td>
+					<td><input type="radio" id="frommediaGoogle+" name="frommedia" class="validate[required] radio" value="Google+" /><span>Google+</span></td>
+					</tr>
+					
+					<tr>
+					<td><input type="radio" id="frommediaRecommendation" name="frommedia" class="validate[required] radio" value="Recommendation" /><span>Recommendation</span></td>
+					<td><input type="radio" id="frommediaFacebook" name="frommedia" class="validate[required] radio" value="Facebook" /><span>Facebook</span></td>
+					<td><input type="radio" id="frommediaApps" name="frommedia" class="validate[required] radio" value="Apps" /><span>Apps</span></td>
+					</tr>
+					
+					<tr>
+					<td><input type="radio" id="frommedia6" name="frommedia" class="validate[required] radio" value="Others" /><span>Others</span></td>
+					<td></td>
+					<td></td>
+					</tr>											
+				</table>
+				
+				<button name="reset" id="reset" type="reset"><span>Reset</span></button>
+				<button name="submit" id="submit" type="button"><span>Register</span></button>				
+			</form>							
+        </div>                              
+    </div>    
+	<div class="clear"></div>
+</p:module-content>
+</p:component>
+

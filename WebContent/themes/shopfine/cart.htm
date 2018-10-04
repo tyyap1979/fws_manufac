@@ -1,0 +1,209 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">		
+	<title>Shopping Cart</title>		
+	<meta name="description" content="Shopping Cart" />	    	
+</p:component>
+<p:component value="script">		
+	<script>		
+		function initPage(){									
+			$("#btnCheckOut").click(function(event){
+				window.location='payment.htm';
+				event.preventDefault(); return;		
+			});
+			
+			$("#btnContinue").click(function(event){
+				window.location='/';
+				event.preventDefault(); return;		
+			});
+			
+			$(".funcButton").click(function(event){	
+				var ele = event.target;
+				var id = $(ele).attr("id");
+				var tr = $(ele).closest("tr");
+				
+				if(id=="btnRefreshCart"){					
+					doCartUpdate(tr.attr("id"), tr.find("input[name=qty]").val());					
+				}else if(id=="btnRemove"){
+					doCartDelete(tr.attr("id"));
+				}else if(id=="btnShipping"){
+					getShippingEstimate();
+				}
+				
+				event.preventDefault();	return;	
+			});		
+			
+			calPaymentTotal();
+			
+			// Load Local State 			
+			initStateAutoComplete();
+			
+			$("select[name=country]").change(function(event){	
+				var ele = event.target;			
+						
+				if($(ele).val()==shopcountry){
+					$("#stateContainer").show();
+				}else{
+					$("#stateContainer").hide();					
+				}							
+			});
+		}
+		
+		$(document).ready(initPage);
+	</script>
+</p:component>
+<p:component value="body">	
+	<p:module-content id="cart.list">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+	    			<form id="customCloneAddForm" autocomplete="off" onsubmit="return false;">
+	    				<input type="hidden" name="totalweight" value="%data.total.weight%">
+	    				<input type="hidden" name="shippingcharge" value="%data.shippingcharge%">
+	    				
+					<table id="listTable" class="entryScreen" style="width:100%;">						
+						<col />																					
+						<col width="150" />	
+						<col width="100" />	
+						<col width="150" />	
+						<col width="100" />				
+						<thead class="titlebar">
+							<tr><td colspan="5" align="center"><b>My Shopping Cart Contains Following Items</b></td></tr>
+						</thead>
+						
+						<tr>										
+							<th align="center" class="desc"><h5>Description</h5></th>														
+							<th align="center">Unit Price (%system.selected.currency%)</th>																	
+							<th align="center">Quantity</th>
+							<th align="center">Sub Total (%system.selected.currency%)</th>
+							<th align="center"></th>																	
+						</tr>
+						<tbody custom="loop" removeTag="false">											
+							<tr id="%data.cartdetailid%">										
+								<td align="left" nowrap="nowrap">		
+									<input type="hidden" name="cartCheckBox" value="%data.cartdetailid%" />
+									<input type="hidden" name="sellsubtotal" value="%data.sellsubtotal%" />		
+									<input type="hidden" id="remark" name="remark" value="%data.remark%" />								
+									<div style="width: 90; display: inline; float: left;">
+										<img src="/photo/product/%data.prodid%/tn_%data.filename%" style="max-width: 200px;" />
+									</div>
+									<div style="margin-left:10px;display: inline; float: left;">
+										<h2>%data.prodname%</h2> <br>
+						      			%data.options%							      			
+									</div>
+									<div style="clear: both;" />															      							      	
+								</td>															
+								<td align="center"><span class="currencysymbol"></span><span class="currency">%data.sellprice%</span></td>									
+								<td align="center"><input type="text" name="qty" id="qty" value="%data.qty%" size="3" maxlength="5" class="span1"></td>
+								<td align="center"><span class="currencysymbol"></span><span id="sellsubtotal" class="currency">%data.sellsubtotal%</span></td>
+								<td align="center">
+									<button type="button" id="btnRefreshCart" class="btn btn-small funcButton" data-title="Update" data-placement="top" rel="tooltip"><i class="icon-refresh"></i></button>
+									<button type="button" id="btnRemove" class="btn btn-small btn-danger funcButton" data-title="Remove" data-placement="top" rel="tooltip"><i class="icon-trash"></i></button>
+								</td>
+							</tr>								
+						</tbody>																																																		
+					</table>		
+					</form>		
+				</div> <!-- end span12 -->
+				
+				<div class="span7">
+					<div class="cart-accordain" id="cart-acc">
+
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#cart-acc" href="#estimate">
+									<i class="icon-caret-right"></i> Estimate Shipping
+								</a>
+							</div>
+							<div id="estimate" class="accordion-body collapse in">
+								<div class="accordion-inner">
+									<form class="form-horizontal" id="shippingForm">																			
+									  <div class="control-group">
+									    <div class="control-label" for="inputEmail">
+									    	<strong>Country</strong>
+									    </div>
+									    <div class="controls">
+									    	%data.country%
+									    </div>
+									  </div><!--end control-group-->
+									  <div class="control-group" id="stateContainer">
+									    <div class="control-label">
+									    	<strong>State / Province</strong>
+									    </div>
+									    <div class="controls">
+								     		<input type="text" id="state" name="state" placeholder="">
+									    </div>
+									  </div><!--end control-group-->									  
+									  <div class="control-group">
+									    <div class="controls">
+									      <button type="button" id="btnShipping" class="btn btn-primary funcButton">Get Quotes</button>
+									    </div>
+									  </div><!--end control-group-->
+									</form>
+								</div>
+							</div>
+						</div><!--end accordion-group-->						
+
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#cart-acc" href="#gift-voucher">
+									<i class="icon-caret-right"></i> Use Gift Voucher
+								</a>
+							</div>
+							<div id="gift-voucher" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<form class="form-horizontal">
+									  <div class="control-group">
+									    <label class="control-label" for="inputVoucher">
+									    	<strong>Voucher Code</strong>
+									    	</label>
+									    <div class="controls">
+									      <input type="text" id="inputVoucher" placeholder="Inter Voucher Code...">
+									    </div>
+									  </div><!--end control-group-->
+									  <div class="control-group">
+									    <div class="controls">
+									      <button type="submit" class="btn btn-primary">Apply Voucher </button>
+									    </div>
+									  </div><!--end control-group-->
+									</form>
+								</div>
+							</div>
+						</div><!--end accordion-group-->
+
+					</div><!--end cart-accordain-->
+				</div><!--end span7-->
+
+
+				<div class="span5">
+					<div class="cart-receipt">
+						<table class="table table-receipt">
+							<tr>
+								<td class="alignRight">Sub Total</td>
+								<td class="alignLeft"><span class="currencysymbol"></span><span id="subtotal" class="currency"></span></td>
+							</tr>
+							<tr>
+								<td class="alignRight">Shipping Charge</td>
+								<td class="alignLeft"><span class="currencysymbol"></span><span id="shippingcharge" class="currency"></span></td>
+							</tr>
+							<tr>
+								<td class="alignRight">Voucher Total</td>
+								<td class="alignLeft"><span class="currencysymbol"></span><span id="vouchertotal" class="currency"></td>
+							</tr>							
+							<tr>
+								<td class="alignRight"><h2>Total</h2></td>
+								<td class="alignLeft"><h2><span class="currencysymbol"></span><span id="totalsales" class="currency"></h2></td>
+							</tr>
+							<tr>								
+								<td class="alignRight"><button id="btnContinue" class="btn">Contuine Shoping</button></td>
+								<td class="alignLeft"><button id="btnCheckOut" class="btn">Check Out</button></td>
+							</tr>
+						</table>
+					</div>
+				</div><!--end span5-->
+				
+			</div> <!-- end row -->
+		</div> <!-- end container -->
+		
+	</p:module-content>	
+		
+</p:component>

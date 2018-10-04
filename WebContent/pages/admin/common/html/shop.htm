@@ -1,0 +1,25 @@
+<p:component value="script">
+<script type="text/javascript">
+
+	function processListingEventCustom(eleID){
+		if(eleID=="build.html"){
+			var formName = "#"+adminUtil.activeModuleId+" #"+AdminConfig.listingForm;		
+			adminUtil.getModuleElement(AdminConfig.listingForm).find("input[name=action1]").val("build.html");		
+			
+			$(formName).find('input[type=checkbox]:checked').each(function(i){
+				
+			});
+			
+			ajaxUtil.showPanel('', $('#js-processing-request').html(),'');
+			var query = "return=json" + "&" + ajaxUtil.formData2QueryString(formName);		
+			ajaxUtil.showPanel('', $('#js-processing-request').html(), null);
+			ajaxUtil.postJsonQuery(null,query,function(json){																			
+				adminUtil.checkNone($(formName));	
+				ajaxUtil.hidePanel();									
+			}, null);
+			
+			event.preventDefault();	return;
+		}
+	}
+</script>
+</p:component>

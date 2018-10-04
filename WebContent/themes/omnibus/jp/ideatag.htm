@@ -1,0 +1,35 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="material.tag.title">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Renovation Idea - %data.title%</title>				
+	</p:module-content>
+</p:component>
+
+<p:component value="body">		
+	<p:module-content id="material.tag.title">	
+		<div class="section-title">		
+			<h1 style="text-transform: uppercase;">%data.title%</h1>					
+		</div><!--END SECTION TITLE-->	
+	</p:module-content>
+	<div class="divider-border"></div>
+	<p:module-content id="material.tag">
+    	<div class="portfolio-grid">
+    		<ul id="thumbs">
+    			<loop> 				         	
+           		<li class="item web">
+           			<div class="img-container">
+               			<div class="item-img1"><a href="%data.filename%" class="lightbox"><img src="%data.tn_filename%" /></a></div>               			
+					</div>
+               		<div class="item-info">
+						<h3 class="title">
+							<a href="idea-single.htm?mid=%data.image.key%">%data.description%</a>							
+						</h3>												
+					</div><!--END ITEM-INFO--> 	
+           		</li>  
+           		</loop>            	                 
+			</ul>		  
+		</div>
+	</p:module-content>
+</p:component>
+

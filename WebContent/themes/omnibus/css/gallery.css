@@ -1,0 +1,33 @@
+#footer ul li{
+    line-height: 10px;
+}
+
+#footer ul span{
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;    
+    text-transform: uppercase;
+}
+
+.footer_nav {
+	margin: 0;
+	padding: 0;	
+}
+.footer_nav li {
+	margin: 0 20px 0 0 ;
+	list-style: none;
+	float: left;	
+	background: url("../images/li_arrow.gif") no-repeat left center;	
+	padding: 3px 0px 3px 10px;
+}
+.footer_nav li a{
+	margin-left: 8px;
+}
+.footer_nav li.last {
+	margin: 0 ;
+}
+
+.gallery-listing-slider ul li{
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}

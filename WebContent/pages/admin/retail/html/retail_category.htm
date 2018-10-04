@@ -1,0 +1,101 @@
+<p:component value="script">
+	<style type="text/css">		
+		#retailcatdetailfilename {width:200px;}
+	</style>
+	
+<link rel="stylesheet" type="text/css" href="/components/swfupload/default-min.css">
+<script type="text/javascript" src="/components/swfupload/swfupload-single-min.js"></script>
+
+<script type="text/javascript">		
+	var uploadPage = "upload.htm";
+	var uploadedImage = [];
+
+	function customUploadComplete(file){
+		uploadedImage.push ({'filename':file.name});		
+	}
+			
+	function customQueueComplete(){
+		var json;
+		var jsonString = "";
+		var imgCount = $("#retailcatdetailEntryTableBody").children("tr").size();
+		
+		for(var i=0;i<uploadedImage.length; i++){						
+			jsonString += '[{';
+			jsonString += '"retailcatdetailrow-status":"N",';
+			jsonString += '"retailcatdetailfilename":"'+'temp/' + uploadedImage[i].filename+'",';
+			jsonString += '"retailcatdetailcatdetailid":"",';
+			jsonString += '"retailcatdetailcatid":"",';
+			jsonString += '"retailcatdetailposition":"'+(imgCount+i+1)+'"';
+			jsonString += '}],';
+		}			
+		
+		if(jsonString!=''){
+			jsonString = jsonString.substring(0, jsonString.length-1);
+			json = eval( '({"md":"retailcatdetail","data":[' + jsonString + ']})' );
+			adminUtil.processEditSubClass(json, false);
+			$("#uploadDialog").dialog('close');
+		}
+		
+		uploadedImage = [];
+	}
+	
+	function processEdit(json){
+		uploadedImage = [];
+	}
+	
+	function beforeAdd(){
+		uploadedImage = [];			
+	}				
+		
+	function initPage(){		
+		//$('#mainTabs').tabs();  
+		$("#sortable").sortable();	
+		$("#sortable").disableSelection();					
+		ajaxUtil.loadUploader(uploadPage, {}, "*.jpg;*.jpeg;*.gif", "Web Image Files", "1 MB");
+		
+		$("#retailCategoryModuleEntry").bind("click", function(event){						
+			var element = event.target;
+			if(element.id=='action.clone.upload'){					
+		   		$("#uploadDialog").dialog('open');
+				event.preventDefault();	return;
+			}					
+		});			
+	}
+	$(document).ready(initPage);		
+</script>	
+</p:component>
+
+<p:component value="body2">
+	<div id="uploadDialog" class="dialogView" style="width: 500px; height:100%;display: none">
+		<div id="content">				
+			<div id="divSWFUploadUI">
+				<div class="fieldset flash" id="fsUploadProgress">
+					<span class="legend">Upload Queue</span>
+				</div>
+			
+				<p id="divStatus">0 Files Uploaded</p>
+				<p>
+					<span id="mySpanButtonPlaceholder">
+						<span id="spanButtonPlaceholder"></span>
+					</span>			
+					<input id="btnCancel" type="button" value="Cancel All Uploads" disabled="disabled" style="margin-left: 63px; height: 22px; font-size: 8pt;" />
+				</p>
+				<br style="clear: both;" />
+			</div>
+		
+			<noscript style="background-color: #FFFF66; border-top: solid 4px #FF9966; border-bottom: solid 4px #FF9966; margin: 10px 25px; padding: 10px 15px;">
+				We"re sorry.  SWFUpload could not load.  You must have JavaScript enabled to enjoy SWFUpload.
+			</noscript>
+			<div id="divLoadingContent" class="content" style="background-color: #FFFF66; border-top: solid 4px #FF9966; border-bottom: solid 4px #FF9966; margin: 10px 25px; padding: 10px 15px; display: none;">
+				SWFUpload is loading. Please wait a moment...
+			</div>
+			<div id="divLongLoading" class="content" style="background-color: #FFFF66; border-top: solid 4px #FF9966; border-bottom: solid 4px #FF9966; margin: 10px 25px; padding: 10px 15px; display: none;">
+				SWFUpload is taking a long time to load or the load has failed.  Please make sure that the Flash Plugin is enabled and that a working version of the Adobe Flash Player is installed.
+			</div>
+			<div id="divAlternateContent" class="content" style="background-color: #FFFF66; border-top: solid 4px #FF9966; border-bottom: solid 4px #FF9966; margin: 10px 25px; padding: 10px 15px; display: none;">
+				We"re sorry.  SWFUpload could not load.  You may need to install or upgrade Flash Player.
+				Visit the <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash">Adobe website</a> to get the Flash Player.
+			</div>
+		</div>
+	</div>
+</p:component>	

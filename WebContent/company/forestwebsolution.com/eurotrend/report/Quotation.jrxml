@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Quotation" pageWidth="612" pageHeight="792" columnWidth="576" leftMargin="18" rightMargin="18" topMargin="20" bottomMargin="20" uuid="6e0a2967-37fc-40f3-b159-a4af1b8be819">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="95"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="4d3b3475-c77d-427a-9035-860ab06cde40"/>
+	<parameter name="PARAM_PAGE_FOOTER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="transno" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="terms" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesdate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="comment" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="attn" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="customerid_value" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOGO" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="transnodesc" class="java.lang.String"/>
+	<parameter name="salesby" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Adam\\Developement\\Workspace\\fws_manufac\\WebContent\\company\\kitchendoordesign.com\\megaeuro\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="jobcode" class="java.lang.String"/>
+	<parameter name="discount" class="java.lang.String"/>
+	<parameter name="gst_amt" class="java.lang.String"/>
+	<parameter name="companyname" class="java.lang.String"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="city" class="java.lang.String"/>
+	<parameter name="state" class="java.lang.String"/>
+	<parameter name="postcode" class="java.lang.String"/>
+	<parameter name="country" class="java.lang.String"/>
+	<parameter name="phoneno" class="java.lang.String"/>
+	<parameter name="mobileno" class="java.lang.String"/>
+	<parameter name="faxno" class="java.lang.String"/>
+	<parameter name="gst_code" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="price" class="java.math.BigDecimal"/>
+	<field name="qty" class="java.lang.String"/>
+	<field name="sellsubtotal" class="java.math.BigDecimal"/>
+	<field name="prodgroupdesc" class="java.lang.String"/>
+	<field name="proddesc" class="java.lang.String"/>
+	<field name="num" class="java.lang.String"/>
+	<field name="discount" class="java.math.BigDecimal"/>
+	<field name="unit" class="java.lang.String"/>
+	<field name="sellunittype" class="java.lang.String"/>
+	<field name="panelnum" class="java.lang.String"/>
+	<variable name="SumSubtotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{sellsubtotal}]]></variableExpression>
+	</variable>
+	<variable name="SumDiscount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{discount}]]></variableExpression>
+	</variable>
+	<group name="prod grp">
+		<groupExpression><![CDATA[$F{prodgroupdesc} + $F{panelnum}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+					<reportElement uuid="f0a15b82-7862-4003-85ea-c3789c038955" key="textField-3" x="34" y="1" width="532" height="14"/>
+					<textElement textAlignment="Left" markup="html">
+						<font fontName="Helvetica-Normal" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{prodgroupdesc} + (($F{panelnum}!=null)?(" / "+$F{panelnum}+" Panel(s)"):"")]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="8"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="175" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="40e8219f-c2aa-47fc-a4b7-cd7a7cfd272a" x="0" y="0" width="552" height="67"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="salesby">
+					<subreportParameterExpression><![CDATA[$P{salesby}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="salesdate">
+					<subreportParameterExpression><![CDATA[$P{salesdate}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="title">
+					<subreportParameterExpression><![CDATA[$P{title}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="customerid_value">
+					<subreportParameterExpression><![CDATA[$P{customerid_value}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LOGO">
+					<subreportParameterExpression><![CDATA[$P{LOGO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{REPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="attn">
+					<subreportParameterExpression><![CDATA[$P{attn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="terms">
+					<subreportParameterExpression><![CDATA[$P{terms}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="transnodesc">
+					<subreportParameterExpression><![CDATA[$P{transnodesc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PARAM_PAGE_FOOTER">
+					<subreportParameterExpression><![CDATA[$P{PARAM_PAGE_FOOTER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="transno">
+					<subreportParameterExpression><![CDATA[$P{transno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="comment">
+					<subreportParameterExpression><![CDATA[$P{comment}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="jobcode">
+					<subreportParameterExpression><![CDATA[$P{jobcode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "header.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="2bda6e64-f4b3-4958-8731-d9fbcaa32803" key="staticText-9" x="419" y="129" width="63" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Terms:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="5709d548-e54b-4208-9927-b67488942e48" key="textField-7" x="488" y="129" width="78" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{terms}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="c69827ef-8093-4091-afc4-3efe15e50fca" key="textField-8" x="488" y="100" width="78" height="13"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{transno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="03eba32e-fce6-429f-8432-05ba7d6d9f6e" key="staticText-10" x="419" y="159" width="63" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Sales Person:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="f07e0fab-0aa6-4834-9000-b2740831994f" key="textField-8" x="419" y="100" width="63" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{transnodesc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="e16c54cb-0c15-4fcf-834e-cb455ffb96ec" key="textField-8" x="153" y="75" width="229" height="21"/>
+				<textElement textAlignment="Center">
+					<font fontName="Helvetica-Normal" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="803885b8-b833-43e8-a2a6-2d0d5fa2201c" key="staticText-11" x="4" y="157" width="53" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Deliver To:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="31b52141-e836-4ba4-bc00-b2efce38eb79" key="textField-11" x="57" y="100" width="345" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerid_value}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="06fb2eb2-2754-4ecd-aa5a-540e95202f27" key="staticText-10" x="419" y="144" width="63" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="8c211514-f7f5-40bd-81f5-3374e6f56bb9" key="textField-9" x="488" y="159" width="78" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{salesby}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="a26ed537-fcd8-4040-8601-942e70c3e5fb" key="textField-9" x="488" y="144" width="78" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{salesdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="25555cf5-c82f-421f-b6f1-d40fe2ea83ff" key="staticText-9" x="419" y="114" width="63" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Job Code:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="37c80f0a-c51f-408c-9eb5-3863211fb5ed" key="textField-10" x="57" y="158" width="345" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{comment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="770f5e59-b3cf-43a2-ae07-dbafc35b6cef" x="4" y="100" width="53" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="9"/>
+				</textElement>
+				<text><![CDATA[Company:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c3dc58f8-7df7-4d6f-8748-09817cef5b41" key="textField-10" x="57" y="113" width="325" height="13"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Helvetica-Normal" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($P{address}.equals(""))?"":( $P{address} + ", ")) +
+(($P{city}.equals(""))?"":( $P{city} + ", ")) +
+(($P{postcode}.equals(""))?"":( $P{postcode} + " ")) +
+(($P{state}.equals(""))?"":( $P{state}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="efc9a764-4cd7-4a74-a9f7-608a16d2eb7a" key="textField-10" x="84" y="140" width="123" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{phoneno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="37a4c22d-a4e8-4240-8f7d-f74178cf1de2" key="staticText-11" x="57" y="140" width="27" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Tel:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="097ba3ab-46ca-4d96-9be9-917dc4cc01bd" key="staticText-11" x="252" y="140" width="34" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="10" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Fax:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="9e1e0050-aa83-438f-8009-7cdfa9b185ce" key="textField-10" x="286" y="140" width="96" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{faxno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement uuid="ae581225-38d9-4045-bd3c-378d74c32fe3" key="textField-7" x="460" y="114" width="106" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jobcode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="14ad36ad-a826-428c-ba42-0c9bd0974dda" key="staticText-1" x="5" y="2" width="25" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bd11e4d4-6977-4846-b5b8-3488caee381c" key="staticText-2" x="34" y="2" width="127" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="45a0019f-9765-4324-a932-ea7d2455a65e" key="staticText-3" x="345" y="2" width="20" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="949a5455-1488-4171-8171-8ca689650510" key="staticText-4" x="403" y="2" width="81" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Unit Price (RM)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79ca89c1-be95-4d7d-ae24-7b50730c92cf" key="staticText-5" x="497" y="2" width="69" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Amount (RM)]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="4bfaed3c-649e-4cd6-833d-f58dc1880513" x="0" y="19" width="566" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="4bb95786-92e5-4030-b302-aa4e4abc39b0" x="0" y="0" width="566" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="ae481ad5-623b-456e-95d6-061518066eac" key="textField-2" x="34" y="1" width="233" height="14"/>
+				<textElement>
+					<font fontName="Helvetica-Normal" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proddesc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="c808f799-96ce-4b82-86e3-ba7e761d0a4d" key="textField-3" x="331" y="1" width="32" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Helvetica-Normal" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="354cb3d4-cdd9-4a06-b2d1-dd7eaaa4b70c" key="textField-4" x="414" y="1" width="70" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Helvetica-Normal" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="5f7920b0-f639-4816-a671-0e44b6eeacf3" key="textField-5" x="497" y="1" width="69" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Helvetica-Normal" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sellsubtotal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="78495b24-4f4d-4005-8c61-4da6de80a262" key="textField-3" x="5" y="1" width="23" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Helvetica-Normal" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{num}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="669d6e9e-2eb3-4b87-bf74-64850b06869c" key="textField-3" x="267" y="1" width="61" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Helvetica-Normal" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{sellunittype}.equals("sf"))?("("+$F{unit} + " sqft)"):""]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="44"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="102">
+			<line>
+				<reportElement uuid="7ca1321f-5b29-46a5-90c8-eda6c14564bb" x="0" y="0" width="566" height="1"/>
+			</line>
+			<subreport>
+				<reportElement uuid="f11d40b4-cd06-42a5-9f2d-d663b1c2b290" x="0" y="3" width="566" height="97"/>
+				<subreportParameter name="title">
+					<subreportParameterExpression><![CDATA[$P{title}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="gst_code">
+					<subreportParameterExpression><![CDATA[$P{gst_code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SumSubtotal">
+					<subreportParameterExpression><![CDATA[$V{SumSubtotal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SumDiscount">
+					<subreportParameterExpression><![CDATA[$V{SumDiscount}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="companyname">
+					<subreportParameterExpression><![CDATA[$P{companyname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="gst_amt">
+					<subreportParameterExpression><![CDATA[$P{gst_amt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="discount">
+					<subreportParameterExpression><![CDATA[$P{discount}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "footer.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

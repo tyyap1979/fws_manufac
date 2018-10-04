@@ -1,0 +1,4 @@
+#Mon May 21 13:54:28 SGT 2012
+classpath.helper/org.eclipse.jdt.launching.JRE_CONTAINER\:\:org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType\:\:jdk1.5.0_12/owners=jst.java\:1.4
+eclipse.preferences.version=1
+instance/org.eclipse.core.net/org.eclipse.core.net.hasMigrated=true

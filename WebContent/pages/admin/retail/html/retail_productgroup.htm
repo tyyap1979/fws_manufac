@@ -1,0 +1,53 @@
+<p:component value="script">	
+	<style>
+		div.dialogView{font-size: 0.8em;}
+	</style>
+	<script type="text/javascript">			
+	
+		function fnCallback(){
+		
+		}
+		 
+		function initPage(){	
+			var dialog_buttons = {};	
+			var moduleName = "retailproductgroupdetail";
+			dialog_buttons["Done"] = function(){							
+				var data = $("#searchDiv-Product #paginationData input:checked");	
+				var json;
+				var jsonString = "";
+				var parentTr;
+				data.each(function(i){
+					parentTr = $(this).parents("tr");
+					//alert($(this).attr("id")+": "+parentTr.html());
+					jsonString += '[{';
+					jsonString += '"'+moduleName+'row-status":"N",';
+					jsonString += '"'+moduleName+'prodid":"'+$(this).val()+'",';
+					jsonString += '"'+moduleName+'prodcode":"'+parentTr.find("span[name=prodcode]").html()+'",';
+					jsonString += '"'+moduleName+'prodname":"'+parentTr.find("span[name=prodname]").html()+'",';					
+					jsonString += '"'+moduleName+'pdtlid":"",';
+					jsonString += '"'+moduleName+'pid":""';
+					jsonString += '}],';
+					
+									
+				});		
+				if(jsonString!=''){
+					jsonString = jsonString.substring(0, jsonString.length-1);
+					json = eval( '({"md":moduleName,"data":[' + jsonString + ']})' );
+					adminUtil.processEditSubClass(json, false);						
+				}	
+				$("#searchDiv-Product").dialog("close");																						
+			};	
+			
+			$("#action\\.clone\\.add\\.custom").click(function(event){
+				$("#searchDiv-Product").dialog('option', 'title', 'Product List');
+				$("#searchDiv-Product").dialog('option', 'buttons', dialog_buttons);
+				$("#searchDiv-Product").dialog("open");
+				event.preventDefault(); return;
+			});
+		}
+		$(document).ready(initPage);		
+	</script>	
+</p:component>
+
+
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="552" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a99b5342-9844-4639-805b-fcd447cc9528">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="212"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LOGO" class="java.lang.String"/>
+	<parameter name="terms" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="attn" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="transnodesc" class="java.lang.String"/>
+	<parameter name="transno" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="jobcode" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="comment" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesby" class="java.lang.String"/>
+	<parameter name="customerid_value" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesdate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOGO_1" class="java.lang.String"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8da4f046-1408-45e7-97ab-5be6e2bc8691" x="336" y="4" width="51" height="8"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(1187855-K)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f989dabe-00ef-465d-b11a-77995803453c" x="122" y="34" width="116" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[www.prestigecabinetdoors.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3928048c-cbf5-4b8d-8ccf-dc72feaa299f" x="110" y="0" width="226" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EURO KINGSTON CONCEPT SDN BHD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="43de1deb-d146-477f-9dd9-68fa6ae0fe1c" x="122" y="49" width="106" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[megaeuro11@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca6553d0-0a54-4af9-8980-7c80d03a5240" x="122" y="18" width="324" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[22, Jalan Industri Mas 8, Taman Mas Puchong, 47100 Puchong, Selangor Darul Ehsan.]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="ee1c7fa4-1083-491a-b91b-fdd1a5f2405b" x="36" y="0" width="56" height="56"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="a5b0f18e-2206-4ab9-b500-7b5a879b3866" x="259" y="49" width="77" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[603.8060 8999 (F)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2bfc0eb3-201a-4ba6-8b5a-c155ca4545dc" x="259" y="34" width="77" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[603.8060 8998 (T)]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="6f5f16c8-634f-4438-aeb1-f357a39f163e" x="455" y="2" width="60" height="60"/>
+				<imageExpression><![CDATA[$P{LOGO}.replaceAll("logo.jpg","logo.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="a862df53-b16c-485c-9a6e-c9d6f3d61c5f" x="110" y="19" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"address.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="6c10abb6-9070-4396-9dd5-f3c7382f9dae" x="110" y="35" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"web.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="35a01f05-e11f-40b4-b9f1-c0c16ffdcade" x="110" y="50" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"email.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="2f3acfd9-d595-4ab2-8c9d-3d46b6405f4e" x="247" y="35" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"phone.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="773f9d3a-52f7-4a55-87c6-3147cfb17c5b" x="247" y="50" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"fax.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

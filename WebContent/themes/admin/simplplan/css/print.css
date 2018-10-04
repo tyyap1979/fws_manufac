@@ -1,0 +1,44 @@
+/*
+ * Simplpan Admin Panel
+ *
+ * Copyright (c) 2011 Kasper Kismul
+ *
+ * http://themeforest.net/user/Kaasper/profile
+ *
+ * This file sets up most of the styling for the template.
+ *
+ */
+/* Essencials
+-------------------------------------------------------------- */
+
+@import url(reset.css); 		/* Reset */
+
+body {	
+	font-family: Helvetica, "Century Gothic", Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#userpanel, #header, #breadcrumb, #footer, #controlBar, #entryButtonBar { display: none; }
+ul{display: none;}
+
+a:link { font-weight: bold; text-decoration: underline; color: #06c;}
+#searchDiv table th:last-child, 
+#searchDiv table td:last-child, 
+#searchDiv table th:first-child, 
+#searchDiv table td:first-child, 
+.detail-listingTable th:first-child, 
+.detail-listingTable td:first-child {display:none}
+#entryDiv {overflow:hidden;}
+
+
+.entryScreen{background-color: #ffffff; padding:20px 20px;}
+
+h2{font-size: 1em; margin-left: 20px;}
+h3{font-size: 0.8em;}
+
+table{border-collapse: collapse; width: 100%; text-align: left;font-size: 8pt;}
+tr { background-color: #fff; }
+th{ font-weight: bold;background-color: #fafafa; padding: 5px 10px; border: 1px solid #CCCCCC;}
+td { padding: 5px 10px; border: 1px solid #CCCCCC; height: 5px;}
+

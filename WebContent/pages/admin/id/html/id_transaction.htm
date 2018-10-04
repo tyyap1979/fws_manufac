@@ -1,0 +1,76 @@
+<p:component value="script">
+
+<script type="text/javascript">
+	function calculateTotal(){
+		var formName;
+		var costTotal, sellTotal, discountTotal;
+		costTotal = sellTotal = discountTotal = 0;
+		var costSubTotal, sellSubTotal, discountSubTotal = 0;
+		$('tbody[id=transtdEntryTableBody]').find("[name=transtdcostsubtotal],[name=transtdsellsubtotal],[name=transtddiscount]").each(
+			function(i){
+				formName = $(this).attr("name");
+				
+				if(formName=="transtdcostsubtotal"){
+					costSubTotal = parseFloat($(this).val());
+					if(isNaN(costSubTotal)) costSubTotal = 0;				
+					costTotal += costSubTotal;
+				}else if(formName=="transtdsellsubtotal"){
+					sellSubTotal = parseFloat($(this).val());
+					if(isNaN(sellSubTotal)) sellSubTotal = 0;							
+					sellTotal += sellSubTotal;					
+				}else if(formName=="transtddiscount"){
+					discountSubTotal = parseFloat($(this).val());
+					if(isNaN(discountSubTotal)) discountSubTotal = 0;							
+					discountTotal += discountSubTotal;
+				}
+			}
+		);	
+		
+		$("input[name=totalcost]").val(costTotal);
+		$("input[name=totalsales]").val(sellTotal);
+		$("input[name=totaldiscount]").val(discountTotal);
+		
+	}
+
+	function processEdit(json){
+		productPricejsonArray = [];			
+		transUtil.createGroup(json);		
+	}
+	
+	function beforeSave(){		
+		transUtil.updateGroup();
+	}
+	
+	function pageInit(){
+		var parentTR;
+		var qty,cost,price,discount;
+		$('tbody[id=transtdEntryTableBody]').bind("change", function(event){	
+			var element = event.target;	
+			var name = $(element).attr("name");
+																			
+			if((name=="transtdqty" || name=="transtdcost" || name=="transtdprice" || name=="transtddiscount") 
+				&& element.value!=''){	
+				parentTR = $(element).parents("tr");
+				qty =  parentTR.find("input[name=transtdqty]").val();
+				cost =  parentTR.find("input[name=transtdcost]").val();
+				price =  parentTR.find("input[name=transtdprice]").val();
+				discount =  parentTR.find("input[name=transtddiscount]").val();
+				if(isNaN(qty)) qty = 0;
+				if(isNaN(cost)) cost = 0;
+				if(isNaN(price)) price = 0;
+				if(isNaN(discount)) discount = 0;
+				
+				parentTR.find("input[name=transtdcostsubtotal]").val(cost*qty);
+				parentTR.find("input[name=transtdsellsubtotal]").val((price*qty)-discount);
+				
+				calculateTotal(); 				
+			}
+		})
+	}
+	
+	$(document).ready(pageInit());
+</script>
+
+</p:component>
+<p:component value="body2">	
+</p:component>

@@ -1,0 +1,20 @@
+<p:component value="script">	
+	
+	<script type="text/javascript">		
+		function initPage(){	
+			$(".paginate_button").each(function(i){						
+				if("action.addrecord"==$(this).attr("id") || 
+				"action.delete"==$(this).attr("id") || 
+				"action.clone.delete"==$(this).attr("id") || 
+				"action.retrieve.copy"==$(this).attr("id") || 
+				"action.clone.add.custom"==$(this).attr("id")){
+					$(this).hide();
+				}
+			});
+		}
+		$(document).ready(initPage);		
+	</script>	
+</p:component>
+
+
+

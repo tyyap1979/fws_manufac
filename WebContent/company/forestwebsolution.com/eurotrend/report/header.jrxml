@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="552" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="28b1133a-0b89-4cae-bc4c-5a36efb83040">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LOGO" class="java.lang.String"/>
+	<parameter name="terms" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="attn" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="transnodesc" class="java.lang.String"/>
+	<parameter name="transno" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="jobcode" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="comment" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesby" class="java.lang.String"/>
+	<parameter name="customerid_value" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="salesdate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="LOGO_1" class="java.lang.String"/>
+	<parameter name="REPORT_DIR" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="17e1277e-d6e8-409d-a917-f6d1afe00ef4" x="273" y="4" width="51" height="8"/>
+				<textElement>
+					<font fontName="Arial" size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(1072589K)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="314043a3-0d31-44ce-88a0-a124a1eab865" x="122" y="34" width="116" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[www.prestigecabinetdoors.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0860e501-1a38-4c37-839b-6cce6d47700d" x="110" y="0" width="162" height="17"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EURO KINGSTON SDN BHD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c9cbfd34-cdce-4a67-80fe-bcfa3ac037c4" x="122" y="49" width="106" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[megaeuro11@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="58eae98f-dc55-4e13-807d-4dfbbc97a608" x="122" y="18" width="324" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[22, Jalan Industri Mas 8, Taman Mas Puchong, 47100 Puchong, Selangor Darul Ehsan.]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="1c02c57a-543b-45e9-9a6b-bdd65ff32f4f" x="36" y="0" width="56" height="56"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="141e045e-6d7e-414e-8c21-b1b73aec2940" x="259" y="49" width="77" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[603.8060 8999 (F)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3aba714e-71f6-451c-b3fc-43c05670bd76" x="259" y="34" width="77" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[603.8060 8998 (T)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a902b3ff-5ec0-41ec-aff4-439bb39c86f9" x="346" y="34" width="53" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Book" size="8"/>
+				</textElement>
+				<text><![CDATA[SST NUMBER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d41ec77-d168-4cd4-9c27-6c323e1acae1" x="346" y="49" width="79" height="11"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="8"/>
+				</textElement>
+				<text><![CDATA[B16-1808-21023063]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="24f92eaf-8ab2-4acc-8af5-11b08bedbea4" x="455" y="2" width="60" height="60"/>
+				<imageExpression><![CDATA[$P{LOGO}.replaceAll("logo.jpg","logo.png")]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="bcbdab3e-a67a-46fe-931a-f5747ccb1709" x="110" y="19" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"address.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="e316cf01-6ff4-4f1c-8b7c-ad3e3bdce716" x="110" y="35" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"web.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="3e42915b-8105-41f9-bb33-fb29c2b14e11" x="110" y="50" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"email.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="2e511add-d758-4996-b993-720355197233" x="247" y="35" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"phone.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="26edfe7f-f11a-46b3-9a29-cc9950c5deae" x="247" y="50" width="8" height="10"/>
+				<imageExpression><![CDATA[$P{REPORT_DIR}+"fax.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

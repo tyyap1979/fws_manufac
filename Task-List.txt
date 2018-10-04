@@ -1,0 +1,9 @@
+Insert Into mfg_transaction_detail (transid, prodid, prodname, qty, unit, price, sellsubtotal,status)
+values(32163, 0, 'Remove This', 1, 1, 0, 0, 'A')
+
+-- Get Mismatch statement compare to invoice.
+select a.* from 
+mfg_statement_detail a
+Inner Join mfg_statement b on a.stmtid = b.stmtid
+Left join mfg_transaction c on c.transid = a.transid and b.customerid = c.customerid
+Where c.transno is null

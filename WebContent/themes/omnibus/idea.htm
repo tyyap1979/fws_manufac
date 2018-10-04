@@ -1,0 +1,39 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+	<title>J Home Design - Renovation Idea</title>		
+	<meta name="description" content="J Home Design Idea. Get an idea of your new house renovation here. Design ranging from kitchen, dining room, living room, bathroom, bedroom, island, tv cabinet, kitchen cabinet, wallpaper, staircase, wardrobe and attic" />
+    <meta name="keywords" content="kitchen design, dining room design, living room design, bathroom design, bedroom design, island design, tv cabinet design, kitchen cabinet design, wallpaper design, staircase design, wardrobe design, attic design" />    
+</p:component>
+
+<p:component value="body">			
+	<div class="section-title">		
+		<h1>Renovation Idea</h1>					
+	</div><!--END SECTION TITLE-->	
+	<div class="divider-border"></div>
+	<p:module-content id="material.list">
+    	<div class="portfolio-grid">
+    		<ul id="thumbs">
+    			<loop> 				         	
+	           		<li class="item web">
+	           			<div class="img-container">
+	               			<div class="item-img">
+	               				<div class="gallery-listing-slider">
+		           					<ul class="slides">
+		           						%data.images.list%
+		           					</ul>
+		           				</div>
+		           			</div>	               			
+						</div>
+	               		<div class="item-info">
+	               			<h3 class="title">
+								<a href="idea-single/%data.image.key%/%data.title_plus%/">%data.title%</a>							
+							</h3>												
+						</div><!--END ITEM-INFO--> 	
+	           		</li>       
+           		</loop>       	                 
+			</ul>		  
+		</div>
+	</p:module-content>
+</p:component>
+

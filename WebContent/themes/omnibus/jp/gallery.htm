@@ -1,0 +1,37 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+	<title>J Home Design - Gallery</title>		
+	<meta name="description" content="J Home Design Gallery. Browse all our works here and get an idea on quality that we assured." />
+    <meta name="keywords" content="Renovation Gallery, Interior Design Gallery, KL Renovation Gallery, Selangor Renovation Gallery, Mont Kiara Interior Design" />	    
+</p:component>
+
+<p:component value="body">			
+	<div class="section-title">		
+		<h1>Gallery</h1>					
+	</div><!--END SECTION TITLE-->	
+	<div class="divider-border"></div>
+	<p:module-content id="gallery.list">
+    	<div class="portfolio-grid">
+    		<ul id="thumbs">
+    			<loop> 				         	
+	           		<li class="item web">
+	           			<div class="img-container">
+	               			<div class="item-img">%data.images.list%</div>
+	               			<ul>
+		                        <li><a href="gallery-single.htm?gid=%data.image.key%" class="view">details</a></li>
+								<li><a href="%data.main.image%" class="preview" rel="prettyPhoto[%data.image.key%]">preview</a></li>
+		                    </ul> 
+						</div>
+	               		<div class="item-info">
+							<h3 class="title">
+								<a href="gallery-single.htm?gid=%data.image.key%">%data.title%</a>							
+							</h3>												
+						</div><!--END ITEM-INFO--> 	
+	           		</li>              	  
+           		</loop>               
+			</ul>		  
+		</div>
+	</p:module-content>
+</p:component>
+

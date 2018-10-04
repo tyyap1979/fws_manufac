@@ -1,0 +1,86 @@
+<div class="footer-bg">
+    <div class="wrap">
+    	
+        <div class="container_16">
+        	<div class="grid_5">
+	        	<h4>Quick Contact</h4>	        	
+                <div class="result"></div>
+                <script>
+                	function initPage(){
+						$(".validateForm").validationEngine({promptPosition : "centerRight", scroll: false});  
+						$(".validateForm input,.validateForm textarea").focus(function() {
+							if( this.value == this.defaultValue ) {
+								this.value = "";
+							}
+						}).blur(function() {
+							if( !this.value.length ) {
+								this.value = this.defaultValue;
+							}
+						});
+					}
+					
+					$(document).ready(initPage);
+                </script>
+                <form class="contact validateForm" action="sendmail.htm">
+                	<input name="subject" type="hidden" value="General Enquiry"/>                	
+                	<input name="action1" type="hidden" value="send"/>
+                    <fieldset>                    	
+                        <input id="fromname" name="fromname" type="text" value="Your Name" class="validate[required]"/>
+                        <input id="fromemail" name="fromemail" type="text" value="Email" class="validate[required]"/>                        
+                        <textarea id="body" name="body" rows="5" class="validate[required]">Your Comment</textarea>                        
+                        <button id="btnProcess" style="float: right;"><span id="btnProcess">Send</span></button>
+                        <div class="clear"></div>
+                    </fieldset>
+                </form>           	            
+            </div> 
+        	<div class="grid_6">
+	        	<h4>Contact Us</h4>
+	        	<p:module-content id="shop.info"> 
+	                <ul>
+	                    <li><span>phone :</span> %data.phone%</li>
+	                    <li><span>fax :</span> %data.fax%</li>
+	                    <li><span>email :</span> %data.contact_email%</li>
+	                    <li><span>contact person :</span> %data.contact_person%</li>
+	                    <li><span>address :</span> %data.address%</li>
+	                </ul>            
+	            </p:module-content>
+            </div>       	
+            <div class="grid_5">
+                <h4>Category</h4>
+                <p:module-content id="category.list">
+	                <ul class="list">	   
+	                	<loop id="category" maxItem="1" maxRecord="20">            	
+	                		<li><a href="category.htm?groupid=%data.groupid%">%data.groupname%</a></li>
+	                	</loop>                	
+	                </ul>
+                </p:module-content>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="footer-bottom">
+    <div class="wrap">
+        <div class="container_16">
+            <div class="grid_16">
+                <div class="copyright">Powered by <a href="http://www.forestwebsolution.com">Forest Web Solution</a></div>
+                <div class="social">
+                	<p:module-content id="web.info">
+                	<script>
+                		var facebook_id = "%data.facebook_id%";
+                	</script>	
+                    <ul>
+                        <li><a class="text_replace twitter" href="%data.twitter_url%" target="_blank">twitter</a></li>
+                        <li><a class="text_replace facebook" href="%data.facebook_url%" target="_blank">Facebook</a></li>
+                        <li><a class="text_replace youtube" href="%data.youtube_url%" target="_blank">youtube</a></li>                        
+                    </ul>
+                    </p:module-content>
+                    <p>Stay in Touch via Social Networks</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>

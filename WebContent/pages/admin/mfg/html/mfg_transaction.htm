@@ -1,0 +1,543 @@
+<p:component value="script">
+
+<script type="text/javascript">
+	var customEntryButton = {};	
+	var editTR;
+	var isEditing = false;
+	var productPricejsonArray = [];
+	
+	function beforeAdd(){
+		productPricejsonArray = [];
+	}
+	function afterJson(json){
+		/*if(_companyid=='megatrend' && (json.rc=='0' || json.rc=='1')){
+			alert("Please remember to update this invoice at Eurotrend");
+		}*/
+	}
+	
+	function calculateTotal(){
+		var price, discount;
+		var grandtotal = 0;
+		var globaldiscount = $("#entryForm").find("input[name=discount]").val().trim();
+		var gstCode = $("#entryForm").find("select[name=gst_code]").val();
+		var status = "";
+		// If Percentage
+		var perc = 0;	
+		if(globaldiscount.indexOf("%")!=-1){
+			perc = parseFloat(globaldiscount.substring(0,globaldiscount.length-1));
+		}	
+		if(globaldiscount==''){
+			globaldiscount=0;
+		}	
+				
+		$('tbody[id=mfgtdEntryTableBody] tr').each(function(i){
+			status = $(this).find("input[name$=row-status]").val();
+			if(status!='D'){
+				price = parseFloat($(this).find("input[id$=sellsubtotal]").val());			
+				grandtotal += price;
+			}			
+		});
+		
+		if(perc>0){
+			globaldiscount = grandtotal * (perc / 100);
+		}
+		globaldiscount = ajaxUtil.roundNumber(parseFloat(globaldiscount),2);
+				
+		//alert("grandtotal = "+grandtotal+", globaldiscount="+globaldiscount);
+		var gstTotal = grandtotal - globaldiscount;
+		if(gstCode=="TX"){
+			gstTotal = gstTotal * 0.06;
+		}else if(gstCode=="SST"){
+			gstTotal = gstTotal * 0.10;			
+		}else{
+			gstTotal = 0;
+		}	
+		
+		gstTotal = parseFloat(ajaxUtil.roundNumber(gstTotal, 2));
+		var finalTotal = ajaxUtil.roundNumber(grandtotal-globaldiscount+gstTotal,2);
+		//alert("gstTotal = "+gstTotal);
+		$("#entryForm").find("#gst_amt").val(gstTotal);
+		$("#entryForm").find("#grandtotal").html(finalTotal);
+		$("#entryForm").find("#grandtotalinput").val(finalTotal);
+		$("#entryForm").find("input[name=discount]").val(globaldiscount);
+	}
+	
+	// Get new set of price list when change customer or type.
+	function reCalculatePrice(){
+		var mainForm = $("#entryForm");
+		var prodidArray = [];
+		var isFactoryArray = [];
+		var prodid, price, discount;
+		var reCalculate = false;
+		
+		$('tbody[id=mfgtdEntryTableBody] tr').each(function(i){
+			prodid = $(this).find("input[id$=prodid]").val();
+			price = parseFloat($(this).find("input[id$=price]").val());
+			discount = parseFloat($(this).find("input[id$=discount]").val()); 
+			if(prodid!='0' && price==0 && discount==0){
+				reCalculate = true;
+			}
+		});
+		if(reCalculate){
+			var prodJson;
+			$('tbody[id=mfgtdEntryTableBody]').find("input[id$=prodid]").each(function(i){
+				if($(this).val()!='0'){
+					prodJson = eval('productMainjson.data.prod'+$(this).val());					
+					prodidArray.push($(this).val());
+					isFactoryArray.push(prodJson.factory);
+				}
+			});
+		}else{
+		 	return;
+		}		
+		ajaxUtil.showPanel("", "Recalculating...", null);	
+		var query = "return=json&action1=priceenq";
+		query += "&customerid="+mainForm.find("input[name=customerid]").val();
+		query += "&custtype="+mainForm.find("select[name=custtype]").val();
+		query += "&prodid="+prodidArray;		
+		query += "&factory="+isFactoryArray;
+		
+		ajaxUtil.postJsonQuery("mfg_custproduct.htm", query, function(json){
+			handleCheckPriceCallback(json);
+			mfgUtil.doCalculate($("#mfgtdEntryTableBody"));
+			calculateTotal();
+		}, adminUtil.handleFallback);
+	}
+	
+	function showCustomPriceSpan(priceJson){
+		var unit = $("#customCloneAddForm #mfgtdunit").val();			
+		
+		if(priceJson){					
+			for (p in priceJson) {    
+				if(	priceJson[p].orderto >= unit){				
+					if(priceJson[p].original!=priceJson[p].price){
+						//$("#customprice").html("Original Price ["+priceJson[p].original+"]");
+						$("#customprice").html("Custom Price");
+						$("#customprice").show();
+						$("#mfgtdprice").attr("style","background-color:#E1F5A9;font-weight:bold;");
+					}else{
+						$("#customprice").hide();
+						$("#mfgtdprice").attr("style","");
+					}
+				}								
+				break;
+			}																										
+		}	
+	}
+	
+	function checkPrice(){
+		var form = $("#customCloneAddForm");
+		var mainForm = $("#entryForm");
+		var prodid = form.find("select[name$=prodid]").val();
+		var prodJson = eval('productMainjson.data.prod'+prodid);		
+		if(!productPricejsonArray[prodid]){
+			ajaxUtil.showPanel("", $('#js-processing-request').html(), null);
+			var query = "return=json&action1=priceenq";
+			query += "&customerid="+mainForm.find("input[name=customerid]").val();
+			query += "&custtype="+mainForm.find("select[name=custtype]").val();
+			query += "&prodid="+prodid;
+			query += "&factory="+prodJson.factory;
+			form.find("input[id$=qty]").focus();			
+			ajaxUtil.postJsonQuery("mfg_custproduct.htm", query, function(json){
+				handleCheckPriceCallback(json);
+				mfgUtil.doCalculate($("#customCloneAddForm"));
+				showCustomPriceSpan(productPricejsonArray[prodid]);				
+			}, adminUtil.handleFallback);
+		}else{
+			mfgUtil.doCalculate($("#customCloneAddForm"));
+			showCustomPriceSpan(productPricejsonArray[prodid]);
+		}			
+	}
+	
+	function handleCheckPriceCallback(json) {										
+		//var prodid = $("#customCloneAddForm").find("select[name$=prodid]").val();
+				
+		for (id in json.data) {
+			prodid = id.substr(4);
+			productPricejsonArray[prodid] = eval('json.data.'+id);							
+		}
+		
+		ajaxUtil.hidePanel();
+		/*
+		for(var i=0; i<len; i++){
+			prodid = json.prod[i].prodid;			
+			productPricejsonArray[prodid] = json.prod[i];				
+			productPricejson = json.prod[i];
+		}
+		
+		mfgUtil.doCalculate($("#customCloneAddForm"));		
+		*/
+	}
+	
+	// For Customer
+	var lastCustomerEnter='';
+	function processAfterAutoComplete(json){	
+		var form = $("#entryForm");
+		var customerid = form.find("input[name=customerid]").val();
+		var customerid_ori = form.find("input[name=customerid_ori]").val();
+		var custtype = form.find("select[name=custtype]").val();
+		form.find("input[name=attn]").val(json.contactperson);				
+		form.find("select[name=salesby]").val(json.salesby);
+		form.find("select[name=terms]").val(json.terms);
+		form.find("select[name=custtype]").val(json.type);		
+		$("textarea[name=note]").val(json.note);					
+		customerid_ori = (customerid_ori=='')?lastCustomerEnter:customerid_ori;				
+		if((customerid_ori!='' && customerid!=customerid_ori) || custtype!=json.type){		
+			$('tbody[id=mfgtdEntryTableBody]').find("input[id$=price]").each(function(i){				
+				$(this).val("0");
+			});
+			reCalculatePrice();
+		}			
+		
+		lastCustomerEnter = customerid;
+		
+		var query = "return=json&action1=chkoutstanding";
+		query += "&customerid="+lastCustomerEnter;
+		
+		ajaxUtil.postJsonQuery("customer.htm", query, function(json){
+			//var totalOutStanding = parseFloat(json.data.monththerest); Customer request to change to 61 Days. 4/2/2015
+			var totalOutStanding = parseFloat(json.data.minus3month) + parseFloat(json.data.monththerest);			
+			if(totalOutStanding>0){
+				authorizationLogin(totalOutStanding);								
+			}			
+		}, adminUtil.handleFallback);		
+	}
+	
+	var authorizedFlag = false;
+	
+	function authorizationLogin(totalOutStanding){
+		authorizedFlag = false;
+		$("#userid").val("");
+		$("#password").val("");
+		
+		$("#authorizeMsg").html("More than 3 months overdue: RM "+totalOutStanding+", manager authorization required.");
+		var dialog_buttons = {};
+		
+		dialog_buttons["Authorize"] = function(){		
+			var loginQuery = "return=json&action1=authorization&usergroup=1&userid="+$("#userid").val()+"&password="+$("#password").val();	
+			ajaxUtil.postJsonQuery("login.htm", loginQuery, function(json){				
+				if(json.rc!="0"){
+					alert("Authorization Failed. Please check again.");	
+				}else{
+					authorizedFlag = true;
+					$("#approvalDialog").dialog('close');
+				}								
+			}, adminUtil.handleFallback);			
+			return;																
+		}; 
+		$("#approvalDialog").dialog({
+  			close: function( event, ui ) {
+  				if(authorizedFlag==false){
+  					adminUtil.hideEntryEvent();
+  				}
+  			}  			
+		});
+		if($("#entryForm").find("input[name=customerid_value]").val()!="cash"){
+			$("#approvalDialog").dialog({'buttons': dialog_buttons, 'height': 300});
+			$("#approvalDialog").dialog('open');
+		}
+	}
+	
+	function processEdit(json){
+		productPricejsonArray = [];
+		mfgUtil.fieldDefault($('tbody[id=mfgtdEntryTableBody]').find("tr"), true);		
+		mfgUtil.createGroup(json);
+		reCalculatePrice();
+		calculateTotal();
+	}
+	
+	function beforeSave(){		
+		mfgUtil.updateGroup();
+	}
+	
+	function customCloneAdd(buttonName){
+		var dialog_buttons = {};		
+		dialog_buttons[buttonName] = function(){
+			var newClone;			
+			if(isEditing){				
+				newClone = editTR;
+			}else{
+				newClone = adminUtil.rowClone($("#mfgtdEntryTableBody"),false);
+			}
+			var srcName, srcValue, srcType, trgtObj;
+		
+			$("#customCloneAddForm").find("input, select").each(function(i){
+				srcName = $(this).attr("name");
+				srcType = $(this).attr("type");
+				srcValue = $(this).val();				
+				trgtObj = newClone.find("input[name="+srcName+"]");				
+				trgtObj.val(srcValue);
+				
+				if(trgtObj.attr("type")=="hidden"){					
+					if(srcType=='select-one' && srcValue!=""){							
+						if("mfgtdprodid"==srcName && srcValue=="0"){
+							srcValue = $("#customCloneAddForm").find("#mfgtdprodname").val() + " " + $(this).find("option:selected").text();
+						}else{																
+							srcValue = $(this).find("option:selected").text();
+						}						
+					}										
+					newClone.find("span[name="+srcName+"]").html(srcValue);
+				}				
+			});
+			
+			// Reset			
+			resetField();
+	   		
+	   		if("Update"==buttonName){
+	   			$("#customCloneAddDialog").dialog('close');
+	   		}	   		
+	   		
+	   		calculateTotal();
+		};			
+		
+		mfgUtil.fieldDefault($("#customCloneAddForm"), false);		
+		
+		$("#customCloneAddDialog").dialog('option', 'buttons', dialog_buttons);		
+		$("#customCloneAddDialog").dialog('open');
+	}
+	
+	function customCloneEdit(tr){
+		editTR = tr;
+		var srcName, srcType, srcValue, trgtObj;
+
+		isEditing = true;
+		srcValue = tr.find("input[name$=prodid]").val();		
+		trgtObj = $("#customCloneAddForm").find("[name$=prodid]");		
+		trgtObj.val(srcValue);				
+		mfgUtil.loadProductOption(srcValue);
+		
+		tr.find("input, select").each(function(i){
+			srcName = $(this).attr("name");
+			srcType = $(this).attr("type");
+			srcValue = $(this).val();			
+			trgtObj = $("#customCloneAddForm").find("[name="+srcName+"]");
+			trgtObj.val(srcValue);						
+			if("hidden"==trgtObj.attr("type")){
+				trgtObj = $("#customCloneAddForm").find("span[name="+srcName+"]");
+				if(trgtObj)	trgtObj.html(srcValue);
+			}									
+		});			
+		if($("#customCloneAddForm").find("[name$=price]").val()==0){			
+			mfgUtil.calculate($("#customCloneAddForm"));
+		}
+		// Show customise link
+		if($("#customCloneAddForm").find("[name$=customisedata]").val()!=""){
+			$("#customizeLink").show();
+		}
+		customCloneAdd("Update");
+	}
+	
+	function resetField(){
+		//$("#customizeLink").hide();
+		// Reset Fields			   		  				   
+   		$("#customCloneAddForm").find('input:not([name$=status])').val('');
+   		$("#customCloneAddForm").find('#mfgtdwidth').html('');
+   		$("#customCloneAddForm").find('#mfgtdheight').html('');
+   		$("#customprice").hide();
+   		$("#mfgtdprice").attr("style","");
+	}
+	
+	function afterCloneDelete(){		
+		calculateTotal();
+	}
+	
+	function pageInit(){
+		$("#sortable").sortable();	
+		$("#sortable").disableSelection();	
+		
+		$("#customizeLink").click(function(event){
+			mfgUtil.buildTableEntry($(event.target));
+			event.preventDefault();
+		});
+   		/*
+		customEntryButton['Calculate'] = function(){
+			calculateAll(); // custom.js
+			mfgUtil.updateGroup();
+		};			
+		*/
+		$("tr[id$=Clone]").find("input[name*='opt']").each(function(i){						
+			$(this).parent().attr("id", $(this).attr("id"));		
+			//$(this).parent().empty();	
+		});		
+		
+		$("#mfg_transactionModuleEntry").bind("click", function(event){						
+			var element = event.target;
+			if(element.id=='action.clone.add.custom'){
+				// Reset Fields			   		  				   
+		   		resetField()
+		   		$("#customCloneAddForm").find("[name$=prodid]").change();		
+		   		isEditing = false;		
+				customCloneAdd("Add");	
+				event.preventDefault();	return;
+			}					
+		});
+		
+		// Click to Edit 
+		$('tbody[id=mfgtdEntryTableBody]').bind("click", function(event){						
+			var element = event.target;
+			// Reset Fields			   		  		
+			if($(element).attr("name")=="mfgtdprodid"){	   
+		   		resetField()
+		   		isEditing = true;
+				customCloneEdit($(element).parents("tr"));
+				event.preventDefault();	return;
+			}			
+		});
+		
+		$("#mfg_transactionModuleEntry").find("select[id=custtype]").bind("change", (function(event){
+			$('tbody[id=mfgtdEntryTableBody]').find("input[id$=price]").each(function(i){				
+				$(this).val("0");
+			});
+			
+			reCalculatePrice();
+		}));		
+		
+		$("#mfg_transactionModuleEntry").find("input[name=discount], select[name=gst_code]").bind("change", function(event){							
+			calculateTotal();		
+		});
+				
+	}
+	
+	$(document).ready(pageInit());
+</script>
+<style>
+	.customPanel{
+		border:double;		
+	}
+	#optSpan{		 
+		 width: 100%;
+		 height: 100%;
+	}
+	#customContainer input{
+		 text-align: right;  		  
+	}
+	
+	.customSpan{
+		border-style: ridge;
+		border-width: 2px;
+		float:left;
+		background: #002233;	
+		color: #fff;	
+	}
+	
+	.headerSpan{
+		border: none;
+		float:left;
+		background: #FFF;
+	}
+	#chargeOpt, #chargeProduct{
+		font-weight: bold;
+	}
+	
+	#customCloneAddTable{font-size:1em;}
+	
+	#CustomiseDialog{
+		font-size: 0.8em;
+	}
+</style>
+</p:component>
+<p:component value="body2">	
+
+<div id='CustomiseDialog' class='dialogView' style='width: 920px; height:100%;display: none'>
+	<table width='100%' class='listTable'>
+		<thead>
+			<tr>
+				<th>
+					Panel:<input type='textbox' size='5' name='col' style='text-align: right;'>  &nbsp;&nbsp;&nbsp;					
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td id='customiseContent'></td></tr>
+		</tbody>
+	</table>
+</div>
+
+<div id='approvalDialog' class='dialogView' style='width: 500px; height:60px;display: none' title="Authorization">
+	<table id='customCloneAddTable' width='100%' class='listTable'>
+		<thead>
+		<tr><th colspan="2" id="authorizeMsg"></th></tr>
+		</thead>
+		<tr><th>User ID</th><td><input type="text" name="userid" id="userid" /></td></tr>
+		<tr><th>Password</th><td><input type="password" name="password" id="password" /></td></tr>
+	</table>
+</div>
+
+<div id='customCloneAddDialog' class='dialogView' style='width: 920px; height:100%;display: none'>
+	<form id="customCloneAddForm" class="validateForm">
+		<input type="hidden" id="mfgtdtransdetailid" name="mfgtdtransdetailid" value="">
+		<input type="hidden" id="mfgtdcustomisedata" name="mfgtdcustomisedata" value="">
+		<input type="hidden" id="mfgtdcost" name="mfgtdcost" value="">
+		<input type="hidden" id="mfgtdcostsubtotal" name="mfgtdcostsubtotal" value="">		
+		<input type='hidden' id="mfgtdwidth" name='mfgtdwidth' value="">
+		<input type='hidden' id="mfgtdheight" name='mfgtdheight' value="">
+		<input type="hidden" id="mfgtdstatus" name='mfgtdstatus' value="A">
+		
+		<table id='customCloneAddTable' width='100%' class='listTable'>
+			<col width="130">
+			<col width="250">
+			<col width="100">
+			<col width="250">
+			<tr>
+				<th>Product</th>
+				<td>
+					%data.item.select% 
+					<div id='chargeProduct'></div>
+				</td>
+				<th>Custom Name</th>
+				<td><input type='text' id='mfgtdprodname' name='mfgtdprodname' class='' size='40' maxlength='200' value=''/></td>
+			</tr>
+			<tr>
+				<th>Measurement <br>(w x h)</th>				
+				<td>
+					<input type='text' id='mfgtdmeasurement' name='mfgtdmeasurement' class='' size='30' maxlength='50' value=''/>
+					<a href="#" id="customizeLink" style="display:none;color:#000000;">Customize</a>
+				</td>
+				<th>Quantity</th>
+				<td><input type='text' id='mfgtdqty' name='mfgtdqty' class='validate[required]' size='8' maxlength='10' value=''/></td>
+			</tr>
+			<tr>
+				<th>Option 1</th>
+				<td id="mfgtdopt1"></td>
+				<th>Option 2</th>
+				<td id="mfgtdopt2"></td>
+			</tr>
+			<tr>
+				<th>Option 3</th>
+				<td id="mfgtdopt3"></td>
+				<th></th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>SqFt / Unit</th>
+				<td><input type='text' id='mfgtdunit' name='mfgtdunit' class='' size='8' maxlength='15' value=''/></td>
+				<th>Unit Price</th>
+				<td><input type='text' id='mfgtdprice' name='mfgtdprice' class='' size='8' maxlength='15' value=''/> <span id="customprice" style="display: none;font-weight: bold;"></span></td>
+			</tr>
+			<tr>
+				<th>Discount</th>
+				<td><input type='text' id='mfgtddiscount' name='mfgtddiscount' class='' size='8' maxlength='15' value=''/></td>
+				<th>Subtotal</th>
+				<td><input type='text' id='mfgtdsellsubtotal' name='mfgtdsellsubtotal' class='' size='10' maxlength='15' value=''/></td>
+			</tr>
+			<tr>
+				<th>Width (mm)</th>
+				<td>
+					<span id="mfgtdwidth"></span>
+					
+				</td>
+				<th>Height (mm)</th>
+				<td>
+					<span id='mfgtdheight'></span>					
+				</td>
+			</tr>
+			<tr>
+				<th>Remarks</th>
+				<td colspan="3">
+					<input type="text" id='mfgtdremark' name='mfgtdremark' size="70">
+				</td>				
+			</tr>			
+		</table>
+	</form>
+</div>
+</p:component>

@@ -1,0 +1,36 @@
+<p:component value="script">
+
+
+<script type="text/javascript">
+	var iconPath = "/components/rte/";
+	var editorObj;
+	var editorId;
+	
+	function initEditor(){
+		var td = $("textarea[class=editor]").parents("td");		
+		viewEditor();
+		$("<a href='#' onclick='viewEditor();return false;'><b>View Editor</b></a>, <a href='#' onclick='viewHTML();return false;'><b>View HTML</b></a>").prependTo(td);			
+	}
+	
+	function viewEditor(){
+		$("textarea[class=editor]").each(function(i){
+			$(this).attr("id", new Date().getTime());	
+			editorId = $(this).attr("id");
+			$(this).width("600px");
+			$(this).height("250px");							
+			editorObj = new nicEditor({fullPanel : true, uploadURI: 'upload.htm'}).panelInstance($(this).attr("id"));
+		});
+	}
+	
+	function viewHTML(){			
+		editorObj.removeInstance(editorId);
+	}
+	
+	function initPage(){
+		initEditor();
+	}
+
+	$(document).ready(initPage);
+</script>
+<script type="text/javascript" src="/components/rte/nicEdit.js"></script>
+</p:component>

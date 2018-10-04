@@ -1,0 +1,59 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Category</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">
+	<style>			
+		ul.image-list{
+		    position: relative;		   
+		}
+		ul.image-list li{
+		    float: left; margin: 3px 3px;	    
+		}
+		div.frame img{height:208px;width:292px;}
+	</style>
+</p:component>
+<p:component value="body">			
+	<p:module-content id="category.list">
+    	<div>	          
+    	    <loop id="category" maxItem="1" maxRecord="20">  	
+    		<div>
+    			<p:module-content id="product.list" groupid="%data.groupid%">
+					<div class="header">
+				    	<div class="wrap">
+				        	<div class="container_16">
+				            	<div class="grid_12">
+				            		<h2>%data.groupname%</h2>				            		
+				            	</div>
+				                <div class="grid_4" style="text-align: right; margin-right: 10px"><a class="sl_button" href="category.htm?groupid=%data.groupid%"><span><em>&raquo;</em> View more</span></a></div>
+				                <div class="clear"></div>                 
+				            </div>                          
+						</div>
+					</div>    
+			   	
+			    	<div id="content" class="container_12">
+			    		<ul class="portfolio-list"> 				
+			    			<loop>
+				           		<li class="item portfolio-3 grid_4">
+				               		<div class="frame">%data.images.list%</div>
+				               		<h3>%data.name%</h3>
+				               		<a href="product.htm?prodid=%data.prodid%">Order Here</a>
+				           		</li> 
+				           	</loop>             	
+						</ul>			  
+					</div>
+				</p:module-content>
+    		</div>
+    		</loop>                
+    	</div>
+   	</p:module-content>
+	
+	
+	<div class="clear"></div>
+</p:component>
+

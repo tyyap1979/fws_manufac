@@ -1,0 +1,55 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Material</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">
+	<script>
+		$(document).ready(function(){
+			$("#ulImageList li").attr("class","item portfolio-3");
+		});
+	</script>
+	
+	<style>			
+		ul.image-list{
+		    position: relative;		   
+		}
+		ul.image-list li{
+		    float: left; margin: 3px 3px;	    
+		}
+		ul.image-list img{height:104px;width:146px;}
+	</style>
+</p:component>
+
+<p:component value="body">	
+
+	<div class="header">
+    	<div class="wrap">
+        	<div class="container_16">
+            	<div class="grid_12"><h2>Material</h2></div>
+                <div class="grid_4"></div>
+                <div class="clear"></div>                 
+            </div>                          
+		</div>
+	</div>
+    
+    	<p:module-content id="material.list">
+	    	<div id="content" class="container_12">
+	    		<loop>	    						
+				<div class="grid_12" style="margin-bottom: 35px;">
+					<h3>%data.title%</h3>      
+					<ul class="image-list">   		
+	              		%data.images.list%
+              		</ul>	
+              	</div>	    
+              	</loop>          	              	                 		 
+			</div>
+		</p:module-content>
+	
+	<div class="clear"></div>
+</p:component>
+

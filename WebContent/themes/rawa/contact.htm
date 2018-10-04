@@ -1,0 +1,105 @@
+<p:useTemplate>templateframe-main.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>Contact Us</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+<p:component value="script">
+	<style>
+		.google-map-wrap{
+		    width: 100%;
+		    height: 262px;
+		    padding: 3px;
+		    border: 1px solid #b8b1ab;
+		    background: #fafafa; 
+		    margin: 0 8px 18px; 
+		}
+		#google-map{
+		    width: 100%;
+		    height: 262px; 
+		}
+	</style>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> 	
+	<script>		
+		function initialize() {			
+			if(latlng=="") return;
+			
+			var posArray = latlng.split(",");			
+		  	var roadAtlasStyles = [];
+			var center = new google.maps.LatLng(posArray[0], posArray[1]);			
+		  	var mapOptions = {
+			    zoom: 16,
+			    center: center,
+			    panControl: false,
+			    zoomControl: true,
+			    mapTypeControl: false,
+			    scaleControl: false,
+			    streetViewControl: false,
+			    overviewMapControl: false,
+			    mapTypeControlOptions: {
+			       mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map']
+			    }
+		  	};
+		
+		  	map = new google.maps.Map(document.getElementById("google-map"), mapOptions);		      
+		  	var styledMapOptions = {name: "Map"};		
+		  	var usRoadMapType = new google.maps.StyledMapType(roadAtlasStyles, styledMapOptions);		
+		 	map.mapTypes.set('map', usRoadMapType);
+		  	map.setMapTypeId('map');
+		  
+		    var image = '/themes/rawa/files/js/google_icon.png';
+		    var map_ = new google.maps.LatLng(posArray[0], posArray[1]);
+		    var Marker = new google.maps.Marker({position: map_,map: map,icon: image});		
+		}
+		
+		$(document).ready(initialize);				
+	</script>
+</p:component>
+<p:component value="body">		
+
+<div class="pageloader_inner wrapper clearfix seperator_left">
+	<div id="page-single">        
+		<article>
+            	<h2 class="title_page add_padding">Contact</h2>
+            	<div class="article_content seperator add_padding clearfix">
+                
+                <div class="columnsection clearfix">
+                    <div class="column one_full">
+                        <p:module-content id="page.content" key="ABOUTUS">
+							<p>%data.content%</p>	
+						</p:module-content>
+                    </div>
+                    
+                    <div class="column two_third">
+                    	<div class="map-form">
+				             <div class="wrap">
+				                 <div class="google-map-wrap">
+				                     <div id="google-map"></div>                                        
+				                 </div>                 
+				             </div>
+				         </div> 
+                    </div>                                
+                    <div class="column one_third last">                        
+                           <p:module-content id="shop.info">
+							<script> var latlng = "%data.latlng%";	</script>
+				            <strong>Drop A Line</strong>	<br>			            
+				            <span>%data.address%</span><br>
+				            <span>Email: <a href="#">%data.contact_email%</a><br /></span>
+				            <br><br>
+				            
+				            <strong>Give Us A Ring</strong><br>
+				            <span>Phone: %data.phone%</span><br>
+				            <span>Mobile: %data.contact_phone%</span><br>
+				            <span>Fax: %data.fax%</span><br>
+				        </p:module-content>                                                    
+                    </div>
+                    
+                </div>
+    		</div> <!-- END .article_content -->
+        </article>    	
+    </div>
+</p:component>
+

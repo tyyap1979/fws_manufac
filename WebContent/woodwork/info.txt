@@ -1,0 +1,4 @@
+1 inch 	= 25.4mm
+8 ft	= 2438mm
+6 ft	= 1828mm
+4 ft	= 1219mm

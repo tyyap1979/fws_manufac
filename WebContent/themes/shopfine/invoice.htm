@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	.entryScreen{font-size:1em;border-collapse: collapse;}
+	.entryScreen tr { background-color: #fff; }
+	.entryScreen th { background-color: #fafafa; padding: 5px 10px; border: 1px solid #CCCCCC; font-weight: bold;}
+	.entryScreen td { padding: 5px 10px; border: 1px solid #CCCCCC;}
+	.entryScreen thead, 
+	.entryScreen tfoot {height: 40px;background-color: #848484;padding: 5px 10px;border: 1px solid #CCCCCC;}
+</style>
+</head>
+
+<body>    
+	<p:module-content id="order.detail">		
+  			<table id="listTable" class="entryScreen" style="width:100%;">
+			<col width="200">							
+			<col>
+			<thead class="titlebar">
+				<tr><td colspan="2"><b>Order Information</b></td></tr>
+			</thead>
+			<tbody>									
+				<tr><th align="left">Order No</th><td>%data.transno%</td></tr>
+				<tr><th align="left">Order Date</th><td>%data.salesdate%</td></tr>
+				<tr><th align="left">Email</th><td>%data.email%</td></tr>
+				<tr><th align="left">Payment Method</th><td>%data.paymentmethod%</td></tr>							
+				<tr><th align="left">Total Amount</th><td>%data.totalsales%</td></tr>
+				<tr><th align="left">Sales Date</th><td>%data.salesdate%</td></tr>						
+				<tr><th align="left">Order Comment</th><td valign="top">%data.comment%</td></tr>
+				<tr><th align="left">Status</th><td>%data.status%</td></tr>																				
+			</tbody>
+		</table>
+		<br>
+		<table id="listTable" class="entryScreen" style="width:100%;">
+			<col width="200">							
+			<col>
+			<thead class="titlebar">
+				<tr><td colspan="2"><b>Delivery Information</b></td></tr>
+			</thead>
+			<tbody>									
+				<tr><th align="left">Address</th><td>%data.address%</td></tr>	
+				<tr><th align="left">City</th><td>%data.city%</td></tr>
+				<tr><th align="left">State</th><td>%data.state%</td></tr>
+				<tr><th align="left">Postcode</th><td>%data.postcode%</td></tr>
+				<tr><th align="left">Country</th><td>%data.country%</td></tr>
+				<tr><th align="left">Contact No</th><td>%data.phoneno%</td></tr>																			
+			</tbody>
+		</table>
+		
+		<br>
+  		<table id="listTable" class="entryScreen" style="width:100%;">
+			<col />							
+			<col width="130" />						
+			<col width="100" />	
+			<col width="100" />	
+								
+			<thead class="titlebar">
+				<tr><td colspan="4"><b>Order Detail</b></td></tr>
+			</thead>
+			<tr>						
+				<th align="center">Description</th>														
+				<th align="center">Unit Price (%system.selected.currency.symbol%)</th>																	
+				<th align="center">Quantity</th>
+				<th align="center">Sub Total (%system.selected.currency.symbol%)</th>																					
+			</tr>
+			<tbody custom="loop" removeTag="false">							
+				<tr>	
+					<td align="left">											
+						<div style="width: 90; display: inline; float: left;">
+							<img src="http://%system.domain%/photo/product/%data.prodid%/tn_%data.filename%" style="max-width: 200px;" />
+						</div>
+						<div style="margin-left:10px;display: inline; float: left;">
+							<h2>%data.prodname%</h2> <br>
+			      			%data.options%							      			
+						</div>																				      
+					</td>															
+					<td align="center"><span class="currencysymbol"></span><span class="currency">%data.sellprice%</span></td>									
+					<td align="center">%data.qty%</td>
+					<td align="center"><span class="currencysymbol"></span><span id="sellsubtotal" class="currency">%data.sellsubtotal%</span></td>							
+				</tr>			
+			</tbody>									
+		</table>				
+	</p:module-content>	
+	<br>	
+		
+	<p:module-content id="payment.method">
+		<table id="listTable" class="entryScreen" style="width:100%;">						
+			<col>
+			<thead>
+				<tr><th>Payment Options</th></tr>
+			</thead>
+			<tbody custom="loop" removeTag="false">			
+				<tr>			
+					<td>
+						%data.instruction%								
+					</td>
+				</tr>				
+			</tbody>
+		</table>				
+	</p:module-content>	
+	
+	    
+</body>
+</html>

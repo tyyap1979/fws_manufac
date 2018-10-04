@@ -1,0 +1,74 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+
+<p:component value="meta">
+	<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+	<title>J Home Design</title>		
+	<meta name="description" content="J Home Design is a renovation and interior design company located in Kuala Lumpur and Selangor. We have a passion for good design, quality and invention that is reflected in everything we do." />
+    <meta name="keywords" content="KL Renovation, Selangor Renovation, Residential Renovation, KL Interior Design, Selangor Interior Design, Home Design, Home Renovation, Kitchen Renovation, Interior Planner, House Builder, House Contractor, Apartment Renovation, Condo Renovation, Mont Kiara Renovation, TTDI Renovation, Damansara Renovation" />	    
+</p:component>
+
+<p:component value="body">			
+
+		<div id="home">
+
+			<div class="slideshow-container">
+	
+				<div class="flexslider" id="index-slider">
+					<p:module-content id="banner.list">
+                     	<ul class="slides">
+                     		<loop>	
+	                     		<li>
+									<a href="#"><img src="%data.filename%" alt="" /></a>
+									<p class="flex-caption">%data.description%</p>
+								</li>	        
+							</loop>                        		                                		                    			                                		
+                    	</ul>
+                    </p:module-content>	           					
+				</div><!--END FLEXSLIDER-->
+	
+				<div class="section-title">
+					<p></p>
+			        <h2>複雑さを簡素化</h2>
+			        <br />
+			        <h5>
+			        	J Home Design は、我々は本当に素晴らしいです、スタイリッシュで現代的な有機スペースを作成するための情熱を共有しています。<br><br>
+						我々は、我々が行うすべてに反映されている品質と発明との良好な革新的なデザインへの情熱を持っている。
+					</h5> 
+			        <p></p> 
+				</div><!--END SECTION TITLE-->
+	
+			</div><!--END SLIDESHOW-CONTAINER-->
+	
+		</div><!--END HOME-->
+		
+		<div class="divider"></div>
+		<p:module-content id="gallery.list">
+			<div class="section-title">		
+				<h1>最新のプロジェクト</h1>					
+			</div><!--END SECTION TITLE-->	
+			
+			<div class="divider-border"></div>
+			
+	    	<div class="portfolio-grid">
+	    		<ul id="thumbs">
+	    			<loop> 				         	
+		           		<li class="item web">
+		           			<div class="img-container">
+		               			<div class="item-img">%data.images.list%</div>
+		               			<ul>
+			                        <li><a href="gallery-single.htm?gid=%data.image.key%" class="view">details</a></li>
+									<li><a href="%data.main.image%" class="preview" rel="prettyPhoto[%data.image.key%]">preview</a></li>
+			                    </ul> 
+							</div>
+		               		<div class="item-info">
+								<h3 class="title">
+									<a href="gallery-single.htm?gid=%data.image.key%">%data.title%</a>							
+								</h3>												
+							</div><!--END ITEM-INFO--> 	
+		           		</li>       
+		           	</loop>       	                 
+				</ul>		  
+			</div>
+		</p:module-content>
+</p:component>
+

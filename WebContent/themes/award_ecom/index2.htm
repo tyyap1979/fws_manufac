@@ -1,0 +1,33 @@
+\<p:useTemplate>templateframe-main.htm</p:useTemplate>
+
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>%data.html_title%</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+
+<p:component value="body">				
+	<div id="content" class="container_16">    	
+    	<div class="grid_12">
+    		<div style="margin-top: 12px">    		
+    		adadad
+    		<p:module-content id="page.list" key="INDEX_PART"> 
+			    <div class="grid_12">
+			    	<loop>
+			   			%data.content%
+			   		</loop>  
+				</div>
+			</p:module-content>
+			</div>
+    	</div>
+    	<div class="grid_4">			
+			<p:module-content id="page.content" key="ADS">
+				<p>%data.content%</p>	
+			</p:module-content>
+		</div>
+    </div>
+    
+</p:component>

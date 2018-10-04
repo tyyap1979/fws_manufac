@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+
+<body>
+<style>
+	.entryScreen{font-size:1em;border-collapse: collapse;}
+	.entryScreen tr { background-color: #fff; }
+	.entryScreen th { background-color: #fafafa; padding: 15px 20px; border: 1px solid #CCCCCC; font-weight: bold;}
+	.entryScreen td { padding: 15px 20px; border: 1px solid #CCCCCC;}
+	.entryScreen thead, 
+	.entryScreen tfoot {height: 40px;background-color: #848484;padding: 15px 20px;border: 1px solid #CCCCCC;}
+</style>
+    <div id="narrow">
+		<p:module-content id="order.detail">		
+			<div id="content" class="container_12">    	
+	    		<div class="grid_12">
+	    			<table id="listTable" class="entryScreen" style="width:100%;">
+						<col width="200">							
+						<col>
+						<tbody>									
+							<tr><th align="left">Order No</th><td>%data.transno%</td></tr>
+							<tr><th align="left">Order Date</th><td>%data.salesdate%</td></tr>
+							<tr><th align="left">Email</th><td>%data.email%</td></tr>
+							<tr><th align="left">Client No</th><td>%data.clientno%</td></tr>
+							<tr><th align="left">Payment Method</th><td>%data.paymentmethod%</td></tr>
+							<tr><th align="left">Shipping Method</th><td>%data.shippingmethod%</td></tr>
+							<tr><th align="left">Total Amount</th><td>%data.totalsales%</td></tr>
+							<tr><th align="left">Sales Date</th><td>%data.salesdate%</td></tr>						
+							<tr><th align="left">Order Comment</th><td valign="top">%data.comment%</td></tr>
+							<tr><th align="left">Status</th><td>%data.status%</td></tr>																				
+						</tbody>
+					</table>
+	    			<table id="listTable" class="entryScreen" style="width:100%;">
+						<col />							
+						<col width="130" />
+						<col width="130" />										
+						<col width="100" />	
+						<col width="100" />	
+											
+						<thead class="titlebar">
+							<tr><td colspan="5"><b>Order Detail</b></td></tr>
+						</thead>
+						<tr>						
+							<th align="center">Product</th>														
+							<th align="center">Unit Price</th>										
+							<th align="center">SQFT / Unit</th>
+							<th align="center">Quantity</th>
+							<th align="center">Subtotal</th>																				
+						</tr>
+						<tbody>
+							<loop>							
+								<tr>	
+									<td align="left">																									
+								      	<div style="width: 90; display: inline; float: left;">
+										<img src="http://www.kitchendoordesign.com/photo/cart/%data.opt1_code%%data.opt2_code%%data.opt3_code%%data.opt4_code%.jpg" title="%data.opt1_code%%data.opt2_code%%data.opt3_code%%data.opt4_code%.jpg" />
+										</div>
+										<div style="margin-left:10px;display: inline; float: left;">
+											<b>%data.name%</b> <br>
+							      			%data.options% <br>
+							      			Remark: %data.remark%	
+										</div>
+										<div style="clear: both;" />							      	
+									</td>															
+									<td align="center">%data.price% / %data.sellunittype_value%</td>
+									<td align="center">%data.unit%</td>		
+									<td align="center">%data.qty%</td>
+									<td align="left">%data.sellsubtotal%</td>								
+								</tr>				
+							</loop>											
+						</tbody>									
+					</table>	
+				</div>
+			</div>
+			
+		</p:module-content>	
+		
+		
+		<p:module-content id="payment.method">
+			<table id="listTable" class="entryScreen" style="width:100%;">						
+				<col>
+				<thead>
+					<tr><th>Payment Options</th></tr>
+				</thead>
+				<tbody>
+					<loop>		
+					<tr>			
+						<td>
+							%data.instruction%								
+						</td>
+					</tr>
+					</loop>	
+				</tbody>
+			</table>				
+		</p:module-content>	
+    </div>    
+</body>
+</html>

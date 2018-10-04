@@ -1,0 +1,61 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">		
+	<title>Order History</title>		
+</p:component>
+<p:component value="script">		
+	<script>		
+		function initPage(){
+			$(".viewDetail").fancybox();				
+		}
+		
+		$(document).ready(initPage);
+	</script>
+</p:component>
+<p:component value="body">	
+	
+		<div id="content" class="container">
+			<div class="row">
+		    	<div class="span3">
+		    		<p:includepage id="accountmenu.htm"></p:includepage>			
+				</div><!--end span3-->
+			
+				<div class="span9">
+					<p:module-content id="order.list">
+					<table id="listTable" class="entryScreen" style="width:100%;">
+						<col />							
+						<col width="200" />
+						<col width="130" />					
+						<col width="100" />	
+						<col width="200" />	
+						<col width="130" />	
+											
+						<thead class="titlebar">
+							<tr><td colspan="7" align="center"><b>Order History</b></td></tr>
+						</thead>
+						<tr>						
+							<th align="center">Invoice No</th>														
+							<th align="center">Payment Method</th>										
+							<th align="center">Amount</th>
+							<th align="center">Sales Date</th>
+							<th align="center">Status</th>
+							<th align="center"></th>																	
+						</tr>
+						<tbody custom="loop" removeTag="false">											
+							<tr>	
+								<td align="left">																									
+							      	%data.transno%							      						      
+								</td>															
+								<td align="center">%data.paymentmethod%</td>
+								<td align="center">%data.totalsales%</td>
+								<td align="center">%data.salesdate%</td>	
+								<td align="center">%data.status%</td>									
+								<td align="left"><a href="orderdetail.htm?transid=%data.transid%" id="view-detail" class="viewDetail">View Detail</a></td>
+							</tr>																			
+						</tbody>											
+					</table>		
+					</p:module-content>	
+				</div> <!-- End span9 -->	
+			</div> <!-- End row -->	           
+		</div> <!-- End container -->   	
+		
+</p:component>

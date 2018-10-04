@@ -1,0 +1,194 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Cut List For Box</title>
+<link rel="stylesheet" href="jquery-ui.css" media="all">
+<script src="jquery-1.9.1.js"></script>
+<script src="jquery-ui.js"></script>
+<script src="util.js"></script>
+<script src="c.js"></script>
+<link href="style.css" rel="stylesheet"  type="text/css" media="all" />
+<link href="print.css" rel="stylesheet"  type="text/css" media="print" />
+
+<style>
+  .ui-tooltip, .arrow:after {
+    background: black;
+    border: 1px solid white;
+  }
+  .ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 10px;
+    font: bold 12px "Helvetica Neue", Sans-Serif;    
+    box-shadow: 0 0 7px black;
+  }
+  .arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+  }
+  .arrow.top {
+    top: -16px;
+    bottom: auto;
+  }
+  .arrow.left {
+    left: 20%;
+  }
+  .arrow:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 5px 9px -9px black;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    tranform: rotate(45deg);
+  }
+  .arrow.top:after {
+    bottom: -20px;
+    top: auto;
+  }
+  
+  #cutPiecesDiv{
+  	overflow: auto;
+  	height: 500px;
+  }
+  
+  </style>
+</head>
+
+
+<body>
+<table id="detailTable" class="dataTable">
+	<thead>
+	<tr>
+		<th></th>
+		<th>Type</th>
+		<th>Width</th>
+		<th>Height</th>
+		<th>Depth</th>
+		<th>Board Thickness</th>
+		<th>Doors Thickness</th>
+		<th>Total Door</th>
+		<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>		
+		<td>
+			<input type="checkbox" id="checkrow">
+			<input type="hidden" id="doormargin" value="3" class="toMM">
+			<input type="hidden" id="elevatedheight" value="0" class="toMM">
+		</td>
+		<td>
+			<select id="boxtype">
+				<option value="frameless-legs">Frameless</option>
+				<option value="kitchenbase-legs">Kitchen Base</option>				
+				<option value="sliding">Sliding</option>				
+			</select>
+		</td>
+		<td><input type="text" id="width" size="5" class="toMM"></td>
+		<td><input type="text" id="height" size="5" class="toMM"></td>
+		<td><input type="text" id="depth" size="5" class="toMM"></td>
+		<td><input type="text" id="thickness" size="5" class="toMM"></td>
+		<td><input type="text" id="doorthickness" size="5" class="toMM"></td>
+		<td><input type="text" id="totaldoor" size="5" class="toMM"></td>
+		<td><input type="text" id="description" size="50"></td>
+	</tr>	
+	</tbody>
+	<tfoot>	
+	<tr>
+		<td colspan="11" id="buttonBar">
+			<button id="calculate" onclick="calculate();">Calculate</button> &nbsp;
+			<button class="btnAddRow">Add Row</button>&nbsp;	
+			<button id="copy2Clipboard" onclick="copy2Clipboard();">Copy To Clipboard</button>&nbsp;	
+			<button id="copy2Clipboard" onclick="copyFromClipboard();">Copy From Clipboard</button>
+		</td>	 		
+	</tr>
+	<tr>
+		<td colspan="12" id="clipboardBar">
+			<textarea rows="3" cols="130" id="copyText"></textarea>
+			<!-- 
+			<br>Detail Table:<br>
+			<textarea rows="3" cols="130" id="detailTableText"></textarea>
+			<br>Board Table:<br>
+			<textarea rows="3" cols="130" id="boardTableText"></textarea>
+			<br>Piece Table:<br>
+			<textarea rows="3" cols="130" id="pieceTableText"></textarea>
+			<br>Board Panel:<br>
+			<textarea rows="3" cols="130" id="boardPanelText"></textarea>
+			 -->
+		</td>
+	</tr>
+	</tfoot>
+</table>
+
+
+
+<p style="clear: both">&nbsp;</p>
+
+<table class="sortable dataTable">	
+	<thead>
+	<tr>
+		<th>No</th>
+		<th>Board (w x h)</th>
+		<th>Quantity</th>
+		<th>Description</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody id="boardTable">
+	</tbody>
+	<tfoot>
+	<tr id="woodTableButton">
+		<td colspan="5">
+			<button class="btnAddRow">Add Wood</button>
+			<button id="btnBuildWoodPieces" onclick="buildWoodPieces();">Build Wood Pieces</button>
+			<button id="btnPrint" onclick="print();">Print</button>					
+		</td>
+	</tr>
+	</tfoot>
+</table>
+
+
+<p style="clear: both; page-break-after: always;"></p>
+
+<div id="dashboard" style="min-height:500px; width:100%; margin-left: 0;" class="break">
+	<div id="materialDiv">				
+		<span id="bNameSpan">Board Name: </span><input type="text" size="20" id="boardName" />
+		<span id="bSizeSpan">Board Size: </span>
+		<select id="boardSelect">
+			<option value="6x8">6 x 8</option>
+			<option value="4x8">4 x 8</option>			
+		</select>
+		<button id="btnAddBoard" onclick="addBoard();">Add Board</button>		
+		<table id="boardPanelDiv"><tbody></tbody></table>
+	</div>
+	
+	<div id="cutPiecesDiv" class="droppable">
+
+	</div>
+		
+</div>
+
+<!-- 
+<div id="cutItem" style="background-color: #002233; width: 200px; height: 300px">
+	<div class="hSize" style="background-color: #000; color: #fff; width: 200px;">
+		200px
+	</div>
+	<div class="vSize" style="background-color: #000; color: #fff; width: 280px;">
+		300px
+	</div>	
+</div>
+ -->
+<p style="clear: both"></p>
+</body>
+</html>

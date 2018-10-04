@@ -1,0 +1,322 @@
+<script>
+	function lastDateOfMonth(){
+		var d=new Date(); // current date
+		d.setDate(1); // going to 1st of the month
+		d.setHours(-1);		
+		$("#todatetabs-stmtrpt").val(d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate());
+	}
+	
+	function initPage(){
+		lastDateOfMonth();
+	}
+	
+	$(document).ready(initPage);
+</script>
+
+<!-- 50% Box Grid Container: Start -->
+<div class="grid_24" style="height: 320px;">
+	<!-- Box Header: Start -->
+	<div class="box_top">
+		
+		<h2 class="icon pages">Account</h2>
+		
+		<!-- Tab Select: Start -->
+		<ul class="sorting">
+			<li><a href="#tabs-2" class="active">Aging Summary</a></li>
+			<li><a href="#tabs-5">Statement</a></li>
+			<li><a href="#tabs-stmtrpt">Statement Report</a></li>			
+			<li><a href="#tabs-6">Received Payment</a></li>
+		</ul>
+		<!-- Tab Select: End -->
+	</div>
+	<!-- Box Header: End -->	
+	
+	<!-- Box Content: Start -->		
+	<div class="box_content padding">
+		<!-- Tabs: Start -->
+		<div class="tabs">
+			<div id="tabs-2" class="dataTables_wrapper">
+				<form id='searchForm' method='POST' action='mfg_report.htm' target="_blank" autocomplete='off'>
+					<input type='hidden' name='action1' value='action.report' />
+					<input type='hidden' name='rptcode' value='aging' />
+					<input type='hidden' name='return' value='webrpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Customer</th>
+							<td>
+								<input type='hidden' name='customerid'/>
+								<input type='text' id='customerid_valuetabs-2' name='customerid_value' class='validate[required] customer-autosuggest' size='40' value=''/>
+							</td>
+						</tr>					
+						<tr>
+							<th>Sales Person</th>
+							<td>
+								<input type='hidden' name='salesby'/>
+								<input type='text' id='salesby_valuetabs-2' name='salesby_value' class='validate[required] agentprofile-autosuggest' size='40' value=''/>
+							</td>
+						</tr>
+						<tr>
+							<th>Sales Date From</th><td><input type='text' id='fromdatetabs-2' name='fromdate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>Sales Date To</th><td><input type='text' id='todatetabs-2' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>															
+				</form>
+			</div>
+			
+			<div id="tabs-5" class="dataTables_wrapper">
+				<form id='searchForm' method='POST' action='mfg_statement.htm' target="_blank" autocomplete='off'>
+					<input type='hidden' name='action1' value='action.report' />				
+					<input type='hidden' name='return' value='rpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Customer</th>
+							<td>
+								<input type='hidden' name='customerid'/>
+								<input type='text' id='customerid_valuetabs-2' name='customerid_value' class='validate[required] customer-autosuggest' size='40' value=''/>
+							</td>
+						</tr>						
+						<!-- 
+						<tr>
+							<td>Month</td>
+							<td>
+								<input type='text' name='stmtmonth' maxlength='2' size='2' />							
+							</td>
+						</tr>
+						<tr>
+							<td>Year</td>
+							<td>							
+								<input type='text' name='stmtyear' maxlength='4' size='4' />
+							</td>
+						</tr>
+						 -->
+						<tr>
+							<th>Sales Date From</th><td><input type='text' id='fromdatetabs-5' name='fromdate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>Sales Date To</th><td><input type='text' id='todatetabs-5' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>										
+				</form>
+			</div>
+			
+			<div id="tabs-stmtrpt" class="dataTables_wrapper">				
+				<form id='searchForm' method='POST' action='mfg_report.htm' target="_blank" autocomplete='off'>
+					<input type='hidden' name='action1' value='action.report' />
+					<input type='hidden' name='rptcode' value='stmtrpt' />
+					<input type='hidden' name='return' value='webrpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Customer</th>
+							<td>
+								<input type='hidden' name='customerid'/>
+								<input type='text' id='customerid_valuetabs-stmtrpt' name='customerid_value' class='validate[required] customer-autosuggest' size='40' value=''/>
+							</td>
+						</tr>											
+						<tr>
+							<th>Sales Date To</th><td><input type='text' id='todatetabs-stmtrpt' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>															
+				</form>
+			</div>
+						
+			<div id="tabs-6" class="dataTables_wrapper">
+				<form id='searchForm' method='POST' action='mfg_report.htm' target="_blank" autocomplete='off'>
+					<input type='hidden' name='action1' value='action.report' />
+					<input type='hidden' name='rptcode' value='receivepymt' />
+					<input type='hidden' name='return' value='webrpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Customer</th>
+							<td>
+								<input type='hidden' name='customerid'/>
+								<input type='text' id='customerid_valuetabs-6' name='customerid_value' class='validate[required] customer-autosuggest' size='40' value=''/>
+							</td>
+						</tr>
+						<tr>
+							<th>From Date</th><td><input type='text' id='fromdatetabs-6' name='fromdate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>To Date</th><td><input type='text' id='todatetabs-6' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>															
+				</form>
+			</div>
+			
+		</div>
+		<!-- Tabs: End -->
+	</div>	
+	<!-- Box Content: End -->	
+</div>
+<!-- 50% Box Grid Container: End -->
+
+<div class="clear"></div>
+
+
+<!-- 50% Box Grid Container: Start -->
+<div class="grid_12" style="height: 320px;">
+	<!-- Box Header: Start -->
+	<div class="box_top">
+		
+		<h2 class="icon pages">Sales</h2>
+		
+		<!-- Tab Select: Start -->
+		<ul class="sorting">
+			<li><a href="#tabs-1" class="active">Sales</a></li>
+			<li><a href="#tabs-7">Sales Detail</a></li>		
+		</ul>
+		<!-- Tab Select: End -->
+	</div>
+	<!-- Box Header: End -->
+	<!-- Box Content: Start -->		
+	<div class="box_content padding">
+
+	
+		<!-- Tabs: Start -->
+		<div class="tabs">
+			<div id="tabs-1" class="dataTables_wrapper">
+				<form id='searchForm' method='POST' action='mfg_report.htm' target="_blank" autocomplete='off'>					
+					<input type='hidden' name='action1' value='action.report' />
+					<input type='hidden' name='rptcode' value='sales' />
+					<input type='hidden' name='return' value='webrpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Customer</th>
+							<td>
+								<input type='hidden' name='customerid'/>
+								<input type='text' id='customerid_valuetabs-1' name='customerid_value' class='validate[required] customer-autosuggest' size='40' value=''/>
+							</td>
+						</tr>
+						<tr>
+							<th>Sales Date From</th><td><input type='text' id='fromdatetabs-1' name='fromdate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>Sales Date To</th><td><input type='text' id='todatetabs-1' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>															
+				</form>
+			</div>
+			
+			<div id="tabs-7" class="dataTables_wrapper">
+				<form id='searchForm' method='POST' action='mfg_report.htm' target="_blank" autocomplete='off'>					
+					<input type='hidden' name='action1' value='action.report' />
+					<input type='hidden' name='rptcode' value='deliverydate' />
+					<input type='hidden' name='return' value='webrpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Customer</th>
+							<td>
+								<input type='hidden' name='customerid'/>
+								<input type='text' id='customerid_valuetabs-7' name='customerid_value' class='validate[required] customer-autosuggest' size='40' value=''/>
+							</td>
+						</tr>
+						<tr>
+							<th>Sales Date From</th><td><input type='text' id='fromdatetabs-7' name='fromdate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>Sales Date To</th><td><input type='text' id='todatetabs-7' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>Delivery Date</th><td><input type='text' id='deldatetabs-7' name='deldate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>															
+				</form>
+			</div>
+		</div>
+		<!-- Tabs: End -->
+	</div>	
+	<!-- Box Content: End -->	
+</div>
+<!-- 50% Box Grid Container: End -->
+
+<!-- 50% Box Grid Container: Start -->
+<div class="grid_12" style="height: 320px;">
+	<!-- Box Header: Start -->
+	<div class="box_top">
+		
+		<h2 class="icon pages">Reports</h2>
+		
+		<!-- Tab Select: Start -->
+		<ul class="sorting">
+			<li><a href="#tabs-3" class="active">Top Sales Product</a></li>
+			<li><a href="#tabs-4">Top Sales Customer</a></li>
+		</ul>
+		<!-- Tab Select: End -->
+	</div>
+	<!-- Box Header: End -->
+	
+	<!-- Box Content: Start -->		
+	<div class="box_content padding">
+		<!-- Tabs: Start -->
+		<div class="tabs">
+			<div id="tabs-3" class="dataTables_wrapper">
+				<form id='searchForm' method='POST' action='mfg_report.htm' target="_blank" autocomplete='off'>
+					<input type='hidden' name='action1' value='action.report' />
+					<input type='hidden' name='rptcode' value='topsalesproduct' />
+					<input type='hidden' name='return' value='webrpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Sales Date From</th><td><input type='text' id='fromdatetabs-3' name='fromdate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>Sales Date To</th><td><input type='text' id='todatetabs-3' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>										
+				</form>
+			</div>
+			<div id="tabs-4" class="dataTables_wrapper">
+				<form id='searchForm' method='POST' action='mfg_report.htm' target="_blank" autocomplete='off'>					
+					<input type='hidden' name='action1' value='action.report' />
+					<input type='hidden' name='rptcode' value='topsalescustomer' />
+					<input type='hidden' name='return' value='webrpt' />
+					<table>
+						<col width='150'><col>
+						<tr>
+							<th>Sales Date From</th><td><input type='text' id='fromdatetabs-4' name='fromdate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<th>Sales Date To</th><td><input type='text' id='todatetabs-4' name='todate' class='datepicker' size='10' maxlength='10' value=''/></td>
+						</tr>
+						<tr>
+							<td colspan="3"><input type="submit" id='action.report' value='Print Report' /></td>
+						</tr>
+					</table>										
+				</form>
+			</div>
+			
+		</div>
+		<!-- Tabs: End -->
+	</div>	
+	<!-- Box Content: End -->	
+</div>
+<!-- 50% Box Grid Container: End -->
+

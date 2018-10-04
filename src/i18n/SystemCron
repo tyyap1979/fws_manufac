@@ -1,0 +1,13 @@
+# ROOT
+# Restart Server Every Midnight at 3am, Delete Log File, Start back after 10min
+0 3 * * * service tomcat55 stop
+3 3 * * * rm -f /root/tomcat55/logs/*
+4 3 * * * service tomcat55 start
+
+# Reset running number
+0 0 1 * * java -cp /usr/java/tomcat-5.5/webapps/sbemarket/WEB-INF/classes:/usr/java/tomcat-5.5/webapps/sbemarket/WEB-INF/lib/log4j-1.2.15.jar:/usr/java/tomcat-5.5/webapps/sbemarket/WEB-INF/lib/mysql-connector-java-5.1.6-bin.jar com.pshop.shared.util.AutoNumberBuilder
+
+
+# tyyap1979
+# Daily Backup at 1am, 1pm and 7pm
+0 1,13,19 * * * /home/tyyap1979/db/backupdb.sh

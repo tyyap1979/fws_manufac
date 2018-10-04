@@ -1,0 +1,38 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8"/>		
+		<title>About Us</title>		
+		<meta name="description" content="%data.html_description%" />
+	    <meta name="keywords" content="%data.html_keyword%" />	    
+	</p:module-content>
+</p:component>
+
+<p:component value="script">
+	<script>
+
+	</script>
+</p:component>
+<p:component value="body">		
+<p:module-content id="page.content" key="ABOUTUS">	
+	<div class="header">
+    	<div class="wrap">
+        	<div class="container_16">
+            	<div class="grid_12"><h2>%data.title%</h2></div>
+                <div class="grid_4"></div>
+                <div class="clear"></div>                 
+            </div>                          
+		</div>
+	</div>
+	<div id="content" class="container_16">
+		<div class="grid_5">
+			<img src="/themes/award_ecom/images/extras/side_a.jpg" />
+		</div>
+		<div class="grid_11">			
+			%data.content%		
+		</div>
+	</div>
+</p:module-content>	
+<div class="clear"></div>	
+</p:component>
+

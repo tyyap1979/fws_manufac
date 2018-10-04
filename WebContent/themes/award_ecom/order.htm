@@ -1,0 +1,98 @@
+<p:useTemplate>templateframe.htm</p:useTemplate>
+<p:component value="meta">
+	<p:module-content id="web.info">
+		<title>Order History</title>		
+	</p:module-content>
+</p:component>
+<p:component value="script">
+	<!-- Fancy Box -->
+	<link rel="stylesheet" type="text/css" href="/components/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+	<script type="text/javascript" src="/components/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	
+	<script>		
+		function initPage(){
+			$(".fancybox").fancybox({
+				'width'				: '600',
+				'height'			: '75%',
+				'autoScale'			: true,
+				'transitionIn'		: 'none',
+				'transitionOut'		: 'none'
+			});				
+		}
+		
+		$(document).ready(initPage);
+	</script>
+</p:component>
+<p:component value="body">	
+	<p:module-content id="order.list">
+		<div class="header">
+	    	<div class="wrap">
+	        	<div class="container_16">
+	            	<div class="grid_12"><h2>Order History</h2></div>
+	                <div class="grid_4"></div>
+	                <div class="clear"></div>                 
+	            </div>                          
+			</div>
+		</div>
+		<!-- Start content -->   
+		<div id="content" class="container_16">  
+			<!-- Start Sidebar -->
+			<div class="sidebar grid_4">
+				<div class="wrap">
+					<div class="categ">
+		                <h4>Menu</h4>	                
+	                	<ul class="bullet1">
+	               	 		<li><a href="order.htm">Order History</a></li>
+	               	 		<li><a href="userprofile.htm">My Profile</a></li>
+	               	 		<li><a href="changepassword.htm">Change Password</a></li>
+	               	 	</ul>  					
+					</div>
+				</div>
+			</div>
+            <!-- End Sidebar -->  	
+            <!-- Start Application -->
+	    	<div class="grid_12">
+	    		<form autocomplete="off">
+				<table id="listTable" class="entryScreen" style="width:100%;">
+					<col />							
+					<col width="200" />
+					<col width="130" />					
+					<col width="100" />	
+					<col width="200" />	
+					<col width="130" />	
+										
+					<thead class="titlebar">
+						<tr><td colspan="7" align="center"><b>Order History</b></td></tr>
+					</thead>
+					<tr>						
+						<th align="center">Invoice No</th>														
+						<th align="center">Payment Method</th>										
+						<th align="center">Amount</th>
+						<th align="center">Sales Date</th>
+						<th align="center">Status</th>
+						<th align="center"></th>																	
+					</tr>
+					<tbody custom="loop" removeTag="false">								
+						<tr>	
+							<td align="left">																									
+						      	%data.transno%							      						      
+							</td>															
+							<td align="center">%data.paymentmethod%</td>
+							<td align="center">%data.totalsales%</td>
+							<td align="center">%data.salesdate%</td>	
+							<td align="center">%data.status%</td>									
+							<td align="left"><a href="orderdetail.htm?transid=%data.transid%" id="view-detail" class="fancybox">View Detail</a></td>
+						</tr>						
+					</tbody>											
+				</table>		
+				</form>		
+	        </div> 
+	        <!-- End Application -->
+	                         
+		</div>    
+		<!-- End content -->    
+
+		
+	</p:module-content>	
+		
+</p:component>
