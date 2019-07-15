@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Statement" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Statement" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="83647ed6-9ceb-4c8a-adab-167602d89fab">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -25,7 +25,7 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Table Dataset 1"/>
+	<subDataset name="Table Dataset 1" uuid="e4521a5c-6941-445d-b77b-a49d9157336a"/>
 	<parameter name="PARAM_PAGE_FOOTER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="name" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="LOGO" class="java.lang.String"/>
@@ -69,30 +69,30 @@
 	<pageHeader>
 		<band height="173" splitType="Stretch">
 			<rectangle>
-				<reportElement x="9" y="78" width="229" height="91"/>
+				<reportElement uuid="aa8e5e48-ece8-4b63-aea7-616bc4c35127" x="9" y="78" width="229" height="91"/>
 			</rectangle>
 			<line>
-				<reportElement x="9" y="100" width="229" height="1"/>
+				<reportElement uuid="91fae840-a778-4571-be4f-feffb61a3527" x="9" y="100" width="229" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement key="staticText-7" x="13" y="82" width="16" height="14"/>
+				<reportElement uuid="9bd7ab8e-cf62-4d01-b8b6-3ee479437ff9" key="staticText-7" x="13" y="82" width="16" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[To:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-11" x="34" y="82" width="178" height="14"/>
+				<reportElement uuid="f95ee1e6-852b-4b8d-bcfe-360dc2cdbb53" key="textField-11" x="34" y="82" width="178" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{contactperson}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement key="textField-10" x="13" y="104" width="214" height="65"/>
+				<reportElement uuid="6aaaf75d-c247-455b-834b-7a7f2d87f2d9" key="textField-10" x="13" y="104" width="214" height="65"/>
 				<textElement verticalAlignment="Middle" markup="html">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
@@ -104,100 +104,100 @@ $P{address} +
 (($P{country}.equals(""))?"":(",<br>" + $P{country}))]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="470" y="123" width="60" height="1"/>
+				<reportElement uuid="af506554-0f6d-49a2-8993-f6c79bd5efbc" x="470" y="123" width="60" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement key="staticText-10" x="398" y="109" width="70" height="14"/>
+				<reportElement uuid="ef61f792-79eb-4379-a25f-564da004db02" key="staticText-10" x="398" y="109" width="70" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[CN No:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-11" x="470" y="109" width="60" height="14"/>
+				<reportElement uuid="d1fb315e-edfb-4a63-bd8f-4c42fb6eeef3" key="textField-11" x="470" y="109" width="60" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{cnno}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="383" y="78" width="148" height="28" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="a7c7a974-3488-4a8f-82b9-d9a94fb70984" x="383" y="78" width="148" height="28" forecolor="#000000" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" size="18"/>
 				</textElement>
 				<text><![CDATA[CREDIT NOTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-10" x="434" y="155" width="34" height="14"/>
+				<reportElement uuid="fabf255d-f610-41d2-a41f-e99600e3e4ef" key="staticText-10" x="434" y="155" width="34" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Date:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="470" y="169" width="60" height="1"/>
+				<reportElement uuid="dd98878a-693c-4ec6-9e53-2e89e52ec234" x="470" y="169" width="60" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
-				<reportElement key="textField-11" x="470" y="155" width="60" height="14"/>
+				<reportElement uuid="1651908d-1612-4808-9da8-5f6b373ab533" key="textField-11" x="470" y="155" width="60" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[(new SimpleDateFormat("yyyy-MM-dd")).parse($P{creditdate})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-10" x="398" y="124" width="70" height="14"/>
+				<reportElement uuid="a88c68aa-7511-4c9e-9709-a57a23c8e38c" key="staticText-10" x="398" y="124" width="70" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Invoice No:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="470" y="138" width="60" height="1"/>
+				<reportElement uuid="5d5befd5-0609-4d8f-bb59-8eb60b777a51" x="470" y="138" width="60" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-11" x="470" y="124" width="61" height="14"/>
+				<reportElement uuid="945b66c5-1fe8-4d9f-981c-9e2e12fe3d0a" key="textField-11" x="470" y="124" width="61" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{transno}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="470" y="138" width="60" height="1"/>
+				<reportElement uuid="3cf707ea-8856-4185-a750-f17ed13bb0a4" x="470" y="138" width="60" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="470" y="153" width="60" height="1"/>
+				<reportElement uuid="0f3cb7df-52b6-4854-ab11-ae793621d86c" x="470" y="153" width="60" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement key="staticText-10" x="383" y="139" width="85" height="14"/>
+				<reportElement uuid="130a6f63-da0f-43a9-a91c-7917bdf26245" key="staticText-10" x="383" y="139" width="85" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Customer Ref No:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-11" x="470" y="139" width="61" height="14"/>
+				<reportElement uuid="011f3408-5e00-4c00-97f1-8da2756fc92f" key="textField-11" x="470" y="139" width="61" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{custrefno}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="0" y="0" width="552" height="60"/>
+				<reportElement uuid="af08ec38-af69-4514-a490-1c786036ff6f" x="0" y="0" width="552" height="60"/>
 				<subreportParameter name="LOGO">
 					<subreportParameterExpression><![CDATA[$P{LOGO}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -212,33 +212,33 @@ $P{address} +
 	<columnHeader>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement key="staticText-2" x="75" y="5" width="108" height="16"/>
+				<reportElement uuid="aca5101d-ee1b-4bcd-a2c9-9cbc53569685" key="staticText-2" x="75" y="5" width="108" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Description]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="24" width="535" height="1"/>
+				<reportElement uuid="2ed70836-5df2-4660-aee3-cb5203a300a2" x="0" y="24" width="535" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.75"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="0" width="535" height="1"/>
+				<reportElement uuid="ffe0af15-4317-4ac8-a4d7-2b3dab9417e5" x="0" y="0" width="535" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.75"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement key="staticText-3" x="452" y="5" width="78" height="16"/>
+				<reportElement uuid="fcd08eb4-a769-4b76-a2c5-ac212bd38fd0" key="staticText-3" x="452" y="5" width="78" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Amount (RM)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-2" x="9" y="5" width="60" height="16"/>
+				<reportElement uuid="a74cbe8d-5a66-4f16-90fb-c5ab4ca88f21" key="staticText-2" x="9" y="5" width="60" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
@@ -249,27 +249,27 @@ $P{address} +
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement key="textField-2" x="75" y="2" width="338" height="14"/>
+				<reportElement uuid="70057dba-933b-4d89-a084-9f6edcd54d12" key="textField-2" x="75" y="2" width="338" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{description}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="false">
-				<reportElement key="textField-3" x="452" y="2" width="70" height="14"/>
+				<reportElement uuid="56982bf4-1597-4ca8-a0ec-eb0d2424ef43" key="textField-3" x="452" y="2" width="70" height="14"/>
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new BigDecimal($P{creditamtbeforegst})]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="16" width="535" height="1"/>
+				<reportElement uuid="3a8f9cb2-8c0e-40fe-98d4-c1f1acf9eb98" positionType="FixRelativeToBottom" mode="Opaque" x="0" y="16" width="535" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement key="staticText-2" x="17" y="2" width="16" height="14"/>
+				<reportElement uuid="69b0d037-3361-4c77-82ba-50583d20fda3" key="staticText-2" x="17" y="2" width="16" height="14"/>
 				<textElement>
 					<font fontName="DejaVu Serif" size="9" isBold="false" pdfFontName="Helvetica-Bold"/>
 				</textElement>
@@ -279,48 +279,20 @@ $P{address} +
 	</detail>
 	<pageFooter>
 		<band height="100" splitType="Stretch">
-			<textField pattern="#,##0.00" isBlankWhenNull="false">
-				<reportElement key="textField-10" x="456" y="14" width="66" height="14"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($P{gst_amt})]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement key="staticText-4" x="375" y="28" width="81" height="14"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
-				</textElement>
-				<text><![CDATA[Total (RM)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement key="staticText-4" x="375" y="0" width="81" height="14"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
-				</textElement>
-				<text><![CDATA[Subtotal (RM)]]></text>
-			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="false">
-				<reportElement key="textField-10" x="456" y="0" width="66" height="14"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($P{creditamtbeforegst})]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement key="staticText-4" x="375" y="14" width="81" height="14"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" isBold="true" pdfFontName="Helvetica-Bold"/>
-				</textElement>
-				<text><![CDATA[GST 6% (RM)]]></text>
-			</staticText>
-			<textField pattern="#,##0.00" isBlankWhenNull="false">
-				<reportElement key="textField-10" x="456" y="28" width="66" height="14"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new BigDecimal($P{creditamount})]]></textFieldExpression>
-			</textField>
+			<subreport>
+				<reportElement uuid="0cb33257-e1ed-4c1a-8ed5-07c8d3337658" x="0" y="0" width="552" height="100"/>
+				<subreportParameter name="creditamtbeforegst">
+					<subreportParameterExpression><![CDATA[$P{creditamtbeforegst}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="gst_amt">
+					<subreportParameterExpression><![CDATA[$P{gst_amt}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="creditamount">
+					<subreportParameterExpression><![CDATA[$P{creditamount}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "CNFooter.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</pageFooter>
 </jasperReport>

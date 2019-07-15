@@ -42,7 +42,7 @@ $(document).ready(function() {
 	// Checks if you've set a width already
 	if($.cookie("width")) {
 		// Sets the width that the cookie finds
-		$("link.width").attr("href",("http://ls.forestwebsolution.com/themes/admin/simplplan/css/" + $.cookie("width") + ".css"));
+		$("link.width").attr("href",("https://ls.forestwebsolution.com/themes/admin/simplplan/css/" + $.cookie("width") + ".css"));
 	};
 	
 	// Checks if you've set a width already
@@ -58,7 +58,7 @@ $(document).ready(function() {
 	$("#width li a").click(function() { 
 		
 		// Gets the with you've selected and adds the .css
-		var $widthCss = "http://ls.forestwebsolution.com/themes/admin/simplplan/css/" + ($(this).attr('href').replace("#","")) + ".css";
+		var $widthCss = "https://ls.forestwebsolution.com/themes/admin/simplplan/css/" + ($(this).attr('href').replace("#","")) + ".css";
 		
 		// Replaces the width's css
 		$("link.width").attr("href", $widthCss);

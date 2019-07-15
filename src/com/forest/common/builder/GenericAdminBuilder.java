@@ -162,16 +162,16 @@ public class GenericAdminBuilder extends AdminBuilder {
 					_attrReqDataMap[0].put(BaseDef.COMPANYID, _accessByCompany);					
 					_searchCriteria = BuilderUtil.requestSearchValueToDataObject(_req, searchArray, _accessByCompany);
 										
-					if(ModuleConfig.USER_RIGHT_YES.equals(_accessByUserRight)){
-						if(_searchCriteria.length()>0){
-							_searchCriteria.append(" And (");
-							_searchCriteria.append(" a.updateby = ").append(_clientBean.getLoginUserId());														
-							_searchCriteria.append(" Or (");
-							_searchCriteria.append(" u.").append(AdminUserBeanDef.usergroup.name).append(">=").append(_clientBean.getUserGroup());
-							_searchCriteria.append(" Or a.updateby is null or a.updateby = ''");
-							_searchCriteria.append("))");
-						}						
-					}
+//					if(ModuleConfig.USER_RIGHT_YES.equals(_accessByUserRight)){
+//						if(_searchCriteria.length()>0){
+//							_searchCriteria.append(" And (");
+//							_searchCriteria.append(" a.updateby = ").append(_clientBean.getLoginUserId());														
+//							_searchCriteria.append(" Or (");
+//							_searchCriteria.append(" u.").append(AdminUserBeanDef.usergroup.name).append(">=").append(_clientBean.getUserGroup());
+//							_searchCriteria.append(" Or a.updateby is null or a.updateby = ''");
+//							_searchCriteria.append("))");
+//						}						
+//					}
 					logger.debug("Adam _searchCriteria:" +_searchCriteria);
 				}
 				

@@ -1,13 +1,11 @@
 package com.forest.common.util;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.forest.common.bean.ShopInfoBean;
 import com.forest.common.constants.GeneralConst;
-
-
-import sun.misc.SoftCache;
 
 public class ResourceUtil
 {
@@ -23,7 +21,7 @@ public class ResourceUtil
     /** capacity of cache consumed before it should grow */
     private static final float CACHE_LOAD_FACTOR = (float)1.0;
     
-    private static SoftCache cacheList = new SoftCache(INITIAL_CACHE_SIZE, CACHE_LOAD_FACTOR);
+    private static HashMap cacheList = new HashMap(INITIAL_CACHE_SIZE, CACHE_LOAD_FACTOR);
     
     public static final String PATH_TYPE_REPORT = "report"; 
 	

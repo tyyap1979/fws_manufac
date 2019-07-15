@@ -18,29 +18,29 @@ public class BaseDef {
 	
 	private static Logger logger = Logger.getLogger (BaseDef.class);		
 	
-	public static void initiate(ArrayList searchDisplayList, ArrayList searchList, ArrayList addList){
-		HashMap listMap = new HashMap();
-		listMap.put("object", AdminUserBeanDef.name);
-		listMap.put("as", UPDATEBY+"_value");
-		listMap.put("prefix", "u");
-		listMap.put("shadow", "Y");
-		listMap.put("type", String.valueOf(ComponentConst.HIDDEN));
-		searchDisplayList.add(listMap);
-		
-		listMap = new HashMap();
-		listMap.put("object", AdminUserBeanDef.usergroup);		
-		listMap.put("prefix", "u");
-		listMap.put("shadow", "Y");
-		listMap.put("type", String.valueOf(ComponentConst.HIDDEN));
-		searchDisplayList.add(listMap);
-	}
+//	public static void initiate(ArrayList searchDisplayList, ArrayList searchList, ArrayList addList){
+//		HashMap listMap = new HashMap();
+//		listMap.put("object", AdminUserBeanDef.name);
+//		listMap.put("as", UPDATEBY+"_value");
+//		listMap.put("prefix", "u");
+//		listMap.put("shadow", "Y");
+//		listMap.put("type", String.valueOf(ComponentConst.HIDDEN));
+//		searchDisplayList.add(listMap);
+//		
+//		listMap = new HashMap();
+//		listMap.put("object", AdminUserBeanDef.usergroup);		
+//		listMap.put("prefix", "u");
+//		listMap.put("shadow", "Y");
+//		listMap.put("type", String.valueOf(ComponentConst.HIDDEN));
+//		searchDisplayList.add(listMap);
+//	}
 	
-	public static StringBuffer addUserRightQuery(){
-		StringBuffer query = new StringBuffer();
-		query.append (" Left Join ").append(AdminUserBeanDef.TABLE).append(" u on u.").append(AdminUserBeanDef.id.name);
-		query.append (" = a.").append(UPDATEBY).append(" ");	
-		return query;
-	}
+//	public static StringBuffer addUserRightQuery(){
+//		StringBuffer query = new StringBuffer();
+//		query.append (" Left Join ").append(AdminUserBeanDef.TABLE).append(" u on u.").append(AdminUserBeanDef.id.name);
+//		query.append (" = a.").append(UPDATEBY).append(" ");	
+//		return query;
+//	}
 	
 	public static StringBuffer[] getSearchScript(ArrayList selectFields, String fromTableScript)throws Exception{
 		return getSearchScript(selectFields, fromTableScript, null);

@@ -50,7 +50,7 @@ public class MFG_PODef extends BaseDef{
 		pono.searchOption = SearchConst.LIKE;
 		supplierid.searchOption = SearchConst.EQUAL;			
 		
-		initiate(_searchDisplayList, _searchList, _addList);
+//		initiate(_searchDisplayList, _searchList, _addList);
 		
 		HashMap listMap = new HashMap();
 		listMap.put("object", SupplierProfileDef.name);
@@ -91,7 +91,7 @@ public class MFG_PODef extends BaseDef{
 			fromBuffer.append (" From ").append(TABLE).append(" a"); 
 			fromBuffer.append (" Left Join ").append(SupplierProfileDef.TABLE).append(" b on b.").append(SupplierProfileDef.id.name);
 			fromBuffer.append (" = a.").append(supplierid.name);	
-			fromBuffer.append(addUserRightQuery());
+//			fromBuffer.append(addUserRightQuery());
 			retBuffer = getSearchScript(selectFields, fromBuffer.toString());
 		}catch(Exception e){
 			logger.error(e, e);

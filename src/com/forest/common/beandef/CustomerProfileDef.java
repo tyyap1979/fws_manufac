@@ -64,7 +64,7 @@ public class CustomerProfileDef extends BaseDef{
 		email.searchOption = SearchConst.LIKE;	
 		status.prefix = "a";
 		
-		initiate(_searchDisplayList, _searchList, _addList);
+//		initiate(_searchDisplayList, _searchList, _addList);
 		
 		HashMap listMap = new HashMap();
     	listMap.put("object", companyid);
@@ -114,10 +114,10 @@ public class CustomerProfileDef extends BaseDef{
     	listMap.put("prefix", "a");
     	_autoSuggestSearchDisplayList.add(listMap);
     	
-    	listMap = new HashMap();
-    	listMap.put("object", AdminUserBeanDef.updateby);    
-    	listMap.put("prefix", "u");
-    	_autoSuggestSearchDisplayList.add(listMap);
+//    	listMap = new HashMap();
+//    	listMap.put("object", AdminUserBeanDef.updateby);    
+//    	listMap.put("prefix", "u");
+//    	_autoSuggestSearchDisplayList.add(listMap);
 	}	
 	
 	public static StringBuffer[] getSearchScript(ArrayList selectFields)throws Exception{
@@ -125,7 +125,7 @@ public class CustomerProfileDef extends BaseDef{
 		StringBuffer fromBuffer = new StringBuffer();		
 		try{			
 			fromBuffer.append (" From ").append(TABLE).append(" a"); 
-			fromBuffer.append(addUserRightQuery());
+//			fromBuffer.append(addUserRightQuery());
 			retBuffer = getSearchScript(selectFields, fromBuffer.toString());
 		}catch(Exception e){			
 			throw e;
@@ -139,7 +139,7 @@ public class CustomerProfileDef extends BaseDef{
 		StringBuffer fromBuffer = new StringBuffer();
 		try{			
 			fromBuffer.append (" From ").append(TABLE).append(" a"); 	
-			fromBuffer.append(addUserRightQuery());
+//			fromBuffer.append(addUserRightQuery());
 			retBuffer = getSearchScript(selectFields, fromBuffer.toString());
 		}catch(Exception e){			
 			throw e;

@@ -1,7 +1,7 @@
 <p:useTemplate>simplplan-template.htm</p:useTemplate>
 <p:component value="titlebar">DASHBOARD</p:component>
 <p:component value="script">
-	<script type="text/javascript" src="http://ls.forestwebsolution.com/components/charts/FusionCharts.js"></script>
+	<script type="text/javascript" src="https://ls.forestwebsolution.com/components/charts/FusionCharts.js"></script>
 	<script type="text/javascript">
 	    function loadChartData(module, chartObj){
 	    	var query = "mod="+module+"&return=json";
@@ -35,14 +35,14 @@
 		        
 	        // Normal 3D
 	        for(var i=0; i<chartArray.length; i++){	        	
-	        	chartObj = new FusionCharts("http://ls.forestwebsolution.com/components/charts/Column3D.swf", 
+	        	chartObj = new FusionCharts("https://ls.forestwebsolution.com/components/charts/Column3D.swf", 
 	        	"chart"+chartArray[i][0], chartArray[i][1], chartArray[i][2], "0", "1");	        	
 		        loadChartData(chartArray[i][0], chartObj);
 	        }	 
 	        
 	        // Stacked 3D
 	        for(var i=0; i<stackedChartArray.length; i++){	        	
-	        	stackedChartObj = new FusionCharts("http://ls.forestwebsolution.com/components/charts/StackedColumn3D.swf", 
+	        	stackedChartObj = new FusionCharts("https://ls.forestwebsolution.com/components/charts/StackedColumn3D.swf", 
 	        	"chart"+stackedChartArray[i][0], stackedChartArray[i][1], stackedChartArray[i][2], "0", "1");
 	        	loadChartData(stackedChartArray[i][0], stackedChartObj);
 	        }      	       

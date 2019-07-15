@@ -53,7 +53,7 @@ public class MFG_StatementDef extends BaseDef{
 		name = CustomerProfileDef.name;
     	status.prefix = "a";    	
     	
-    	initiate(_searchDisplayList, _searchList, _addList);
+//    	initiate(_searchDisplayList, _searchList, _addList);
     	
     	HashMap listMap = new HashMap();
 		listMap.put("object", CustomerProfileDef.name);
@@ -80,7 +80,7 @@ public class MFG_StatementDef extends BaseDef{
 			fromBuffer.append (" From ").append(TABLE).append(" a"); 			
 			fromBuffer.append (" Left Join ").append(CustomerProfileDef.TABLE).append(" b on b.").append(CustomerProfileDef.customerid.name);
 			fromBuffer.append (" = a.").append(customerid.name);			
-			fromBuffer.append(addUserRightQuery());
+//			fromBuffer.append(addUserRightQuery());
 			retBuffer = getSearchScript(selectFields, fromBuffer.toString());
 			logger.debug("retBuffer = "+retBuffer[1]);			
 		}catch(Exception e){

@@ -10,7 +10,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import sun.misc.SoftCache;
 
 import com.forest.common.util.CommonUtil;
 
@@ -22,8 +21,8 @@ public class BaseSelectBuilder {
     /** capacity of cache consumed before it should grow */
     private static final float CACHE_LOAD_FACTOR = (float)1.0;    
     
-    protected static SoftCache selectCacheList = new SoftCache(INITIAL_CACHE_SIZE, CACHE_LOAD_FACTOR);
-    protected static SoftCache hashCacheList = new SoftCache(INITIAL_CACHE_SIZE, CACHE_LOAD_FACTOR);    
+    protected static HashMap selectCacheList = new HashMap(INITIAL_CACHE_SIZE, CACHE_LOAD_FACTOR);
+    protected static HashMap hashCacheList = new HashMap(INITIAL_CACHE_SIZE, CACHE_LOAD_FACTOR);    
     
 	public static StringBuffer buildHashSelect(Map dataMap, StringBuffer buffer, String fieldName, String defaultvalue){
 		StringBuffer selectBuffer = new StringBuffer();

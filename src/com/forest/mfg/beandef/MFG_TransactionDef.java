@@ -78,7 +78,7 @@ public class MFG_TransactionDef extends BaseDef{
 		jobcode.searchOption = SearchConst.LIKE;
 		customerid.searchOption = SearchConst.EQUAL;
 		
-		initiate(_searchDisplayList, _searchList, _addList);
+//		initiate(_searchDisplayList, _searchList, _addList);
 
 		HashMap listMap = new HashMap();
 		listMap.put("object", CustomerProfileDef.name);
@@ -150,7 +150,7 @@ public class MFG_TransactionDef extends BaseDef{
 			fromBuffer.append (" Left Join ").append(ClientUserBeanDef.TABLE).append(" d on d.").append(ClientUserBeanDef.cid.name);
 			fromBuffer.append (" = a.").append(clientid.name);
 			
-			fromBuffer.append(addUserRightQuery());
+//			fromBuffer.append(addUserRightQuery());
 			
 			retBuffer = getSearchScript(selectFields, fromBuffer.toString());
 			

@@ -57,7 +57,7 @@ public class MFG_ReportAdminBuilder extends GenericAdminBuilder {
 		if(_defClass!=null){
 			String MODULE_NAME = "mfg_report";
 
-			buffer.append("<p:useTemplate>simplplan-template-report.htm</p:useTemplate>").append("\n");
+			buffer.append("<p:useTemplate>simplplan-template.htm</p:useTemplate>").append("\n");
 			buffer.append("<p:component value=\"titlebar\">");
 			buffer.append("%i18n.system.").append(MODULE_NAME).append(".title% - ");
 			buffer.append(_shopInfoBean.getShopNameDesc());
