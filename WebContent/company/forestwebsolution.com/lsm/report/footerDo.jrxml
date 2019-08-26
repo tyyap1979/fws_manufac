@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="552" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="552" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="307d56d4-39a6-47d6-aa36-d1a8cc8a69b1">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="title" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="90" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="e8634067-2961-4edc-b6a3-f56a688f0d64" x="5" y="19" width="248" height="65"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="42896066-5569-4972-9a93-3ff1e946e444" x="8" y="50" width="245" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[3. Items delivered to site remains the property of LS RANGE MARKETING S/B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="947c298f-0b82-4c9d-bed5-14ae70a11234" x="404" y="33" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[condition by,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="927b4293-fe6b-41d1-94cd-f39d24c629d4" x="16" y="67" width="237" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[whatsoever items deemed proper when the stated clause 1 is not practised.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="383789f3-d598-4681-b9b0-85c6c578fbeb" x="405" y="75" width="134" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[Client's Signature / Company's Chop]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="43428281-a3ca-4cfb-8171-844cd8d0cc2b" x="5" y="4" width="387" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["THIS "+$P{title}+" IS COMPUTER GENERATED. NO SIGNATURE IS REQUIRED."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="a361879c-b545-4860-afa2-31205f347dc2" x="404" y="74" width="135" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="47669129-679e-4dba-a515-9504e3ae21bb" x="16" y="58" width="237" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[until full payment is exercised. The said company has the right to recollect]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="97112ca5-d87c-4ed0-ba4f-470e16b23104" x="8" y="22" width="144" height="12"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERMS & CONDITIONS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e6722248-ce92-4c69-a9dc-d3cb7452e6e8" x="404" y="23" width="138" height="11"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[Goods received in good order &]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f8887249-3bb2-4f36-a3f6-65eee21bbff6" x="8" y="34" width="206" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[1. Terms refer to the above mentioned.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="43bf379b-a469-401e-ba9a-66ad399bdc5d" x="8" y="42" width="231" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[2. Price quoted includes transportation. (applicable within Klang Valley)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="40290fc1-25fc-4dfd-8cdc-ffc06b4fc5d1" x="8" y="75" width="109" height="9"/>
+				<textElement>
+					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[4. Goods sold are not returnable.]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

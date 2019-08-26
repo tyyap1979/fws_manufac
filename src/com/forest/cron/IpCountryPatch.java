@@ -30,11 +30,11 @@ public class IpCountryPatch {
 	    StringBuffer query = new StringBuffer();
 		try{
 			_dbConnection = new DBUtil().getDirectConnection();
-			query.append("Insert Into IP_COUNTRY");
+			query.append("Insert Into ip_country");
 			query.append(" (begin_ip_num, end_ip_num, countrycode)");
 			query.append(" Value(?, ?, ?)");
 			
-			_dbConnection.createStatement().execute("Delete From IP_COUNTRY");
+			_dbConnection.createStatement().execute("Delete From ip_country");
 			pstmt = _dbConnection.prepareStatement(query.toString());
 			fstream = new FileInputStream("D:/TDDownload/IPCountry/GeoIPCountryWhois.csv");
 	    	in = new DataInputStream(fstream);

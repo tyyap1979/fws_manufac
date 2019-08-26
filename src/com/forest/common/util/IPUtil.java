@@ -25,7 +25,7 @@ public class IPUtil {
 		ResultSet rs = null;		
 		
 		try{
-			query.append("Select countrycode From IP_COUNTRY Where ? BETWEEN begin_ip_num AND end_ip_num");
+			query.append("Select countrycode From ip_country Where ? BETWEEN begin_ip_num AND end_ip_num");
 			pstmt = conn.prepareStatement(query.toString());
 			
 			if(!CommonUtil.isEmpty(ip)){
@@ -51,7 +51,7 @@ public class IPUtil {
 		
 		try{
 			if(!CommonUtil.isEmpty(ip)){
-				query.append("Select b.countrycurrency From IP_COUNTRY a Inner Join COUNTRY b On a.countrycode = b.countrycode Where ? BETWEEN a.begin_ip_num AND a.end_ip_num");
+				query.append("Select b.countrycurrency From ip_country a Inner Join country b On a.countrycode = b.countrycode Where ? BETWEEN a.begin_ip_num AND a.end_ip_num");
 				pstmt = conn.prepareStatement(query.toString());
 				pstmt.setString(1, convertIPToNum(ip));
 				rs = pstmt.executeQuery();

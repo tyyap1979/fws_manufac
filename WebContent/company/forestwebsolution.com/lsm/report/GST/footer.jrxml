@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="566" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="566" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d72158f9-4d8d-438e-ac18-6321ed49e790">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="header" language="groovy" pageWidth="566" pageHeight="200" whenNoDataType="AllSectionsNoDetail" columnWidth="566" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d72158f9-4d8d-438e-ac18-6321ed49e790">
 	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="717"/>
+	<property name="ireport.x" value="153"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="title" class="java.lang.String"/>
 	<parameter name="companyname" class="java.lang.String"/>
@@ -70,7 +70,7 @@
 				<textElement>
 					<font fontName="DejaVu Serif" size="6" isBold="false" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[3. Items delivered to site remains the property of EURO KINGSTON SDN BHD]]></text>
+				<text><![CDATA[3. Items delivered to site remains the property of LS RANGE SDN BHD]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="e6fd5e69-e480-4ff3-83f6-5500c34f3e86" x="8" y="42" width="231" height="9"/>
@@ -177,7 +177,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["SST " + (($P{gst_code}.equals("SST"))?"10":"0") + "%"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["GST " + (($P{gst_code}.equals("TX"))?"6":"0") + "%"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="f78d68e4-11bc-4aa8-bcbc-59b1fb8e2ba7" key="staticText-4" x="430" y="11" width="73" height="14"/>
