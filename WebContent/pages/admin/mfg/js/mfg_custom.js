@@ -205,6 +205,7 @@
 		var priceObj;
 		var costObj;
 		var inputWidth, inputHeight;
+		var roundUpPrefix;
 		// Reset RowData value
 			RowData.prodid= '';
 			RowData.minOrder= 0;		
@@ -232,6 +233,7 @@
 			return;
 		}			
 		prodJson = eval('productMainjson.data.prod'+RowData.prodid);
+		roundUpPrefix = prodJson.roundup_prefix;		
 		RowData.sellunittype = prodJson.sellunittype;
 		RowData.minOrder = prodJson.minorder;
 		RowData.customizable = prodJson.customise;	
@@ -267,13 +269,13 @@
 			for(var x=0; x<json.colw.length; x++){
 				RowData.unit = mfgUtil.convertToUnit(measurementType, RowData.sellunittype, spanWidth, customHeight);	
 				if(typeof(roundUpAtFinal)=='undefined'){
-					totalUnit += parseFloat(roundUpSqft(RowData.unit));
+					totalUnit += parseFloat(roundUpSqft(RowData.unit, roundUpPrefix));
 				}else{
 					totalUnit += parseFloat(RowData.unit);
 				}										
 			}			
 			//alert("RowData.unit = "+RowData.unit+"\ntotalUnit = "+roundUpSqft(totalUnit));
-			RowData.unit = roundUpSqft(totalUnit);				
+			RowData.unit = roundUpSqft(totalUnit, roundUpPrefix);				
 		}else{				
 			if(RowData.prodid==0){ // Custom Product
 				if(RowData.width && RowData.height){					
@@ -319,7 +321,7 @@
 				RowData.unit = RowData.minOrder;				
 			}					
 			//alert("RowData.unit = "+RowData.unit);					
-			obj.find("[id$=unit]").val(roundUpSqft(RowData.unit));
+			obj.find("[id$=unit]").val(roundUpSqft(RowData.unit, roundUpPrefix));
 		}				
 		// Calculate Option Price And Set to price & cost textfield
 		var optFormula;
@@ -396,7 +398,7 @@
 					spanUnit = mfgUtil.convertToUnit(measurementType, RowData.sellunittype, spanWidth, spanHeight);
 					
 					if(typeof(roundUpAtFinal)=='undefined'){
-						spanUnit = roundUpSqft(spanUnit);
+						spanUnit = roundUpSqft(spanUnit, roundUpPrefix);
 					}
 					//alert("spanWidth="+spanWidth+", \nspanHeight="+spanHeight+", \nspanUnit = "+spanUnit +", origUnit="+origUnit);
 					//alert("span["+a+"]["+b+"] = "+span[a][b]);

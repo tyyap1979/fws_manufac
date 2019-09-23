@@ -369,23 +369,25 @@ public class MFG_TransactionAdminBuilder extends GenericAdminBuilder {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try{			
-			if("megatrend".equals(_shopInfoBean.getShopName()) || "kdd".equals(_shopInfoBean.getShopName())){
-				query.append("Select b.").append(MFG_CustProductDef.prodid).append(",");
-				query.append(" b.").append(MFG_CustProductDef.sellunittype).append(",b.").append(MFG_CustProductDef.minorder).append(",");
-				query.append(" b.").append(MFG_CustProductDef.customise).append(", b.").append(MFG_CustProductDef.name).append(",");
-				query.append(" b.").append(MFG_CustProductDef.customformula).append(", 'Y' as factory");  
-				query.append(" From ").append(MFG_SupplierProductDef.TABLE).append(" a"); 
-				query.append(" Inner Join ").append(MFG_CustProductDef.TABLE).append(" b on b.").append(MFG_CustProductDef.prodid).append(" = a.").append(MFG_SupplierProductDef.prodid);
-	//			query.append(" a.").append(MFG_SupplierProductDef.companyid).append(" = ?"); // Need to show deleted Product also
-				if(!CommonUtil.isEmpty(prodid)){
-					query.append(" Where And a.").append(MFG_CustProductDef.prodid).append("='").append(prodid).append("'");
-				}
-				
-				query.append(" union");
-			}
+//			if("megatrend".equals(_shopInfoBean.getShopName()) || "kdd".equals(_shopInfoBean.getShopName())){
+//				query.append("Select b.").append(MFG_CustProductDef.prodid).append(",");
+//				query.append(" b.").append(MFG_CustProductDef.sellunittype).append(",b.").append(MFG_CustProductDef.minorder).append(",");
+//				query.append(" b.").append(MFG_CustProductDef.customise).append(", b.").append(MFG_CustProductDef.name).append(",");
+//				query.append(" b.").append(MFG_CustProductDef.roundup_prefix).append(", ");
+//				query.append(" b.").append(MFG_CustProductDef.customformula).append(", 'Y' as factory");  
+//				query.append(" From ").append(MFG_SupplierProductDef.TABLE).append(" a"); 
+//				query.append(" Inner Join ").append(MFG_CustProductDef.TABLE).append(" b on b.").append(MFG_CustProductDef.prodid).append(" = a.").append(MFG_SupplierProductDef.prodid);
+//	//			query.append(" a.").append(MFG_SupplierProductDef.companyid).append(" = ?"); // Need to show deleted Product also
+//				if(!CommonUtil.isEmpty(prodid)){
+//					query.append(" Where And a.").append(MFG_CustProductDef.prodid).append("='").append(prodid).append("'");
+//				}
+//				
+//				query.append(" union");
+//			}
 			query.append(" Select ").append(MFG_CustProductDef.prodid).append(", ").append(MFG_CustProductDef.sellunittype);
 			query.append(", ").append(MFG_CustProductDef.minorder).append(", ").append(MFG_CustProductDef.customise);
 			query.append(", ").append(MFG_CustProductDef.name).append(", ").append(MFG_CustProductDef.customformula);
+			query.append(", ").append(MFG_CustProductDef.roundup_prefix);
 			query.append(", 'N' as factory");  
 			query.append(" From ").append(MFG_CustProductDef.TABLE);
 			query.append(" Where ").append(MFG_CustProductDef.companyid).append(" = ? And ").append(MFG_CustProductDef.status).append("!='").append(GeneralConst.DELETED).append("'");
@@ -406,6 +408,7 @@ public class MFG_TransactionAdminBuilder extends GenericAdminBuilder {
 			dataRow.put(MFG_CustProductDef.customise.name, "");
 			dataRow.put(MFG_CustProductDef.name.name, "[Custom Product]");
 			dataRow.put(MFG_CustProductDef.customformula.name, "");
+			dataRow.put(MFG_CustProductDef.roundup_prefix.name, "");
 			productHash.put("prod0", dataRow);
 			
 			while(rs.next()){
@@ -416,6 +419,7 @@ public class MFG_TransactionAdminBuilder extends GenericAdminBuilder {
 				dataRow.put(MFG_CustProductDef.customise.name, rs.getString(MFG_CustProductDef.customise.name));
 				dataRow.put(MFG_CustProductDef.name.name, rs.getString(MFG_CustProductDef.name.name));
 				dataRow.put(MFG_CustProductDef.customformula.name, rs.getString(MFG_CustProductDef.customformula.name));
+				dataRow.put(MFG_CustProductDef.roundup_prefix.name, rs.getString(MFG_CustProductDef.roundup_prefix.name));
 				dataRow.put("factory", rs.getString("factory"));
 				
 //				logger.debug("getProduct dataRow = "+dataRow);

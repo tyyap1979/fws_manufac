@@ -173,7 +173,7 @@
 				<textElement>
 					<font fontName="DejaVu Serif" size="8" isBold="false" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Public Bank: 0000 0000 0000]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

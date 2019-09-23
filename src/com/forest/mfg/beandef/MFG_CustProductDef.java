@@ -27,6 +27,7 @@ public class MFG_CustProductDef extends BaseDef{
 	public static DataObject updateby = null;
 	public static DataObject updatedate = null;
 	
+	public static DataObject roundup_prefix = null; // LS = roundUpSqft_LS, null = roundUpSqft 
 	
 	public static ArrayList _searchDisplayList = new ArrayList();
 	public static ArrayList _searchList = new ArrayList();

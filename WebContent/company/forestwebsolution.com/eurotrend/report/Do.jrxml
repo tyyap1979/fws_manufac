@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Quotation" pageWidth="612" pageHeight="792" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Quotation" pageWidth="612" pageHeight="792" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="930894f0-3467-4096-9113-d48182cf0a1f">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="159"/>
+	<property name="ireport.y" value="22"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -25,7 +25,7 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Table Dataset 1"/>
+	<subDataset name="Table Dataset 1" uuid="61049638-228f-4783-9081-14a98109f80d"/>
 	<parameter name="PARAM_PAGE_FOOTER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="transno" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="terms" class="java.lang.String" isForPrompting="false"/>
@@ -72,14 +72,14 @@
 		<groupHeader>
 			<band height="15">
 				<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-					<reportElement key="textField-3" x="34" y="1" width="494" height="14"/>
+					<reportElement uuid="1fb5cf9b-6939-4577-9087-667704d97d66" key="textField-3" x="34" y="1" width="494" height="14"/>
 					<textElement textAlignment="Left" markup="html">
 						<font fontName="Helvetica-Normal" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{prodgroupdesc} + (($F{panelnum}!=null)?(" / "+$F{panelnum}+" Panel(s)"):"")]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement mode="Opaque" x="0" y="14" width="552" height="1"/>
+					<reportElement uuid="856516a2-9bc4-45b9-a6a7-be9d9303c930" mode="Opaque" x="0" y="14" width="552" height="1"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
@@ -96,7 +96,7 @@
 	<pageHeader>
 		<band height="168" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="552" height="67"/>
+				<reportElement uuid="9b6e5d7b-e7a2-47f3-ad1d-82d95592a856" x="0" y="0" width="552" height="67"/>
 				<subreportParameter name="LOGO">
 					<subreportParameterExpression><![CDATA[$P{LOGO}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -107,49 +107,49 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "header.jasper"]]></subreportExpression>
 			</subreport>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-8" x="153" y="69" width="229" height="21"/>
+				<reportElement uuid="064ab6f9-2171-40ba-849e-5a40d964dcac" key="textField-8" x="153" y="69" width="229" height="21"/>
 				<textElement textAlignment="Center">
 					<font fontName="Helvetica-Normal" size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-11" x="57" y="120" width="27" height="14"/>
+				<reportElement uuid="f9d8bf0e-ae4f-490b-b50a-295e8b6f87a7" key="staticText-11" x="57" y="120" width="27" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="10" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Tel:]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-8" x="484" y="94" width="61" height="13"/>
+				<reportElement uuid="15e94a68-358f-4e79-83f6-3141804d8a2e" key="textField-8" x="484" y="94" width="61" height="13"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{transno}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement key="textField-10" x="57" y="138" width="364" height="14"/>
+				<reportElement uuid="ff0ed49f-3a95-4ab8-b644-0de2b9e10c6d" key="textField-10" x="57" y="138" width="364" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{comment}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement key="textField-10" x="84" y="120" width="123" height="14"/>
+				<reportElement uuid="f3889d7e-20cc-42ce-9171-e88b3e59d194" key="textField-10" x="84" y="120" width="123" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{phoneno}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-9" x="484" y="138" width="61" height="14"/>
+				<reportElement uuid="f68a6fd4-1af2-4c54-92fc-907dea955f4d" key="textField-9" x="484" y="138" width="61" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{salesdate}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement key="textField-10" x="57" y="107" width="341" height="13"/>
+				<reportElement uuid="6fa5ab94-7a34-4c05-a709-736eb0e31ca6" key="textField-10" x="57" y="107" width="341" height="13"/>
 				<textElement verticalAlignment="Top" markup="html">
 					<font fontName="Helvetica-Normal" size="10"/>
 				</textElement>
@@ -159,129 +159,129 @@
 (($P{state}.equals(""))?"":( $P{state}))]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-10" x="421" y="138" width="63" height="14"/>
+				<reportElement uuid="e5c11b2b-dab1-4281-b142-a2d6eb575cd1" key="staticText-10" x="421" y="138" width="63" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Date:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-7" x="484" y="108" width="61" height="14"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Helvetica-Normal"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{jobcode}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="false">
-				<reportElement key="textField-7" x="484" y="123" width="61" height="14"/>
+				<reportElement uuid="46f4f4a2-a73b-428a-afb1-04cffc5f3dff" key="textField-7" x="484" y="123" width="61" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{terms}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="4" y="94" width="53" height="13"/>
+				<reportElement uuid="10c48517-c1a2-4d9f-a70a-3ac28f6e3be3" x="4" y="94" width="53" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="9"/>
 				</textElement>
 				<text><![CDATA[Company:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-9" x="484" y="153" width="61" height="14"/>
+				<reportElement uuid="fb4f24e3-5e9e-4811-8cbb-e62cce04e153" key="textField-9" x="484" y="153" width="61" height="14"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{salesby}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-11" x="252" y="120" width="34" height="14"/>
+				<reportElement uuid="bdad0134-589e-42c9-bb4c-a0b48dc9de89" key="staticText-11" x="252" y="120" width="34" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="10" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Fax:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-11" x="4" y="137" width="53" height="14"/>
+				<reportElement uuid="0e36a1bd-aee6-4dac-8c52-72ffa310fa9c" key="staticText-11" x="4" y="137" width="53" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Deliver To:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement key="textField-11" x="57" y="94" width="364" height="13"/>
+				<reportElement uuid="3be40e0c-3484-4a25-b079-c7a031b1c855" key="textField-11" x="57" y="94" width="364" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{customerid_value}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-8" x="421" y="94" width="63" height="13"/>
+				<reportElement uuid="857e5cd2-7af3-4500-be0e-f18033588b6e" key="textField-8" x="421" y="94" width="63" height="13"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{transnodesc}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-9" x="421" y="108" width="63" height="14"/>
+				<reportElement uuid="487a302d-14c2-4248-8eed-d23a809bebd2" key="staticText-9" x="421" y="108" width="55" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Job Code:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-10" x="421" y="153" width="63" height="14"/>
+				<reportElement uuid="6f22cabc-bf17-46ea-b54a-5eaf21299c23" key="staticText-10" x="421" y="153" width="63" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Sales Person:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement key="textField-10" x="286" y="120" width="111" height="14"/>
+				<reportElement uuid="f5316d22-e35e-4d65-a6a5-72293c51be8b" key="textField-10" x="286" y="120" width="111" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{faxno}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText-9" x="421" y="123" width="63" height="14"/>
+				<reportElement uuid="8265ac30-19de-439a-b6ba-f1281d942922" key="staticText-9" x="421" y="123" width="63" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Helvetica-Normal" size="9" isBold="false" pdfFontName="Helvetica"/>
 				</textElement>
 				<text><![CDATA[Terms:]]></text>
 			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="6c067078-bca2-4d4b-aa7f-c7511f6de45a" key="textField-7" x="476" y="108" width="69" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica-Normal"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jobcode}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement key="staticText-1" x="5" y="2" width="29" height="16"/>
+				<reportElement uuid="b5eb521f-e1b8-4a4d-bd09-a4394e439c9e" key="staticText-1" x="5" y="2" width="29" height="16"/>
 				<textElement>
 					<font fontName="Helvetica-Normal" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Item]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-2" x="34" y="2" width="127" height="16"/>
+				<reportElement uuid="bd6fd8ba-a6b7-47d9-9a5a-7cd7d0ce9e81" key="staticText-2" x="34" y="2" width="127" height="16"/>
 				<textElement>
 					<font fontName="Helvetica-Normal" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Description]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-3" x="490" y="2" width="20" height="16"/>
+				<reportElement uuid="7de19d49-a2cf-468b-bac6-b807643162ab" key="staticText-3" x="490" y="2" width="20" height="16"/>
 				<textElement>
 					<font fontName="Helvetica-Normal" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Qty]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="19" width="552" height="1"/>
+				<reportElement uuid="540616ff-56d9-45b6-8b37-c0dbd8ba4909" x="0" y="19" width="552" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.75"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="0" width="552" height="1"/>
+				<reportElement uuid="539a5e73-86ca-4bb0-8712-c53f182dce9b" x="0" y="0" width="552" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.75"/>
 				</graphicElement>
@@ -291,28 +291,28 @@
 	<detail>
 		<band height="16" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-2" x="34" y="1" width="343" height="14"/>
+				<reportElement uuid="cc2e6d69-f9fd-4e3f-a60a-27719bcf24d9" key="textField-2" x="34" y="1" width="343" height="14"/>
 				<textElement>
 					<font fontName="Helvetica-Normal" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{proddesc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-3" x="476" y="1" width="32" height="14"/>
+				<reportElement uuid="ab296079-452a-4022-9d3a-cd2e6ee6c5ee" key="textField-3" x="476" y="1" width="32" height="14"/>
 				<textElement textAlignment="Right">
 					<font fontName="Helvetica-Normal" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-3" x="5" y="1" width="15" height="14"/>
+				<reportElement uuid="036b0a99-9d9d-4880-9680-93b13c971760" key="textField-3" x="5" y="1" width="15" height="14"/>
 				<textElement textAlignment="Right">
 					<font fontName="Helvetica-Normal" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{num}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-3" x="380" y="1" width="61" height="14"/>
+				<reportElement uuid="39ffc1b3-e8f6-4f8a-9774-4a110bbae790" key="textField-3" x="380" y="1" width="61" height="14"/>
 				<textElement textAlignment="Right">
 					<font fontName="Helvetica-Normal" size="9"/>
 				</textElement>
@@ -326,7 +326,7 @@
 	<pageFooter>
 		<band height="124" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="552" height="124"/>
+				<reportElement uuid="acdee4af-d788-4c78-9b37-a58149680f68" x="0" y="0" width="552" height="124"/>
 				<subreportParameter name="title">
 					<subreportParameterExpression><![CDATA[$P{title}]]></subreportParameterExpression>
 				</subreportParameter>

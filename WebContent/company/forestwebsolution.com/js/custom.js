@@ -1,8 +1,8 @@
 	var width, height, unit;	
 	
 	// Round Unit
-	function roundUpSqft (value) {		
-		if(typeof(_companyid)!='undefined' && _companyid=='ls'){
+	function roundUpSqft (value, roundUpPrefix) {		
+		if(typeof(_companyid)!='undefined' && _companyid=='ls' || roundUpPrefix == 'ls'){
 			return roundUpSqft_LS(value);
 		}else{
 			var converted = parseFloat(value); // Make sure we have a number

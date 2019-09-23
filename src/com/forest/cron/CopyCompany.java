@@ -3,6 +3,7 @@ package com.forest.cron;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,19 +29,23 @@ public class CopyCompany {
 	public static void main(String[] args) {		
 		CopyCompany cc = new CopyCompany();
 		try{			
-			logger.info("Copy Company Start");						
-			cc.conn.setAutoCommit(false);
+			logger.info("Copy Company Start");
+			cc.deleteOldRecord();
+			cc.conn.setAutoCommit(false);					
 			
-//			Map<Integer, Integer> from2NewProdOptMap = cc.copyProductOption();
-//			cc.copyProductOptionDetail(from2NewProdOptMap);
-//			
-//			Map<Integer, Integer> from2NewGroupingMap = cc.copyGrouping();
-//			Map<Integer, Integer> from2NewProductMap = cc.copyProduct(from2NewGroupingMap);
-//			
-//			cc.copyProductSelection(from2NewProductMap, from2NewProdOptMap);
-//			cc.copyProductPrice(from2NewProductMap);
+			Map<Integer, Integer> from2NewProdOptMap = cc.copyProductOption();
+			cc.copyProductOptionDetail(from2NewProdOptMap);
 			
-			cc.copyAgentProfile();
+			Map<Integer, Integer> from2NewGroupingMap = cc.copyGrouping();
+			Map<Integer, Integer> from2NewProductMap = cc.copyProduct(from2NewGroupingMap);
+			
+			cc.copyProductSelection(from2NewProductMap, from2NewProdOptMap);
+			Map<Integer, Integer> from2NewPriceMap = cc.copyProductPrice(from2NewProductMap);
+			
+			Map<Integer, Integer> agentMap = cc.copyAgentProfile();
+			Map<Integer, Integer> customerMap = cc.copyCustomerProfile(agentMap);
+			
+			cc.copyCustomerPrice(customerMap, from2NewProductMap, from2NewPriceMap);
 			cc.conn.commit();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -49,6 +54,20 @@ public class CopyCompany {
 		}
 	}
 
+	private void deleteOldRecord() throws Exception {
+		Statement st = conn.createStatement();
+		st.addBatch("Delete From mfg_custproduct Where companyid = '"+NEW_COMPANY_ID+"'");
+		st.addBatch("Delete From mfg_productopt Where companyid = '"+NEW_COMPANY_ID+"'");
+		st.addBatch("Delete From mfg_productopt_detail Where companyid = '"+NEW_COMPANY_ID+"'");
+		st.addBatch("Delete From mfg_grouping Where companyid = '"+NEW_COMPANY_ID+"'");
+		st.addBatch("Delete From mfg_custproductselection Where companyid = '"+NEW_COMPANY_ID+"'");
+		st.addBatch("Delete From mfg_custproductprice Where prodid IN (Select prodid from mfg_custproduct where companyid = '" + NEW_COMPANY_ID +"')");
+		st.addBatch("Delete From mfg_custproductcustomerprice Where companyid = '"+NEW_COMPANY_ID+"'");
+		st.addBatch("Delete From agentprofile Where companyid = '"+NEW_COMPANY_ID+"'");
+		st.addBatch("Delete From customerprofile Where companyid = '"+NEW_COMPANY_ID+"'");		
+		st.executeBatch();
+	}
+	
 	private Map<Integer, Integer> copyProduct(Map<Integer, Integer> from2NewGroupingMap) {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmtInsert = null;
@@ -112,14 +131,16 @@ public class CopyCompany {
 		}
 	}
 	
-	private void copyProductPrice(Map<Integer, Integer> from2NewProductMap) {
+	private Map<Integer, Integer> copyProductPrice(Map<Integer, Integer> from2NewProductMap) {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmtInsert = null;
 		ResultSet rs = null;
+		ResultSet rsInsert = null;
+		Map<Integer, Integer> from2NewMap = new HashMap<>();
 		String insertSql = "INSERT INTO mfg_custproductprice " + 
 				"( prodid, orderfrom, orderto, cost, dealerprice, clientprice, publicprice, dealer1price, client1price, public1price, dealer2price, client2price, public2price ) " + 
 				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		String sql = "Select * from mfg_custproductprice";
+		String sql = "Select * from mfg_custproductprice where prodid IN (Select prodid from mfg_custproduct where companyid In " + COMPANY_IDS +")";
 		try{			
 			pstmtInsert = conn.prepareStatement(insertSql);
 			pstmt = conn.prepareStatement(sql);
@@ -141,11 +162,46 @@ public class CopyCompany {
 				pstmtInsert.setDouble(11, rs.getDouble("dealer2price"));
 				pstmtInsert.setDouble(12, rs.getDouble("client2price"));
 				pstmtInsert.setDouble(13, rs.getDouble("public2price"));
-
-				pstmtInsert.execute ();				
+				pstmtInsert.execute ();
+				
+				rsInsert = pstmtInsert.getGeneratedKeys ();
+				if (rsInsert.next()) {
+					logger.debug(rs.getInt("priceid") + " -> " + rsInsert.getInt(1));
+					from2NewMap.put(rs.getInt("priceid"), rsInsert.getInt(1)) ;
+			    }		
 			}
 			logger.info("Copied Product Price...");
 		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return from2NewMap;
+	}
+	
+	private void copyCustomerPrice(Map<Integer, Integer> customerMap, Map<Integer, Integer> productMap, Map<Integer, Integer> priceMap) {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmtInsert = null;
+		ResultSet rs = null;
+
+		String insertSql = "INSERT INTO mfg_custproductcustomerprice ( companyid, customerid, prodid, priceid, price ) "+
+							"VALUES ('"+NEW_COMPANY_ID+"',?, ?, ?, ?)";
+		String sql = "Select * from mfg_custproductcustomerprice where companyid In " + COMPANY_IDS;
+		try{			
+			pstmtInsert = conn.prepareStatement(insertSql);
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {	
+				if(productMap.get(rs.getInt("prodid"))==null || customerMap.get(rs.getInt("customerid"))==null) {
+					continue;
+				}
+				pstmtInsert.setInt(1, customerMap.get(rs.getInt("customerid")));
+				pstmtInsert.setInt(2, productMap.get(rs.getInt("prodid")));
+				pstmtInsert.setInt(3, priceMap.get(rs.getInt("priceid")));
+				pstmtInsert.setDouble(4, rs.getDouble("price"));
+				pstmtInsert.execute ();				
+			}
+			logger.info("Copied Customer Pricing...");
+		}catch(Exception e){			
 			e.printStackTrace();
 		}
 	}
@@ -243,14 +299,16 @@ public class CopyCompany {
 		}
 	}
 	
-	public void copyAgentProfile() {
+	public Map<Integer, Integer> copyAgentProfile() {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmtInsert = null;
-		ResultSet rs = null;		
+		ResultSet rs = null;	
+		ResultSet rsInsert = null;
+		Map<Integer, Integer> from2NewMap = new HashMap<>();
 		
 		String insertSql = "INSERT INTO agentprofile ( companyid, name, mobileno, email, gender, dob, address, city, state, postcode, country, status, updateby, updatedate ) " + 
 				"VALUES ('"+NEW_COMPANY_ID+"', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,'A', 'SYSTEM', now())";
-		String sql = "Select * from agentprofile where status = 'A' and companyid In ('ls')";
+		String sql = "Select * from agentprofile where status = 'A' and companyid In " + COMPANY_IDS;
 		try{
 			pstmtInsert = conn.prepareStatement(insertSql);
 			pstmt = conn.prepareStatement(sql);
@@ -267,12 +325,73 @@ public class CopyCompany {
 				pstmtInsert.setString(9, rs.getString("postcode"));
 				pstmtInsert.setString(10, rs.getString("country"));
 				pstmtInsert.execute ();
+				
+				rsInsert = pstmtInsert.getGeneratedKeys ();
+				if (rsInsert.next()) {
+					logger.debug(rs.getInt("id") + " -> " + rsInsert.getInt(1));
+					from2NewMap.put(rs.getInt("id"), rsInsert.getInt(1)) ;
+			    }
 			}
 			
-			logger.info("Copied Product Option Detail...");
+			logger.info("Copied Agent Profile...");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		return from2NewMap;
+	}
+	
+	public Map<Integer, Integer> copyCustomerProfile(Map<Integer, Integer> agentMap) {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmtInsert = null;
+		ResultSet rs = null;		
+		ResultSet rsInsert = null;
+		Map<Integer, Integer> from2NewMap = new HashMap<>();
+		String insertSql = "INSERT INTO customerprofile ( companyid, code, name, contactperson, type, creditlimit, terms, address,  "+
+				"city, state, postcode, country, email, mobileno, phoneno, faxno, salesby, note, status, updateby, updatedate ) " + 
+				"VALUES ('"+NEW_COMPANY_ID+"', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,'A', 'SYSTEM', now())";
+		String sql = "Select * from customerprofile where status = 'A' and companyid In " + COMPANY_IDS;
+		try{
+			pstmtInsert = conn.prepareStatement(insertSql);
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				pstmtInsert.setString(1, rs.getString("code"));
+				pstmtInsert.setString(2, rs.getString("name"));
+				pstmtInsert.setString(3, rs.getString("contactperson"));
+				pstmtInsert.setString(4, rs.getString("type"));
+				pstmtInsert.setString(5, rs.getString("creditlimit"));
+				pstmtInsert.setInt(6, rs.getInt("terms"));
+				pstmtInsert.setString(7, rs.getString("address"));
+				pstmtInsert.setString(8, rs.getString("city"));
+				pstmtInsert.setString(9, rs.getString("state"));
+				pstmtInsert.setString(10, rs.getString("postcode"));
+				pstmtInsert.setString(11, rs.getString("country"));
+				pstmtInsert.setString(12, rs.getString("email"));
+				pstmtInsert.setString(13, rs.getString("mobileno"));
+				pstmtInsert.setString(14, rs.getString("phoneno"));
+				pstmtInsert.setString(15, rs.getString("faxno"));
+				if(agentMap.get(rs.getInt("salesby"))!=null) {
+					pstmtInsert.setInt(16, agentMap.get(rs.getInt("salesby")));
+				}else {
+					pstmtInsert.setInt(16, 0);
+				}				
+				pstmtInsert.setString(17, rs.getString("note"));
+				pstmtInsert.execute ();
+				
+				rsInsert = pstmtInsert.getGeneratedKeys ();
+				if (rsInsert.next()) {
+					logger.debug(rs.getInt("customerid") + " -> " + rsInsert.getInt(1));
+					from2NewMap.put(rs.getInt("customerid"), rsInsert.getInt(1)) ;
+			    }
+			}
+			
+			logger.info("Copied Customer Profile...");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return from2NewMap;
 	}
 
 }

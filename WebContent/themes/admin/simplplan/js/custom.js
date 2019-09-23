@@ -349,9 +349,19 @@ $("<span class='v'></span>").insertAfter("ul#navigation.dropdown ul.subnav");
 			        "url": sSource,
 			        "data": aoData,
 			        "success": function(json){ if(json.redirect){ window.location=json.redirect; }else{	fnCallback(json); }}
-		      });}
+		    	});
+		    },
+		    "oLanguage": { "sSearch": "" },
+			"fnInitComplete" : function() {
+				var that = this;
+				$searchButton = $('<a href="#" id="search" class="paginate_button tip" title="Search" style="float:right;">Search</a>').click(function(e) {			      	  
+					that.fnFilter($('.dataTables_filter input').val());
+			    	e.preventDefault(); return;
+			      });
+		        $('.dataTables_filter').append($searchButton);
+		    }
 		});
-		
+
 	  	$(this).parent().find('.dataTables_filter input')
 	    	.unbind('keypress keyup')
 	    	.bind('keypress keyup', function(e){
@@ -359,7 +369,7 @@ $("<span class='v'></span>").insertAfter("ul#navigation.dropdown ul.subnav");
 	      			myTable.fnFilter($(this).val());
 	      			e.preventDefault(); return;
 	      		}
-	    });  
+	    });  	  	
 	});
 	
 	
