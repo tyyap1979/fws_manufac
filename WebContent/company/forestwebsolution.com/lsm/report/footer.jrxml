@@ -170,10 +170,10 @@
 			</line>
 			<staticText>
 				<reportElement uuid="c327db6c-69e0-4b5f-aeec-dfa2db905b5f" x="139" y="72" width="112" height="13"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font fontName="DejaVu Serif" size="8" isBold="false" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[OCBC: 7861 244 807]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

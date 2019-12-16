@@ -158,7 +158,8 @@ public class SelectBuilder extends BaseSelectBuilder{
 		
 		_HASH_PAY_TYPE.put("1", "Cheque");
 		_HASH_PAY_TYPE.put("2", "Cash");
-		_HASH_PAY_TYPE.put("3", "Credit Card");
+		_HASH_PAY_TYPE.put("5", "Contra");
+		_HASH_PAY_TYPE.put("3", "Credit Card");		
 		_HASH_PAY_TYPE.put("4", "Bank Transfer");
 	}
 	

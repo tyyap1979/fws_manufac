@@ -3,6 +3,7 @@ package com.forest.cron;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,24 +31,37 @@ public class CopyCompany {
 		CopyCompany cc = new CopyCompany();
 		try{			
 			logger.info("Copy Company Start");
-			cc.deleteOldRecord();
+//			cc.deleteOldRecord();
 			cc.conn.setAutoCommit(false);					
 			
-			Map<Integer, Integer> from2NewProdOptMap = cc.copyProductOption();
-			cc.copyProductOptionDetail(from2NewProdOptMap);
+//			Map<Integer, Integer> from2NewProdOptMap = cc.copyProductOption();
+//			cc.copyProductOptionDetail(from2NewProdOptMap);
+//			
+//			Map<Integer, Integer> from2NewGroupingMap = cc.copyGrouping();
+//			Map<Integer, Integer> from2NewProductMap = cc.copyProduct(from2NewGroupingMap);
+//			
+//			cc.copyProductSelection(from2NewProductMap, from2NewProdOptMap);
+//			Map<Integer, Integer> from2NewPriceMap = cc.copyProductPrice(from2NewProductMap);
+//			
+//			Map<Integer, Integer> agentMap = cc.copyAgentProfile();
+//			Map<Integer, Integer> customerMap = cc.copyCustomerProfile(agentMap);
+//			
+//			cc.copyCustomerPrice(customerMap, from2NewProductMap, from2NewPriceMap);
 			
-			Map<Integer, Integer> from2NewGroupingMap = cc.copyGrouping();
-			Map<Integer, Integer> from2NewProductMap = cc.copyProduct(from2NewGroupingMap);
-			
-			cc.copyProductSelection(from2NewProductMap, from2NewProdOptMap);
-			Map<Integer, Integer> from2NewPriceMap = cc.copyProductPrice(from2NewProductMap);
-			
-			Map<Integer, Integer> agentMap = cc.copyAgentProfile();
-			Map<Integer, Integer> customerMap = cc.copyCustomerProfile(agentMap);
-			
-			cc.copyCustomerPrice(customerMap, from2NewProductMap, from2NewPriceMap);
+//			cc.copySupplierProduct();
+//			cc.copySupplierProductDetailOption();
+//			cc.copySupplierProductOption();
+//			cc.copySupplierProductPrice();
+//			cc.copySupplierProductSelection();
+			cc.copyProductCustomerPriceSupplier();
 			cc.conn.commit();
 		}catch(Exception e){
+			try {
+				cc.conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}finally{			
 			logger.info("Copy Company End");
@@ -393,5 +407,152 @@ public class CopyCompany {
 		
 		return from2NewMap;
 	}
+	
+	private void copySupplierProduct() throws Exception{
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmtInsert = null;
+		ResultSet rs = null;
+		String insertSql = "INSERT INTO mfg_supplierproduct ( prodid, suppcompanyid, status, updateby, updatedate ) " + 
+				"VALUES (?,?,'A','SYSTEM', now())";
+		String sql = "Select * from mfg_custproduct where status = 'A' and companyid In " + COMPANY_IDS;
+		pstmtInsert = conn.prepareStatement(insertSql);
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pstmtInsert.setString(1, rs.getString("prodid"));
+			pstmtInsert.setString(2, rs.getString("companyid"));
+			pstmtInsert.execute ();
+		}
+		logger.info("Copied Supplier Product...");
+	}
+	
+	private void copySupplierProductOption() throws Exception{
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmtInsert = null;
+		ResultSet rs = null;
+		String insertSql = "INSERT INTO mfg_supplierproductopt ( prodoptid, suppcompanyid, status, updateby, updatedate ) " + 
+				"VALUES (?,?,'A','SYSTEM', now())";
+		String sql = "Select * from mfg_productopt where status = 'A' and companyid In " + COMPANY_IDS;
+		
+		pstmtInsert = conn.prepareStatement(insertSql);
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pstmtInsert.setInt(1, rs.getInt("prodoptid"));
+			pstmtInsert.setString(2, rs.getString("companyid"));
+			pstmtInsert.execute ();
+		}
+		logger.info("Copied Supplier Product Option...");
+	}
 
+	private void copySupplierProductDetailOption() throws Exception {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmtInsert = null;
+		ResultSet rs = null;
+		
+		String insertSql = "INSERT INTO mfg_supplierproductopt_detail ( prodoptdetailid, prodoptid, cost, dealerprice, clientprice, publicprice, status ) " + 
+				"VALUES (?,?,?,?,?,?,'A')";
+		String sql = "Select * from mfg_productopt_detail where status = 'A' and companyid In " + COMPANY_IDS;
+		
+		pstmtInsert = conn.prepareStatement(insertSql);
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pstmtInsert.setInt(1, rs.getInt("prodoptdetailid"));
+			pstmtInsert.setInt(2, rs.getInt("prodoptid"));
+			pstmtInsert.setDouble(3, rs.getDouble("cost"));
+			pstmtInsert.setDouble(4, rs.getDouble("dealerprice"));
+			pstmtInsert.setDouble(5, rs.getDouble("clientprice"));
+			pstmtInsert.setDouble(6, rs.getDouble("publicprice"));
+			pstmtInsert.execute ();
+		}
+		logger.info("Copied Supplier Product Detail Option...");
+	}
+	
+	private void copySupplierProductPrice() throws Exception {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmtInsert = null;
+		ResultSet rs = null;
+		
+		String insertSql = "INSERT INTO mfg_supplierproductprice ( priceid, prodid, orderfrom, orderto, cost, dealerprice, clientprice, publicprice, dealer1price, client1price, public1price, dealer2price, client2price, public2price ) " + 
+				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "Select * from mfg_custproductprice where prodid In ( " + 
+				"Select prodid from mfg_custproduct Where status = 'A' and companyid In " + COMPANY_IDS +")";
+
+		pstmtInsert = conn.prepareStatement(insertSql);
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pstmtInsert.setInt(1, rs.getInt("priceid"));
+			pstmtInsert.setInt(2, rs.getInt("prodid"));
+			pstmtInsert.setDouble(3, rs.getDouble("orderfrom"));
+			pstmtInsert.setDouble(4, rs.getDouble("orderto"));				
+			pstmtInsert.setDouble(5, rs.getDouble("cost"));
+			pstmtInsert.setDouble(6, rs.getDouble("dealerprice"));
+			pstmtInsert.setDouble(7, rs.getDouble("clientprice"));
+			pstmtInsert.setDouble(8, rs.getDouble("publicprice"));
+			pstmtInsert.setDouble(9, rs.getDouble("dealer1price"));
+			pstmtInsert.setDouble(10, rs.getDouble("client1price"));
+			pstmtInsert.setDouble(11, rs.getDouble("public1price"));
+			pstmtInsert.setDouble(12, rs.getDouble("dealer2price"));
+			pstmtInsert.setDouble(13, rs.getDouble("client2price"));
+			pstmtInsert.setDouble(14, rs.getDouble("public2price"));
+			pstmtInsert.execute ();
+		}
+		logger.info("Copied Supplier Product Price...");
+	}
+	
+	private void copySupplierProductSelection() throws Exception {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmtInsert = null;
+		ResultSet rs = null;
+		String insertSql = "INSERT INTO mfg_supplierproductselection ( selectid, prodid, prodoptid, position ) " + 
+				"VALUES (?,?,?,?)";
+		String sql = "Select * from mfg_custproductselection where companyid In " + COMPANY_IDS;
+
+		pstmtInsert = conn.prepareStatement(insertSql);
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			pstmtInsert.setInt(1, rs.getInt("selectid"));
+			pstmtInsert.setInt(2, rs.getInt("prodid"));
+			pstmtInsert.setInt(3, rs.getInt("prodoptid"));
+			pstmtInsert.setInt(4, rs.getInt("position"));
+			pstmtInsert.execute ();
+		}
+		logger.info("Copied Supplier Product Selection...");
+	}
+	
+	private void copyProductCustomerPriceSupplier() throws Exception {
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmtSelect = null;
+		PreparedStatement pstmtInsert = null;
+		
+		ResultSet rs = null;
+		ResultSet rsSelect = null;
+		String insertSql = "Insert into mfg_custproductcustomerprice (companyid, customerid, prodid, priceid, price)" + 
+				"Select 'lsm', ?, prodid, priceid, price From mfg_custproductcustomerprice Where companyid = ? and customerid = ?";
+		
+		String sql = "Select * from customerprofile where companyid = 'lsm' And status = 'A'";
+
+		pstmtInsert = conn.prepareStatement(insertSql);
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {			
+			pstmtSelect = conn.prepareStatement("Select * From customerprofile where companyid In " + COMPANY_IDS + " And Status = 'A' And Code = ? And Name = ? and Contactperson = ? and Address = ?");
+			pstmtSelect.setString(1, rs.getString("code"));
+			pstmtSelect.setString(2, rs.getString("name"));
+			pstmtSelect.setString(3, rs.getString("contactperson"));
+			pstmtSelect.setString(4, rs.getString("address"));
+			rsSelect = pstmtSelect.executeQuery ();
+			if(rsSelect.next()){
+				pstmtInsert.setInt(1, rs.getInt("customerid"));
+				pstmtInsert.setString(2, rsSelect.getString("companyid"));
+				pstmtInsert.setInt(3, rsSelect.getInt("customerid"));
+				pstmtInsert.executeUpdate();
+	        }
+			
+		}
+		logger.info("Copied Customer Price...");
+	}
 }

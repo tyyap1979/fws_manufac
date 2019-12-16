@@ -74,6 +74,9 @@
 			prodid = $(this).find("input[id$=prodid]").val();
 			price = parseFloat($(this).find("input[id$=price]").val());
 			discount = parseFloat($(this).find("input[id$=discount]").val()); 
+			price = Number.isNaN(price)?0:price;
+			discount = Number.isNaN(discount)?0:discount;
+			
 			if(prodid!='0' && price==0 && discount==0){
 				reCalculate = true;
 			}
@@ -384,7 +387,7 @@
 			}			
 		});
 		
-		$("#mfg_transactionModuleEntry").find("select[id=custtype]").bind("change", (function(event){
+		$("#mfg_transactionModuleEntry").find("select[id=custtype]").bind("change", (function(event){			
 			$('tbody[id=mfgtdEntryTableBody]').find("input[id$=price]").each(function(i){				
 				$(this).val("0");
 			});

@@ -32,15 +32,16 @@ public class AccountingPatch {
 		try{
 			logger.info("Patch Statement Start");			
 			conn = baseServ.getDirectConnection();
-			
+			LoadTableObject.loadTable(conn);
 			AccountingPatch ap = new AccountingPatch();
-			ap.cronPatchAccounting(conn);
-			
-			StatementPatch sp = new StatementPatch();
-			sp.patchStatementSalesAmount(conn);
-			
-			PatchSalesDate t = new PatchSalesDate();			
-			t.patch(conn);
+			ap.accountAgingPatchSingle(conn, "lsm", "4577");
+//			ap.cronPatchAccounting(conn);
+//			
+//			StatementPatch sp = new StatementPatch();
+//			sp.patchStatementSalesAmount(conn);
+//			
+//			PatchSalesDate t = new PatchSalesDate();			
+//			t.patch(conn);
 			
 		}catch(Exception e){
 			logger.debug(e, e);
@@ -49,6 +50,8 @@ public class AccountingPatch {
 			logger.info("Patch Statement End");
 		}
     }
+	
+	
 	
 	private void cronPatchAccounting(Connection conn){
 		PreparedStatement pstmt = null;

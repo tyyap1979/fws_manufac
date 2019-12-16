@@ -143,7 +143,7 @@ public class MenuBuilder extends GenericAdminBuilder
 			    	
 			    	buffer.append ("<li><a href='mfg_custproduct.htm' class='icon list'>").append (ResourceUtil.getAdminResourceValue(_shopInfoBean.getBusiness(), MODULE_NAME, "mfg_custproduct", _clientBean.getLocale ())).append ("</a></li>");
 			    	buffer.append ("<li><a href='mfg_prodoption.htm' class='icon list'>").append (ResourceUtil.getAdminResourceValue(_shopInfoBean.getBusiness(), MODULE_NAME, "mfg_productopt", _clientBean.getLocale ())).append ("</a></li>");
-			    	if("megatrend".equals(_shopInfoBean.getShopName())){
+			    	if("lsm".equals(_shopInfoBean.getShopName())){
 				    	buffer.append ("<li><a href='mfg_supplierproduct.htm' class='icon list'>").append (ResourceUtil.getAdminResourceValue(_shopInfoBean.getBusiness(), MODULE_NAME, "mfg_supplierproduct", _clientBean.getLocale ())).append ("</a></li>");
 				    	buffer.append ("<li><a href='mfg_supplierprodoption.htm' class='icon list'>").append (ResourceUtil.getAdminResourceValue(_shopInfoBean.getBusiness(), MODULE_NAME, "mfg_supplierproductopt", _clientBean.getLocale ())).append ("</a></li>");
 			    	}

@@ -2,6 +2,7 @@ package com.forest.mfg.adminbuilder;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import com.forest.common.builder.GenericAdminBuilder;
 import com.forest.common.constants.GeneralConst;
 import com.forest.common.util.BuilderUtil;
 import com.forest.common.util.CommonUtil;
+import com.forest.common.util.DateUtil;
 import com.forest.common.util.FileHandler;
 import com.forest.common.util.ResourceUtil;
 import com.forest.mfg.beandef.MFG_CustProductCustomerPriceDef;
@@ -58,24 +60,57 @@ public class CustomerProfileAdminBuilder extends GenericAdminBuilder {
 			}else{
 				typeName = MFG_CustProductPriceDef.publicprice.name;
 			}
+			if(!"lsm".equals(_shopInfoBean.getShopName())) {
+				query.append(" Select ");
+				query.append("c.").append(MFG_CustProductCustomerPriceDef.custpriceid);
+				query.append(",'").append(_shopInfoBean.getShopName()).append("' As ").append(MFG_CustProductDef.companyid);
+				query.append(",'").append(customerId).append("' As ").append(CustomerProfileDef.customerid);
+				query.append(",a.").append(MFG_CustProductDef.prodid);
+				query.append(",a.").append(MFG_CustProductDef.name).append(" As ").append(MFG_CustProductDef.prodid).append("_value");
+				query.append(",b.").append(MFG_CustProductPriceDef.priceid);
+				
+				query.append(",COALESCE(c.").append(MFG_CustProductCustomerPriceDef.price);
+				
+				query.append(",b.").append(typeName).append(") As ").append(MFG_CustProductCustomerPriceDef.price);
+				
+				query.append(",b.").append(MFG_CustProductPriceDef.orderfrom);
+				query.append(",b.").append(MFG_CustProductPriceDef.orderto);
+				query.append(",if(c.").append(MFG_CustProductCustomerPriceDef.custpriceid).append(" is null,'N','U') As 'row-status'");
+				
+				query.append(" From ").append(MFG_CustProductDef.TABLE).append(" a");					
+				query.append(" Inner Join ").append(MFG_CustProductPriceDef.TABLE).append(" b on b.").append(MFG_CustProductDef.prodid);
+				query.append(" = a.").append(MFG_CustProductDef.prodid);
+				query.append(" Left Join ").append(MFG_CustProductCustomerPriceDef.TABLE).append(" c on c.").append(MFG_CustProductCustomerPriceDef.prodid);
+				query.append(" = a.").append(MFG_CustProductDef.prodid);
+				query.append(" And ");
+				query.append(" c.").append(MFG_CustProductCustomerPriceDef.priceid).append(" = b.").append(MFG_CustProductPriceDef.priceid);
+				query.append(" And ");
+				query.append(" c.").append(MFG_CustProductCustomerPriceDef.customerid).append("=").append(customerId);
+				
+				query.append(" Where a.").append(MFG_CustProductDef.companyid).append("='").append(_shopInfoBean.getShopName()).append("'");
+				query.append(" And a.").append(MFG_CustProductDef.status).append("='").append(GeneralConst.ACTIVE).append("'");
+				
+				query.append(" Union ");
+			}
 			query.append(" Select ");
 			query.append("c.").append(MFG_CustProductCustomerPriceDef.custpriceid);
 			query.append(",'").append(_shopInfoBean.getShopName()).append("' As ").append(MFG_CustProductDef.companyid);
 			query.append(",'").append(customerId).append("' As ").append(CustomerProfileDef.customerid);
 			query.append(",a.").append(MFG_CustProductDef.prodid);
-			query.append(",a.").append(MFG_CustProductDef.name).append(" As ").append(MFG_CustProductDef.prodid).append("_value");
+			query.append(",sup.").append(MFG_CustProductDef.name).append(" As ").append(MFG_CustProductDef.prodid).append("_value");
 			query.append(",b.").append(MFG_CustProductPriceDef.priceid);
 			
 			query.append(",COALESCE(c.").append(MFG_CustProductCustomerPriceDef.price);
-			
 			query.append(",b.").append(typeName).append(") As ").append(MFG_CustProductCustomerPriceDef.price);
 			
 			query.append(",b.").append(MFG_CustProductPriceDef.orderfrom);
 			query.append(",b.").append(MFG_CustProductPriceDef.orderto);
 			query.append(",if(c.").append(MFG_CustProductCustomerPriceDef.custpriceid).append(" is null,'N','U') As 'row-status'");
 			
-			query.append(" From ").append(MFG_CustProductDef.TABLE).append(" a");					
-			query.append(" Inner Join ").append(MFG_CustProductPriceDef.TABLE).append(" b on b.").append(MFG_CustProductDef.prodid);
+			query.append(" From ").append(MFG_SupplierProductDef.TABLE).append(" a");		
+			query.append(" Inner Join ").append(MFG_CustProductDef.TABLE).append(" sup on sup.").append(MFG_CustProductDef.prodid);
+			query.append(" = a.").append(MFG_SupplierProductDef.prodid);
+			query.append(" Inner Join ").append(MFG_SupplierProductPriceDef.TABLE).append(" b on b.").append(MFG_CustProductDef.prodid);
 			query.append(" = a.").append(MFG_CustProductDef.prodid);
 			query.append(" Left Join ").append(MFG_CustProductCustomerPriceDef.TABLE).append(" c on c.").append(MFG_CustProductCustomerPriceDef.prodid);
 			query.append(" = a.").append(MFG_CustProductDef.prodid);
@@ -84,40 +119,9 @@ public class CustomerProfileAdminBuilder extends GenericAdminBuilder {
 			query.append(" And ");
 			query.append(" c.").append(MFG_CustProductCustomerPriceDef.customerid).append("=").append(customerId);
 			
-			query.append(" Where a.").append(MFG_CustProductDef.companyid).append("='").append(_shopInfoBean.getShopName()).append("'");
-			query.append(" And a.").append(MFG_CustProductDef.status).append("='").append(GeneralConst.ACTIVE).append("'");
-			
-//			query.append(" Union ");
-//			
-//			query.append(" Select ");
-//			query.append("c.").append(MFG_CustProductCustomerPriceDef.custpriceid);
-//			query.append(",'").append(_shopInfoBean.getShopName()).append("' As ").append(MFG_CustProductDef.companyid);
-//			query.append(",'").append(customerId).append("' As ").append(CustomerProfileDef.customerid);
-//			query.append(",a.").append(MFG_CustProductDef.prodid);
-//			query.append(",sup.").append(MFG_CustProductDef.name).append(" As ").append(MFG_CustProductDef.prodid).append("_value");
-//			query.append(",b.").append(MFG_CustProductPriceDef.priceid);
-//			
-//			query.append(",COALESCE(c.").append(MFG_CustProductCustomerPriceDef.price);
-//			query.append(",b.").append(typeName).append(") As ").append(MFG_CustProductCustomerPriceDef.price);
-//			
-//			query.append(",b.").append(MFG_CustProductPriceDef.orderfrom);
-//			query.append(",b.").append(MFG_CustProductPriceDef.orderto);
-//			query.append(",if(c.").append(MFG_CustProductCustomerPriceDef.custpriceid).append(" is null,'N','U') As 'row-status'");
-//			
-//			query.append(" From ").append(MFG_SupplierProductDef.TABLE).append(" a");		
-//			query.append(" Inner Join ").append(MFG_CustProductDef.TABLE).append(" sup on sup.").append(MFG_CustProductDef.prodid);
-//			query.append(" = a.").append(MFG_SupplierProductDef.prodid);
-//			query.append(" Inner Join ").append(MFG_SupplierProductPriceDef.TABLE).append(" b on b.").append(MFG_CustProductDef.prodid);
-//			query.append(" = a.").append(MFG_CustProductDef.prodid);
-//			query.append(" Left Join ").append(MFG_CustProductCustomerPriceDef.TABLE).append(" c on c.").append(MFG_CustProductCustomerPriceDef.prodid);
-//			query.append(" = a.").append(MFG_CustProductDef.prodid);
-//			query.append(" And ");
-//			query.append(" c.").append(MFG_CustProductCustomerPriceDef.priceid).append(" = b.").append(MFG_CustProductPriceDef.priceid);
-//			query.append(" And ");
-//			query.append(" c.").append(MFG_CustProductCustomerPriceDef.customerid).append("=").append(customerId);
-//			
-//			query.append(" Where a.").append(MFG_CustProductDef.companyid).append("='").append(_shopInfoBean.getShopName()).append("'");
-//			query.append(" And a.").append(MFG_CustProductDef.status).append("='").append(GeneralConst.ACTIVE).append("'");
+			query.append(" Where ");
+//			query.append(" a.").append(MFG_CustProductDef.companyid).append("='").append(_shopInfoBean.getShopName()).append("'");
+			query.append(" a.").append(MFG_CustProductDef.status).append("='").append(GeneralConst.ACTIVE).append("'");
 			
 			query.append(" Order By ").append(MFG_CustProductDef.name).append(",").append(MFG_CustProductPriceDef.orderfrom);
 			arrayListSearch = _gs.searchDataArray(query);

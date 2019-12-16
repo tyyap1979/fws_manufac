@@ -269,12 +269,13 @@
 			for(var x=0; x<json.colw.length; x++){
 				RowData.unit = mfgUtil.convertToUnit(measurementType, RowData.sellunittype, spanWidth, customHeight);	
 				if(typeof(roundUpAtFinal)=='undefined'){
+//					alert("RowData.unit = "+RowData.unit + " round to " + roundUpSqft(RowData.unit, roundUpPrefix));
 					totalUnit += parseFloat(roundUpSqft(RowData.unit, roundUpPrefix));
 				}else{
 					totalUnit += parseFloat(RowData.unit);
 				}										
 			}			
-			//alert("RowData.unit = "+RowData.unit+"\ntotalUnit = "+roundUpSqft(totalUnit));
+			//alert("totalUnit = "+(totalUnit) + "\n Round Up totalUnit = "+roundUpSqft(totalUnit));
 			RowData.unit = roundUpSqft(totalUnit, roundUpPrefix);				
 		}else{				
 			if(RowData.prodid==0){ // Custom Product

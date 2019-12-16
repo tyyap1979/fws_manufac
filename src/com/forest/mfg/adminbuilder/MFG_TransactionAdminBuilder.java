@@ -90,19 +90,19 @@ public class MFG_TransactionAdminBuilder extends GenericAdminBuilder {
 				cancelOrder((String) _attrReqDataMap[0].get(MFG_TransactionDef.transno.name));
 			}
 			
-			ArrayList keyArray = null;
+//			ArrayList keyArray = null;
 			// Create JobSheet
 			if(stage==CommonUtil.parseInt(MFG_SelectBuilder.TRANS_INVOICE)){
 				String factoryJobCode = "";
 				String transid = (String) _attrReqDataMap[0].get((String) BeanDefUtil.getField(_defClass, BeanDefUtil.KEY));
 				// Create PO
 				
-//				if("megatrend".equals(_shopInfoBean.getShopName())){
-//					keyArray = createPO(key);
-//				}
+				if("lsm".equals(_shopInfoBean.getShopName())){
+					createPO(key);
+				}
 				// Create Job Sheet
 				MFG_JobSheetAdminBuilder jobBuilder = new MFG_JobSheetAdminBuilder(_shopInfoBean, _clientBean, _dbConnection, _req, _resp, MFG_JobSheetDef.class, localAccessByShop, _resources);
-				String[] keyArrayData = null;
+//				String[] keyArrayData = null;
 				jobCode = (String)_attrReqDataMap[0].get(MFG_TransactionDef.jobcode.name);
 				
 //				logger.debug("keyArray.size() = "+keyArray.size()); 
@@ -369,21 +369,22 @@ public class MFG_TransactionAdminBuilder extends GenericAdminBuilder {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try{			
-//			if("megatrend".equals(_shopInfoBean.getShopName()) || "kdd".equals(_shopInfoBean.getShopName())){
-//				query.append("Select b.").append(MFG_CustProductDef.prodid).append(",");
-//				query.append(" b.").append(MFG_CustProductDef.sellunittype).append(",b.").append(MFG_CustProductDef.minorder).append(",");
-//				query.append(" b.").append(MFG_CustProductDef.customise).append(", b.").append(MFG_CustProductDef.name).append(",");
-//				query.append(" b.").append(MFG_CustProductDef.roundup_prefix).append(", ");
-//				query.append(" b.").append(MFG_CustProductDef.customformula).append(", 'Y' as factory");  
-//				query.append(" From ").append(MFG_SupplierProductDef.TABLE).append(" a"); 
-//				query.append(" Inner Join ").append(MFG_CustProductDef.TABLE).append(" b on b.").append(MFG_CustProductDef.prodid).append(" = a.").append(MFG_SupplierProductDef.prodid);
-//	//			query.append(" a.").append(MFG_SupplierProductDef.companyid).append(" = ?"); // Need to show deleted Product also
-//				if(!CommonUtil.isEmpty(prodid)){
-//					query.append(" Where And a.").append(MFG_CustProductDef.prodid).append("='").append(prodid).append("'");
-//				}
-//				
-//				query.append(" union");
-//			}
+			if("lsm".equals(_shopInfoBean.getShopName())){
+				query.append("Select b.").append(MFG_CustProductDef.prodid).append(",");
+				query.append(" b.").append(MFG_CustProductDef.sellunittype).append(",b.").append(MFG_CustProductDef.minorder).append(",");
+				query.append(" b.").append(MFG_CustProductDef.customise).append(", b.").append(MFG_CustProductDef.name).append(",");
+				query.append(" b.").append(MFG_CustProductDef.customformula).append(",");
+				query.append(" b.").append(MFG_SupplierProductDef.COMPANYID).append(" As ").append(MFG_CustProductDef.roundup_prefix).append(", ");
+				query.append(" 'Y' as factory");  
+				query.append(" From ").append(MFG_SupplierProductDef.TABLE).append(" a"); 
+				query.append(" Inner Join ").append(MFG_CustProductDef.TABLE).append(" b on b.").append(MFG_CustProductDef.prodid).append(" = a.").append(MFG_SupplierProductDef.prodid);
+	//			query.append(" a.").append(MFG_SupplierProductDef.companyid).append(" = ?"); // Need to show deleted Product also
+				if(!CommonUtil.isEmpty(prodid)){
+					query.append(" Where And a.").append(MFG_CustProductDef.prodid).append("='").append(prodid).append("'");
+				}
+				
+				query.append(" union");
+			}
 			query.append(" Select ").append(MFG_CustProductDef.prodid).append(", ").append(MFG_CustProductDef.sellunittype);
 			query.append(", ").append(MFG_CustProductDef.minorder).append(", ").append(MFG_CustProductDef.customise);
 			query.append(", ").append(MFG_CustProductDef.name).append(", ").append(MFG_CustProductDef.customformula);
@@ -527,7 +528,7 @@ public class MFG_TransactionAdminBuilder extends GenericAdminBuilder {
 		int len = 0;
 		
 		try{	
-			if("megatrend".equals(_shopInfoBean.getShopName())){
+			if("lsm".equals(_shopInfoBean.getShopName())){
 				len = 2;
 			}else{
 				len = 1;
@@ -736,6 +737,7 @@ public class MFG_TransactionAdminBuilder extends GenericAdminBuilder {
 			query.append(" Left Join ").append(MFG_TransactionDetailDef.TABLE).append(" e On e.").append(MFG_TransactionDetailDef.transid).append(" =d.").append(MFG_TransactionDef.transid);
 			query.append(" And e.").append(MFG_TransactionDetailDef.custtransdetailid).append(" = b.").append(MFG_TransactionDetailDef.transdetailid).append("");
 			query.append(" Where b.").append(MFG_TransactionDetailDef.transid).append(" = ?");
+			query.append(" And b.").append(MFG_TransactionDetailDef.status).append("='").append(GeneralConst.ACTIVE).append("'");
 			query.append(" Order by c.").append(MFG_SupplierProductDef.suppcompanyid);
 			query.append(", b.").append(MFG_TransactionDetailDef.transdetailid);
 			logger.debug("createPO query = "+query);

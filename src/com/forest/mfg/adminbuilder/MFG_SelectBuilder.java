@@ -276,7 +276,7 @@ public class MFG_SelectBuilder extends BaseSelectBuilder{
 			query.append(" From ").append(MFG_ProductOptionDef.TABLE);
 			query.append(" Where ").append(MFG_ProductOptionDef.companyid.name).append("='").append(shopInfoBean.getShopName()).append("'");
 			query.append(" And ").append(MFG_ProductOptionDef.status.name).append("='").append(GeneralConst.ACTIVE).append("'");
-			if("megatrend".equals(shopInfoBean.getShopName())){
+			if("lsm".equals(shopInfoBean.getShopName())){
 				query.append(" Union ");
 				query.append("Select a.").append(MFG_SupplierProductOptionDef.prodoptid.name).append(",b.").append(MFG_ProductOptionDef.groupname.name);
 				query.append(" From ").append(MFG_SupplierProductOptionDef.TABLE).append(" a");
@@ -461,7 +461,7 @@ public class MFG_SelectBuilder extends BaseSelectBuilder{
 			query.append(" Where a.").append(MFG_CustProductDef.companyid.name).append("='").append(shopInfoBean.getShopName()).append("'");
 			query.append(" And a.").append(MFG_CustProductDef.status.name).append("='").append(GeneralConst.ACTIVE).append("'");
 			
-			if("megatrend".equals(shopInfoBean.getShopName())){
+			if("lsm".equals(shopInfoBean.getShopName())){
 				query.append(" Union ");
 				
 				query.append(" Select a.").append(MFG_SupplierProductDef.prodid.name).append(",b.").append(MFG_CustProductDef.name.name);

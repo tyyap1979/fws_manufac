@@ -100,36 +100,36 @@ public class MFG_CustProductAdminBuilder extends GenericAdminBuilder {
 //		}
 		
 		
-		// For Supplier Product
-//		_defClass = MFG_SupplierProductDef.class;
-//		subClass = BeanDefUtil.getSubClass(_defClass);
-//		
-//		if(GeneralConst.CREATE.equals (_reqAction) || GeneralConst.UPDATE.equals (_reqAction)){
-//			addArray = BeanDefUtil.getArrayList(_defClass, _dbConnection, BeanDefUtil.DISPLAY_TYPE_ADD, _shopInfoBean, _clientBean);
-//			listingArray = BeanDefUtil.getArrayList(_defClass, _dbConnection, BeanDefUtil.DISPLAY_TYPE_LISTING, _shopInfoBean, _clientBean);
-//		}
-//		if(GeneralConst.CREATE.equals (_reqAction)){
-//			if(_shopInfoBean.getShopName().equals("eurotrend")){				
-//				requestCreateCustom();
-//			}
-//		}else if(GeneralConst.UPDATE.equals (_reqAction)){
-//			if(_shopInfoBean.getShopName().equals("eurotrend")){
-//				requestUpdateCustom();					
-//			}
-//		}else if(GeneralConst.DELETE.equals (_reqAction)){				
-//			// Delete Supplier Product
-//			if(_shopInfoBean.getShopName().equals("eurotrend")){
-//				_gs.delete (MFG_SupplierProductDef.class, BeanDefUtil.getKeyObject(MFG_SupplierProductDef.class), _deleteArrCode);
-//				subClass = BeanDefUtil.getSubClass(MFG_SupplierProductDef.class);
-//				if(subClass!=null){
-//					for(int i=0; i<subClass.length; i++){	
-//						_gs.delete (subClass[i], BeanDefUtil.getParentKeyObject(subClass[i]), _deleteArrCode);
-//					}
-//				}
-//				
-//				updateTransactionDetailOnDeleteProduct(_deleteArrCode);
-//			}
-//		}		
+//		 For Supplier Product
+		_defClass = MFG_SupplierProductDef.class;
+		subClass = BeanDefUtil.getSubClass(_defClass);
+		
+		if(GeneralConst.CREATE.equals (_reqAction) || GeneralConst.UPDATE.equals (_reqAction)){
+			addArray = BeanDefUtil.getArrayList(_defClass, _dbConnection, BeanDefUtil.DISPLAY_TYPE_ADD, _shopInfoBean, _clientBean);
+			listingArray = BeanDefUtil.getArrayList(_defClass, _dbConnection, BeanDefUtil.DISPLAY_TYPE_LISTING, _shopInfoBean, _clientBean);
+		}
+		if(GeneralConst.CREATE.equals (_reqAction)){
+			if(_shopInfoBean.getShopName().equals("eurotrend") || _shopInfoBean.getShopName().equals("ls")){				
+				requestCreateCustom();
+			}
+		}else if(GeneralConst.UPDATE.equals (_reqAction)){
+			if(_shopInfoBean.getShopName().equals("eurotrend") || _shopInfoBean.getShopName().equals("ls")){
+				requestUpdateCustom();					
+			}
+		}else if(GeneralConst.DELETE.equals (_reqAction)){				
+			// Delete Supplier Product
+			if(_shopInfoBean.getShopName().equals("eurotrend") || _shopInfoBean.getShopName().equals("ls")){
+				_gs.delete (MFG_SupplierProductDef.class, BeanDefUtil.getKeyObject(MFG_SupplierProductDef.class), _deleteArrCode);
+				subClass = BeanDefUtil.getSubClass(MFG_SupplierProductDef.class);
+				if(subClass!=null){
+					for(int i=0; i<subClass.length; i++){	
+						_gs.delete (subClass[i], BeanDefUtil.getParentKeyObject(subClass[i]), _deleteArrCode);
+					}
+				}
+				
+				updateTransactionDetailOnDeleteProduct(_deleteArrCode);
+			}
+		}		
 		
 		
 		return json;
@@ -479,7 +479,8 @@ public class MFG_CustProductAdminBuilder extends GenericAdminBuilder {
 					queryNormal.append(" And b.").append(MFG_CustProductCustomerPriceDef.price).append(">0");
 				}
 				queryNormal.append(" Where a.").append(MFG_CustProductPriceDef.prodid).append("=").append(prodId[i]);
-
+				queryNormal.append(" Order By a.").append(MFG_CustProductPriceDef.orderto);
+				
 				dataArray = _gs.searchDataArray(queryNormal);
 				prodHash.put("prod"+prodId[i], dataArray);
 			}
